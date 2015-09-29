@@ -1,0 +1,114 @@
+------------------------------------------------------------------------------
+      name:  <unnamed>
+       log:  C:\Users\m.callaghan\Documents\panel_econ\Spreads_Model_Specifica
+> tion.log
+  log type:  text
+ opened on:  29 Sep 2015, 17:22:46
+
+. use Spreads, clear  /*opening the data file */
+
+. 
+. 
+. *******************************
+. * Data Preparation:
+. *******************************
+. 
+. *Converting the country variable to numerical format and the time variable t
+> o date format
+. encode country, generate(country2) /*Converting the country variable to a nu
+> merical type and storing it under new variable name country2. */
+
+. gen time2=quarterly(time,"YQ") /* Converting my variable "time" to a date ty
+> pe. See `help dates and time' for more details */
+
+. format time2 %tq 
+
+. 
+. * Generating squared debt and deficit variables:
+. gen sqdebt = debt^2
+
+. gen sqdeficit = deficit^2
+
+. 
+. * Generating a dummy variable for the crisis period:
+. gen crisis=time2>=tq(2008q3)
+
+. 
+. 
+. * Defining the panel- and time-dimension:
+. tsset country2 time2 
+       panel variable:  country2 (strongly balanced)
+        time variable:  time2, 1999q1 to 2010q1
+                delta:  1 quarter
+
+. 
+. reg spread us_bbbspread debt deficit bidask sqdebt sqdeficit crisis
+
+      Source |       SS           df       MS      Number of obs   =       450
+-------------+----------------------------------   F(7, 442)       =    133.03
+       Model |  459461.783         7  65637.3975   Prob > F        =    0.0000
+    Residual |  218088.264       442  493.412362   R-squared       =    0.6781
+-------------+----------------------------------   Adj R-squared   =    0.6730
+       Total |  677550.047       449  1509.02015   Root MSE        =    22.213
+
+------------------------------------------------------------------------------
+      spread |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+us_bbbspread |   9.968793   1.185092     8.41   0.000     7.639678    12.29791
+        debt |   .1967161   .0574184     3.43   0.001      .083869    .3095631
+     deficit |   6.444383   .6162942    10.46   0.000     5.233152    7.655614
+      bidask |   2.908635   1.531257     1.90   0.058     -.100815    5.918084
+      sqdebt |   .0064746   .0016859     3.84   0.000     .0031613    .0097879
+   sqdeficit |   1.233811   .1161072    10.63   0.000      1.00562    1.462002
+      crisis |   27.90914    4.37404     6.38   0.000     19.31264    36.50564
+       _cons |  -5.644816    2.68708    -2.10   0.036    -10.92586   -.3637755
+------------------------------------------------------------------------------
+
+. 
+. 
+. *******************************
+. * Detecting multicollinearity:
+. *******************************
+. 
+. * Display correlation matrix by explanatory variables: 
+. 
+. 
+. * Calculating the `variance inflation factor':
+. 
+. 
+. 
+. *******************************
+. * Detecting misspecification of the functional form:
+. *******************************
+. * Calculate the `residual-versus fitted plot':
+. 
+. 
+. * Calculate the `residual-versus predictor plot' for debt and deficit:
+. 
+. 
+. * Repeating the regression with sqdebt and sqdeficit and calculate the `resi
+> dual-versus fitted plot':
+. 
+. 
+. 
+. *******************************
+. * Heteroscedasticity:
+. *******************************
+. 
+. * Running a Breusch-Pagan test for heteroscedasticity:
+. 
+. 
+. 
+. * Running OLS with and without heteroscedastic-robust standard-errors:
+. 
+. 
+. 
+. 
+. 
+. log close  /* closes the log file */
+      name:  <unnamed>
+       log:  C:\Users\m.callaghan\Documents\panel_econ\Spreads_Model_Specifica
+> tion.log
+  log type:  text
+ closed on:  29 Sep 2015, 17:22:46
+------------------------------------------------------------------------------
