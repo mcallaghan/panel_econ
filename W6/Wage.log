@@ -1,0 +1,110 @@
+--------------------------------------------------------------------------------
+      name:  <unnamed>
+       log:  C:\Users\m.callaghan\Downloads\panel_econ\W6\Wage.log
+  log type:  text
+ opened on:  13 Oct 2015, 17:41:15
+
+. use wagepan, clear  /*opening the data file */
+
+. set matsize 800 /*Increasing the maximum allowed dimension of our data matrix 
+> */
+
+. 
+. *******************************
+. * Data Preparation:
+. *******************************
+. 
+. xtset nr year
+       panel variable:  nr (strongly balanced)
+        time variable:  year, 1980 to 1987
+                delta:  1 unit
+
+. 
+. * Running a fixed effects model:
+. xtreg lwage educ exper union married black hisp, fe
+note: educ omitted because of collinearity
+note: black omitted because of collinearity
+note: hisp omitted because of collinearity
+
+Fixed-effects (within) regression               Number of obs     =      4,360
+Group variable: nr                              Number of groups  =        545
+
+R-sq:                                           Obs per group:
+     within  = 0.1672                                         min =          8
+     between = 0.0001                                         avg =        8.0
+     overall = 0.0513                                         max =          8
+
+                                                F(3,3812)         =     255.03
+corr(u_i, Xb)  = -0.1575                        Prob > F          =     0.0000
+
+------------------------------------------------------------------------------
+       lwage |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+        educ |          0  (omitted)
+       exper |   .0598672   .0025835    23.17   0.000      .054802    .0649325
+       union |    .083791    .019414     4.32   0.000      .045728    .1218539
+     married |   .0610384   .0182929     3.34   0.001     .0251736    .0969032
+       black |          0  (omitted)
+        hisp |          0  (omitted)
+       _cons |   1.211888   .0169244    71.61   0.000     1.178706     1.24507
+-------------+----------------------------------------------------------------
+     sigma_u |  .40514496
+     sigma_e |  .35352815
+         rho |  .56772216   (fraction of variance due to u_i)
+------------------------------------------------------------------------------
+F test that all u_i=0: F(544, 3812) = 9.79                   Prob > F = 0.0000
+
+. 
+. 
+. * Running a random effects model:
+. xtreg lwage educ exper union married black hisp, re
+
+Random-effects GLS regression                   Number of obs     =      4,360
+Group variable: nr                              Number of groups  =        545
+
+R-sq:                                           Obs per group:
+     within  = 0.1666                                         min =          8
+     between = 0.1880                                         avg =        8.0
+     overall = 0.1780                                         max =          8
+
+                                                Wald chi2(6)      =     887.41
+corr(u_i, X)   = 0 (assumed)                    Prob > chi2       =     0.0000
+
+------------------------------------------------------------------------------
+       lwage |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+        educ |   .1081877   .0088644    12.20   0.000     .0908137    .1255617
+       exper |   .0579462   .0025026    23.15   0.000     .0530413    .0628511
+       union |   .1100027   .0179189     6.14   0.000     .0748823    .1451231
+     married |   .0757698   .0167536     4.52   0.000     .0429334    .1086061
+       black |  -.1409947   .0476579    -2.96   0.003    -.2344025    -.047587
+        hisp |   .0160869   .0426358     0.38   0.706    -.0674778    .0996516
+       _cons |  -.0477127   .1105053    -0.43   0.666    -.2642991    .1688736
+-------------+----------------------------------------------------------------
+     sigma_u |  .32479323
+     sigma_e |  .35352815
+         rho |  .45771407   (fraction of variance due to u_i)
+------------------------------------------------------------------------------
+
+. 
+. * Performing a Breusch-Pagan LM test for the existence of random effects:
+.  
+. 
+. 
+. * Hausman test for fixed vs random effects:
+. 
+. 
+. 
+. 
+. * Compare random and fixed effects:
+. 
+. 
+. * You end-up with interpreting the FE estimation results:
+. 
+. 
+. log close  /* closes the log file */
+      name:  <unnamed>
+       log:  C:\Users\m.callaghan\Downloads\panel_econ\W6\Wage.log
+  log type:  text
+ closed on:  13 Oct 2015, 17:41:16
+--------------------------------------------------------------------------------
