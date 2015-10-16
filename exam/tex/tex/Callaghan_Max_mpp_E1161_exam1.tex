@@ -1,0 +1,78 @@
+\documentclass{article}
+
+\begin{document}
+
+\title{\small Applied Panel Econometrics (MPP-E1161) - Winter Term 2015 \\ Prof. Dr. Kerstin Bernoth \\ \bigskip \Large Take Home Exam 1}
+\author{Max Callaghan}
+\date{October 2015}
+\maketitle
+
+\section{Part I: Basic Questions [14pt: each 2pt]}
+Briefly explain why your chosen answer is correct.
+\begin{enumerate}
+  \item
+  \begin{description}
+    \item[Question] \hfill \\
+    False or true: To judge, whether adding an additional explanatory variable improves the model, I check, whether the $R^{2}$ increases.
+    \item[Answer] \hfill \\
+    This is true to an extent. The $R^2$ describes how much of the variation in the dependent variable is explained by variation in the independent variables. Therefore, when the $R^2$ increases, our model is explaining more of the variation in the independent variable. Nevertheless, one should avoid '$R^2$ Maximising', especially if explanatory variables are added to the model without theoretical justification. Adding explanatory variables will \textit{always} increase the $R^2$, even if this is just due to chance. The Adjusted $R^2$ adjusts $R^2$ according to the number of predictors, and can help in avoiding overfitting the model
+  \end{description}
+  
+  \item
+  \begin{description}
+    \item[Question] \hfill \\
+    False or true: When the panel-specific factors $a_i$ are significant, the fixed-effects estimator will be preferred over pooled OLS.
+    \item[Answer] \hfill \\
+    True. In a fixed effects model, time-invariant factors are captured by $a_i$. Where these are significant we can say that the fixed effects captured by $a_i$ are unobservable time-invariant differences across individuals. If these are present, then it is likely that the assumption of i.i.d of our error terms is very likely violated in a pooled OLS model. It is also likely, if the unobservable characteristics of each individual panel observation are correlated with the observable characteristics in our model, tat the assumption of exogeneity of the regressors is also very likely violated.
+  \end{description}
+  
+  \item
+  \begin{description}
+    \item[Question] \hfill \\
+    False or true: I cannot reject a Null-hypothesis on a single coefficient, when the absolute value of the $t$-statistic is smaller than the critical value.
+    \item[Answer] \hfill \\
+    True. At a given sample size and probability threshold, the critical value states the minimum value of $t$ at which we can reject a Null-hypothesis. If $t$ is above the critical value, we can reject the Null-hypothesis that the coefficient is not statistically significant, and if it is lower, we cannot reject it.
+  \end{description}
+  
+  \item
+  \begin{description}
+    \item[Question] \hfill \\
+    False or true: The OLS estimators $\beta_h$ become more accurate, when the variance of the independent variable $x_{hit}$ decreases
+    \item[Answer] \hfill \\
+    The accuracy of the esitamated coefficient is determined by 
+    
+    $$\hat{Var}(\hat{\beta}_{h}) = \frac{\hat{\sigma}_{\epsilon}^{2} \frac{1}{NT}} {(1 - R)^{2}_{h}Var(x_{it}) }$$ 
+    
+    for $k = 1,\ldots,k$.
+    
+    Therefore, when the variance decreases, the estimators $\beta_h$ become less accurate.
+    
+  \end{description}
+  
+  \item
+  \begin{description}
+    \item[Question] \hfill \\
+    Calculate the $R^2$ of a regression, of which the variance of the realized variable $y$ is equal to 6.4 and te variance of the fitted dependent variable $\hat{y}$ is 5.8
+    \item[Answer] \hfill \\
+
+  \end{description}
+  
+  \item
+  \begin{description}
+    \item[Question] \hfill \\
+    False or true: Including an irrelevant variable does not lead to biased OLS coefficients.
+    \item[Answer] \hfill \\
+    Including irrelevant variables does not lead to biased OLS coefficients in the relevant variables. It can only make the model less efficient. If the true model is $y$
+  \end{description}
+  
+  \item
+  \begin{description}
+    \item[Question] \hfill \\
+    False or true: When a regressor is endogenous, we have the situation that the dependent variable $y_{it}$ is correlated with the residual $\epsilon_{it},cov(y_{it},\epsilon_{it}) \neq 0$.
+    \item[Answer] \hfill \\
+
+  \end{description}
+  
+\end{enumerate}
+
+\end{document}
