@@ -2,6 +2,24 @@
 
 \usepackage{graphicx}
 \usepackage{enumitem}
+\usepackage{color}
+\usepackage{verbatim}
+\usepackage{environ}
+\usepackage{mathtools}
+
+\usepackage{fvrb-ex}
+
+
+
+
+
+\fvset{gobble=0,numbersep=3pt}
+\fvset{numbers=left,frame=single}
+%\RecustomVerbatimEnvironment{Verbatim}{Verbatim}{commandchars=§µ¶}
+\DefineVerbatimEnvironment%
+{CVerbatim}{Verbatim}
+{fontfamily=tt,fontsize=\small,frame=single,formatcom=\color{blue},label=\emph{Stata code/output}}
+\DefineVerbatimEnvironment{Sinput}{Verbatim}{fontshape=sl,formatcom=\color{blue}}
 
 \begin{document}
 
@@ -182,16 +200,14 @@ Briefly explain why your chosen answer is correct.
 
 \section{Part 3: Current Account Imbalances and Exchange Rate Regimes [37pt]}
 
-\begin{enumerate}
-
-  \item
+\subsection{Regression preparation [6pt]}
   \begin{enumerate}[label=(\alph*)]
     \item 
     \begin{description}
       \item[Question] \hfill \\
       Explain briefly, why we should concentrate on the \textit{absolute} value and not the level of the current account to measure current account imbalances.
       \item[Answer] \hfill \\
-      
+      We want to look at current account imbalances. Variation either side of 0 is an imbalance, so we look at the absolute value, and take that as the size of the current account imbalance, regardless of direction.
     \end{description}
     \item
     \begin{enumerate}[label=(\roman*)]
@@ -200,19 +216,118 @@ Briefly explain why your chosen answer is correct.
         \item[Question] \hfill \\
         \textit{abs\_cagdp}: A variable that depicts the absolute value of $cagdp$ $ (|cagdp|$) (Hint: Use Stata help to find out the command to calculate absolute values).
         \item[Answer] \hfill \\
-        
+        \begin{CVerbatim}
+  cap gen abs_cagdp = abs(cagdp)
+        \end{CVerbatim}
       \end{description}
       \item 
       \begin{description}
         \item[Question] \hfill \\
         \textit{trade\_openness}: A variable that measures nominal export relative to GDP plus nominal import to GDP $(imports+exports)$.
         \item[Answer] \hfill \\
-        
+        \begin{CVerbatim}
+  cap gen trade_openness = importsgdp + exportsgdp
+        \end{CVerbatim}
       \end{description}
     \end{enumerate}
+    \item 
+    \begin{description}
+      \item[Question] \hfill \\
+      We want to focus only on industrial countries. Thus, drop all non-industrial countries from the data set. Indicate, how many observations you have left in your data set.
+      \item[Answer] \hfill \\
+      \begin{CVerbatim}
+  drop if ind == 0
+  (1,465 observations deleted)
+      \end{CVerbatim}
+    \end{description}
   \end{enumerate}
   
-  \item
+\subsection{Model Choice [8pt]}
+To test your hypothesis, you want to run a pooled OLS regresssion with \textit{abs\_gdp} as dependent variable and regime, \textit{exportsgdp, trade\_openess, finance, gdpgrowth} as independent variables
+  \begin{enumerate}[label=(\alph*)]
+    \item 
+    \begin{description}
+      \item[Question] \hfill \\
+      Explain, why we do not regress simply the \textit{abs\_cagdp} on \textit{regime}, but also add other control variables to the set of regressors? What could be the consequences for the estimators, if one ignores important explanatory variables
+      \item[Answer] \hfill \\
+      If regime type was the only variable that we thought had an effect on \textit{abs\_cagdp}, we would only include regime type. If other variables affect our dependent variable and we do not include them, we risk \textit{omitted variable bias}. When we miss out an independent variable that is both a determinant of the dependent variable \textit{and} correlated with one or more of our independent variables, the coefficient for the included independent variable will be biased because it will contain part of the effects of omitted variables that are correlated with our included variable.
+    \end{description}
+  \end{enumerate}
+  
+  \begin{enumerate}[label=(\alph*)]
+    \item 
+    \begin{description}
+      \item[Question] \hfill \\
+      Explain, what the consequences are, if we have a multicollinearity problem among the explanatory variables
+      \item[Answer] \hfill \\
+      Multicollinearity describes a model where the independent variables are correlated with each other. In a case of perfect multicollinearity, there is a linear relationship between at least two of the variables.
+      
+      The variance of the estimated coefficients is given by
+      
+      \begin{displaymath} 
+      \hat{Var}(\hat{\beta}_h) = \frac{\hat{\sigma}^2_{\epsilon}\frac{1}{NT}}{(1-R^2_h)Var(x_{it})} \text{ for } k=1,\ldots,k
+      \end{displaymath}
+      
+      The greater the relationship between \(x_{it}\) and the other independent variables (given by \(R^2_h\)), the greater the variance of our estimator. Multicollinearity makes our estimators less precise.
+    \end{description}
+  \end{enumerate}
+  
+  \begin{enumerate}[label=(\alph*)]
+    \item 
+    \begin{description}
+      \item[Question] \hfill \\
+      Test, whether we have a multicollinearity problem between our explanatory variables. Explain, how you derive your conclusion.
+      \item[Answer] \hfill \\
+      Stata calculates the Variance Inflation Factor (VIF) for us using the formula
+      
+      \[ VIF(\hat{\beta}_h) = \frac{1}{1-R^2_h} \]
+      
+      High values for VIF indicate the presence of multicollinearity. 10 is sometimes used as a cutoff point.
+      
+      \begin{CVerbatim}
+. estat vif
+
+    Variable |       VIF       1/VIF  
+-------------+----------------------
+trade_open~s |    118.93    0.008408
+  exportsgdp |    116.98    0.008548
+     finance |      1.40    0.712628
+      regime |      1.20    0.834933
+   gdpgrowth |      1.13    0.886961
+-------------+----------------------
+    Mean VIF |     47.93
+      \end{CVerbatim}
+      Unsurprisingly, we can detect multicollinearity problems in the high VIF values for both trade openness and exportsgdp. This is because we created trade openness out of a linear combination of exports and imports. So, notwithstanding some degree of variation between the balance or otherwise of exports and imports, they are highly correlated
+    \end{description}
+  \end{enumerate}
+  
+  \begin{enumerate}[label=(\alph*)]
+    \item 
+    \begin{description}
+      \item[Question] \hfill \\
+      In case you do detect multicollinear variables: What would you recomment to do? Which of the potential multicollinear variables would you drop?
+      \item[Answer] \hfill \\
+      We created the variable \textit{tradeopenness}, presumably, because we thought that the combination of both exports and imports had an effect on our dependent variable. If we drop it, we are left with just imports; if we drop imports, than we still have the effect of the combination of exports and imports. An alternative would be to use imports and exports separately, but they would most likely still be highly correlated, though to a lesser extent.
+    \end{description}
+  \end{enumerate}
+  
+\subsection{Estimating a pooled OLS regression [15pt]}
+  
+  \begin{enumerate}[label=(\alph*)]
+    \item 
+    \begin{description}
+      \item[Question] \hfill \\
+      Continue with your preferred set of regressors (meaning: drop if necessary a variable(s) to solve for a potential multicollinearity problem (see Question 2.c)) and estimate the determinants of \textit{abs\_cagdp} with \textit{pooled OLS}.
+      \item[Answer] \hfill \\
+      \begin{CVerbatim}
+reg abs_cagdp regime trade_openness finance gdpgrowth
+outtex, file(pooled.tex) labels level detail //
+  legend key(stab) replace
+      \end{CVerbatim}
+      \input{../stata/pooled.tex}
+    \end{description}
+  \end{enumerate}
+  
   \begin{enumerate}[label=(\alph*)]
     \item 
     \begin{description}
@@ -223,7 +338,6 @@ Briefly explain why your chosen answer is correct.
     \end{description}
   \end{enumerate}
   
-  \item
   \begin{enumerate}[label=(\alph*)]
     \item 
     \begin{description}
@@ -234,62 +348,7 @@ Briefly explain why your chosen answer is correct.
     \end{description}
   \end{enumerate}
   
-  \item
-  \begin{enumerate}[label=(\alph*)]
-    \item 
-    \begin{description}
-      \item[Question] \hfill \\
 
-      \item[Answer] \hfill \\
-      
-    \end{description}
-  \end{enumerate}
-  
-  \item
-  \begin{enumerate}[label=(\alph*)]
-    \item 
-    \begin{description}
-      \item[Question] \hfill \\
-
-      \item[Answer] \hfill \\
-      
-    \end{description}
-  \end{enumerate}
-  
-  \item
-  \begin{enumerate}[label=(\alph*)]
-    \item 
-    \begin{description}
-      \item[Question] \hfill \\
-
-      \item[Answer] \hfill \\
-      
-    \end{description}
-  \end{enumerate}
-  
-  \item
-  \begin{enumerate}[label=(\alph*)]
-    \item 
-    \begin{description}
-      \item[Question] \hfill \\
-
-      \item[Answer] \hfill \\
-      
-    \end{description}
-  \end{enumerate}
-  
-  \item
-  \begin{enumerate}[label=(\alph*)]
-    \item 
-    \begin{description}
-      \item[Question] \hfill \\
-
-      \item[Answer] \hfill \\
-      
-    \end{description}
-  \end{enumerate}
-  
-\end{enumerate}
 
 
 
