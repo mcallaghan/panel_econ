@@ -14,7 +14,21 @@ set matsize 800 /*Increasing the maximum allowed dimension of our data matrix */
 * Data Preparation:
 *******************************
 
-sum cagdp
-hist cagdp
 
+
+* Create new variables
 cap gen abs_cagdp = abs(cagdp)
+cap gen trade_openness = importsgdp + exportsgdp
+
+hist abs_cagdp
+hist trade_openness
+
+*Drop non-industrial countries
+drop if ind == 0
+
+*run a pooled OLS regression
+reg abs_cagdp regime exportsgdp trade_openness finance gdpgrowth
+estat vif
+
+reg abs_cagdp regime trade_openness finance gdpgrowth
+outtex, file(pooled.tex) labels level detail legend key(stab) replace
