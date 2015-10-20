@@ -3,7 +3,7 @@
        log:  C:\Users\m.callaghan\Documents\Github\panel_econ\exam\stata\exam_1.
 > log
   log type:  text
- opened on:  20 Oct 2015, 18:18:00
+ opened on:  20 Oct 2015, 19:24:42
 
 . 
 . 
@@ -90,9 +90,66 @@ trade_openn~s |   .0292931    .002207    13.27   0.000     .0249611    .0336252
         _cons |   1.841728   .2757222     6.68   0.000     1.300517    2.382939
 -------------------------------------------------------------------------------
 
-. outtex, file(pooled.tex) labels level detail legend key(stab) replace
-(note: file pooled.tex not found)
+. outtex, file(pooled.tex) labels level detail ///
+>         legend key(stab) replace
 file pooled.tex saved
+
+. estat hettest
+
+Breusch-Pagan / Cook-Weisberg test for heteroskedasticity 
+         Ho: Constant variance
+         Variables: fitted values of abs_cagdp
+
+         chi2(1)      =    48.68
+         Prob > chi2  =   0.0000
+
+. rvfplot
+
+. graph export rvfplot_pooled.png, replace
+(file rvfplot_pooled.png written in PNG format)
+
+. 
+. *Fixed effects regression
+. cap encode country, gen(country2)
+
+. xtset country2 year
+       panel variable:  country2 (unbalanced)
+        time variable:  year, 1974 to 2008, but with gaps
+                delta:  1 unit
+
+. 
+. xtreg abs_cagdp regime trade_openness finance gdpgrowth, fe
+
+Fixed-effects (within) regression               Number of obs     =        818
+Group variable: country2                        Number of groups  =         29
+
+R-sq:                                           Obs per group:
+     within  = 0.0739                                         min =          7
+     between = 0.5628                                         avg =       28.2
+     overall = 0.1952                                         max =         35
+
+                                                F(4,785)          =      15.66
+corr(u_i, Xb)  = -0.3210                        Prob > F          =     0.0000
+
+-------------------------------------------------------------------------------
+    abs_cagdp |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+--------------+----------------------------------------------------------------
+       regime |  -.1391342   .2134036    -0.65   0.515    -.5580435    .2797752
+trade_openn~s |   .0379011   .0082531     4.59   0.000     .0217002    .0541019
+      finance |   .3906054   .0999902     3.91   0.000     .1943256    .5868852
+    gdpgrowth |   .0679117   .0455587     1.49   0.136    -.0215196    .1573431
+        _cons |   .4113431   .6137019     0.67   0.503    -.7933479    1.616034
+--------------+----------------------------------------------------------------
+      sigma_u |  2.4296342
+      sigma_e |  2.8847706
+          rho |  .41498154   (fraction of variance due to u_i)
+-------------------------------------------------------------------------------
+F test that all u_i=0: F(28, 785) = 11.71                    Prob > F = 0.0000
+
+. *rvfplot (Doesn't work! too tired to workaround)
+. outtex, file(fe.tex) labels level detail ///
+>         legend key(stab) replace
+file fe.tex saved
 
 . 
 end of do-file
