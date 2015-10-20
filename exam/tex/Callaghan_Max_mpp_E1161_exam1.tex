@@ -9,8 +9,11 @@
 
 \usepackage{fvrb-ex}
 
-
-
+\usepackage{eurosym}
+\usepackage{amstext} % for \text
+\DeclareRobustCommand{\officialeuro}{%
+  \ifmmode\expandafter\text\fi
+  {\fontencoding{U}\fontfamily{eurosym}\selectfont e}}
 
 
 \fvset{gobble=0,numbersep=3pt}
@@ -36,7 +39,7 @@ Briefly explain why your chosen answer is correct.
     \item[Question] \hfill \\
     False or true: To judge, whether adding an additional explanatory variable improves the model, I check, whether the $R^{2}$ increases.
     \item[Answer] \hfill \\
-    This is true to an extent. The $R^2$ describes how much of the variation in the dependent variable is explained by variation in the independent variables. Therefore, when the $R^2$ increases, our model is explaining more of the variation in the independent variable. Nevertheless, one should avoid '$R^2$ Maximising', especially if explanatory variables are added to the model without theoretical justification. Adding explanatory variables will \textit{always} increase the $R^2$, even if this is just due to chance. The Adjusted $R^2$ adjusts $R^2$ according to the number of predictors, and can help in avoiding overfitting the model
+    This is true to an extent. The $R^2$ describes how much of the variation in the dependent variable is explained by variation in the independent variables. Therefore, when the $R^2$ increases, our model is explaining more of the variation in the independent variable. Nevertheless, one should avoid `$R^2$ Maximising', especially if explanatory variables are added to the model without theoretical justification. Adding explanatory variables will \textit{always} increase the $R^2$, even if this is just due to chance. The Adjusted $R^2$ adjusts $R^2$ according to the number of predictors, and can help in avoiding overfitting the model
   \end{description}
   
   \item
@@ -44,7 +47,7 @@ Briefly explain why your chosen answer is correct.
     \item[Question] \hfill \\
     False or true: When the panel-specific factors $a_i$ are significant, the fixed-effects estimator will be preferred over pooled OLS.
     \item[Answer] \hfill \\
-    True. In a fixed effects model, time-invariant factors are captured by $a_i$. Where these are significant we can say that the fixed effects captured by $a_i$ are unobservable time-invariant differences across individuals. If these are present, then it is likely that the assumption of i.i.d of our error terms is very likely violated in a pooled OLS model. It is also likely, if the unobservable characteristics of each individual panel observation are correlated with the observable characteristics in our model, tat the assumption of exogeneity of the regressors is also very likely violated.
+    True. In a fixed effects model, time-invariant factors are captured by $a_i$. Where these are significant we can say that the fixed effects captured by $a_i$ are unobservable time-invariant differences across individuals. If these are present, then it is likely that the assumption of i.i.d of our error terms is very likely violated in a pooled OLS model. It is also likely, if the unobservable characteristics of each individual panel observation are correlated with the observable characteristics in our model, that the assumption of exogeneity of the regressors is also very likely violated.
   \end{description}
   
   \item
@@ -62,20 +65,22 @@ Briefly explain why your chosen answer is correct.
     \item[Answer] \hfill \\
     The accuracy of the esitamated coefficient is determined by 
     
-    $$\hat{Var}(\hat{\beta}_{h}) = \frac{\hat{\sigma}_{\epsilon}^{2} \frac{1}{NT}} {(1 - R)^{2}_{h}Var(x_{it}) }$$ 
+    \begin{displaymath}
+    \hat{Var}(\hat{\beta}_{h}) = \frac{\hat{\sigma}_{\epsilon}^{2} \frac{1}{NT}} {(1 - R)^{2}_{h}Var(x_{it}) }
+    \text{ for } k = 1,\ldots,k
+    \end{displaymath}
     
-    for $k = 1,\ldots,k$.
-    
-    Therefore, when the variance decreases, the estimators $\beta_h$ become less accurate.
+    Therefore, when the variance of $x$ decreases, the estimators $\beta_h$ become less accurate.
     
   \end{description}
   
   \item
   \begin{description}
     \item[Question] \hfill \\
-    Calculate the $R^2$ of a regression, of which the variance of the realized variable $y$ is equal to 6.4 and te variance of the fitted dependent variable $\hat{y}$ is 5.8
+    Calculate the $R^2$ of a regression, of which the variance of the realized variable $y$ is equal to 6.4 and the variance of the fitted dependent variable $\hat{y}$ is 5.8
     \item[Answer] \hfill \\
-
+    The $R^2$ is given by
+    \[R^2 = \frac{Var(\hat{y})}{Var(y)} = 0.91 \] 
   \end{description}
   
   \item
@@ -91,7 +96,7 @@ Briefly explain why your chosen answer is correct.
     \item[Question] \hfill \\
     False or true: When a regressor is endogenous, we have the situation that the dependent variable $y_{it}$ is correlated with the residual $\epsilon_{it},cov(y_{it},\epsilon_{it}) \neq 0$.
     \item[Answer] \hfill \\
-
+    True. That is the definition of an endogeneity problem, in can either be a simultaneity problem, or an omitted variable problem.
   \end{description}
   
 \end{enumerate}
@@ -373,7 +378,7 @@ outtex, file(pooled.tex) labels level detail ///
       \item[Question] \hfill \\
       Explain whther the signs of the estimated coefficients make sense from an economic point of view.
       \item[Answer] \hfill \\
-
+      One might expect, following Milton and Miltonians, the opposite. Openness to trade and to capital flow are usually cited as \textit{good things} for countries' economies. Openness in general should, according to Milton, lead to reduced capital imbalances. The data don't bear this out. GDP Growth may make more economic sense, as, following the `Friedman hypothesis', more growth may lead to more consumption, leading to more imports.
     \end{description}
   \end{enumerate}
 
@@ -429,39 +434,43 @@ outtex, file(fe.tex) labels level detail ///
       \item[Question] \hfill \\
       What could explain the different results you find for the variable \textit{regime} once you estimate a fixed-effects regression instead of pooled OLS?
       \item[Answer] \hfill \\
-      
+      The coefficient was smaller with a fixed effects model, which suggests that there could be a variable which is positively correlated with regime type and negatively correlated with current account imbalances. The standard error is also larger, which could suggest that there was less variance in regime type (x) when we look at effects within countries. 
     \end{description}
   \end{enumerate}
 
 \section{Model Interpretation [6pt]}
   
-  \begin{enumerate}[label=(\alph*)]
+  \begin{enumerate}
     \item 
     \begin{description}
       \item[Question] \hfill \\
-      
+      \[Wage_{\euro/hour} = 8.71 + 1.50 Education_{Years} - 0.1 Education^2_{Years} + \epsilon\]
       \item[Answer] \hfill \\
-
+      The intercept tells us that when education is 0 years, the model predicts that the wage in euros per hour will be 8.71.
+      
+      The first beta coefficient tells us that for each increase in years of education, wage in euros will increase by 1.50 euros per hour.
+      
+      The second beta coefficient tells us that for each increase in the squared value of education, wages will decrease by 0.1 euros per hour.
     \end{description}
-  \end{enumerate}
   
-  \begin{enumerate}[label=(\alph*)]
     \item 
     \begin{description}
       \item[Question] \hfill \\
-      
+      \[ln(Wage_{\euro/hour}) = 2.10 + 0.11 Education_{Years} + \epsilon\]
       \item[Answer] \hfill \\
-
+      The intercept tells us that when education is 0, the log of wages in euros per hour will be 2.10. If we take the exponential of 2.10, we see that the actual value will be 8.17.
+      
+      The first beta coefficient tells us that for each unit increase in years of education, wages in euros per hour will increase by 11\%.
     \end{description}
-  \end{enumerate}
-  
-  \begin{enumerate}[label=(\alph*)]
+    
     \item 
     \begin{description}
       \item[Question] \hfill \\
-      
+      \[Inflation_{in \%} = 8.71 + 1.50 GDPGrowth_{in \%} + \epsilon \] 
       \item[Answer] \hfill \\
-
+      The intercept tells us that when GDP Growth is 0\%, Inflation will be 8.71 \%.
+      
+      The beta coefficient tells us that for each percentage point increase in GDP growth in \%, Inflation will increase by 1.5 percentage points.
     \end{description}
   \end{enumerate}
 
