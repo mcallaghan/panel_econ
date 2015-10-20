@@ -31,5 +31,5 @@ reg abs_cagdp regime exportsgdp trade_openness finance gdpgrowth
 estat vif
 
 reg abs_cagdp regime trade_openness finance gdpgrowth
-outtex, file(pooled.tex) labels level detail //
+outtex, file(pooled.tex) labels level detail ///
 	legend key(stab) replace
