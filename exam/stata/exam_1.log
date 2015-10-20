@@ -3,7 +3,7 @@
        log:  C:\Users\m.callaghan\Documents\Github\panel_econ\exam\stata\exam_1.
 > log
   log type:  text
- opened on:  20 Oct 2015, 16:28:49
+ opened on:  20 Oct 2015, 18:18:00
 
 . 
 . 
@@ -17,15 +17,7 @@
 . * Data Preparation:
 . *******************************
 . 
-. sum cagdp
-
-    Variable |        Obs        Mean    Std. Dev.       Min        Max
--------------+---------------------------------------------------------
-       cagdp |      2,283   -3.083888    8.901329   -132.796     51.178
-
-. hist cagdp
-(bin=33, start=-132.79601, width=5.5749699)
-
+. 
 . 
 . * Create new variables
 . cap gen abs_cagdp = abs(cagdp)
@@ -33,44 +25,19 @@
 . cap gen trade_openness = importsgdp + exportsgdp
 
 . 
-end of do-file
-
-. do "C:\Users\MEB08~1.CAL\AppData\Local\Temp\STD00000000.tmp"
-
 . hist abs_cagdp
 (bin=33, start=0, width=4.0241214)
-
-. 
-end of do-file
-
-. do "C:\Users\MEB08~1.CAL\AppData\Local\Temp\STD00000000.tmp"
 
 . hist trade_openness
 (bin=33, start=6.3200002, width=13.083999)
 
 . 
-end of do-file
-
-. do "C:\Users\MEB08~1.CAL\AppData\Local\Temp\STD00000000.tmp"
-
+. *Drop non-industrial countries
 . drop if ind == 0
 (1,465 observations deleted)
 
 . 
-end of do-file
-
-. do "C:\Users\MEB08~1.CAL\AppData\Local\Temp\STD00000000.tmp"
-
-. reg abs_cagdp regime exportsgdp trade_openness finance, gdpgrowth
-option gdpgrowth not allowed
-r(198);
-
-end of do-file
-
-r(198);
-
-. do "C:\Users\MEB08~1.CAL\AppData\Local\Temp\STD00000000.tmp"
-
+. *run a pooled OLS regression
 . reg abs_cagdp regime exportsgdp trade_openness finance gdpgrowth
 
       Source |       SS           df       MS      Number of obs   =       818
@@ -91,21 +58,6 @@ trade_openn~s |   .1529805   .0214605     7.13   0.000     .1108558    .1951052
         _cons |   1.315905   .2851918     4.61   0.000     .7561046    1.875705
 -------------------------------------------------------------------------------
 
-. 
-end of do-file
-
-. do "C:\Users\MEB08~1.CAL\AppData\Local\Temp\STD00000000.tmp"
-
-. esttat vif
-command esttat is unrecognized
-r(199);
-
-end of do-file
-
-r(199);
-
-. do "C:\Users\MEB08~1.CAL\AppData\Local\Temp\STD00000000.tmp"
-
 . estat vif
 
     Variable |       VIF       1/VIF  
@@ -117,6 +69,30 @@ trade_open~s |    118.93    0.008408
    gdpgrowth |      1.13    0.886961
 -------------+----------------------
     Mean VIF |     47.93
+
+. 
+. reg abs_cagdp regime trade_openness finance gdpgrowth
+
+      Source |       SS           df       MS      Number of obs   =       818
+-------------+----------------------------------   F(4, 813)       =     54.87
+       Model |   2500.0316         4    625.0079   Prob > F        =    0.0000
+    Residual |  9260.64332       813  11.3907052   R-squared       =    0.2126
+-------------+----------------------------------   Adj R-squared   =    0.2087
+       Total |  11760.6749       817  14.3949509   Root MSE        =     3.375
+
+-------------------------------------------------------------------------------
+    abs_cagdp |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+--------------+----------------------------------------------------------------
+       regime |  -.7011815   .1584062    -4.43   0.000    -1.012115   -.3902483
+trade_openn~s |   .0292931    .002207    13.27   0.000     .0249611    .0336252
+      finance |   .1059332   .0851535     1.24   0.214    -.0612135    .2730799
+    gdpgrowth |   .1068082   .0489481     2.18   0.029     .0107286    .2028879
+        _cons |   1.841728   .2757222     6.68   0.000     1.300517    2.382939
+-------------------------------------------------------------------------------
+
+. outtex, file(pooled.tex) labels level detail legend key(stab) replace
+(note: file pooled.tex not found)
+file pooled.tex saved
 
 . 
 end of do-file

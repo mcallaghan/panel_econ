@@ -1,0 +1,28 @@
+
+{
+\def\onepc{$^{\ast\ast}$} \def\fivepc{$^{\ast}$}
+\def\tenpc{$^{\dag}$}
+\def\legend{\multicolumn{4}{l}{\footnotesize{Significance levels
+:\hspace{1em} $\dag$ : 10\% \hspace{1em}
+$\ast$ : 5\% \hspace{1em} $\ast\ast$ : 1\% \normalsize}}}
+\begin{table}[htbp]\centering
+ \caption{Estimation results : regress
+\label{stab}}
+\begin{tabular}{l r @{} l c }\hline\hline 
+\multicolumn{1}{c}
+{\textbf{Variable}}
+ & \multicolumn{2}{c}{\textbf{Coefficient}}  & \textbf{(Std. Err.)} \\ \hline
+regime  &  -0.701&\onepc  & (0.158)\\
+trade\_openness  &  0.029&\onepc  & (0.002)\\
+finance  &  0.106&  & (0.085)\\
+gdpgrowth  &  0.107&\fivepc  & (0.049)\\
+Intercept  &  1.842&\onepc  & (0.276)\\
+\hline\multicolumn{4}{c}{}\\
+\hline N & \multicolumn{3}{c}{818}\\
+R$^{2}$ & \multicolumn{3}{c}{0.213}\\
+F $ _{(4,813)}$ & \multicolumn{3}{c}{54.870}\\
+\hline\legend
+\end{tabular}
+\end{table}
+}
+
