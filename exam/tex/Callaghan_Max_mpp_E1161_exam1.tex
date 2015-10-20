@@ -325,7 +325,7 @@ trade_open~s |    118.93    0.008408
       Continue with your preferred set of regressors (meaning: drop if necessary a variable(s) to solve for a potential multicollinearity problem (see Question 2.c)) and estimate the determinants of \textit{abs\_cagdp} with \textit{pooled OLS}.
       \item[Answer] \hfill \\
       \begin{CVerbatim}
-reg abs_cagdp regime trade_openness finance gdpgrowth
+reg abs_cagdp i.regime trade_openness finance gdpgrowth
 outtex, file(pooled.tex) labels level detail ///
   legend key(stab) replace
       \end{CVerbatim}
@@ -410,7 +410,7 @@ Breusch-Pagan / Cook-Weisberg test for heteroskedasticity
       Estimate your regression model this time with a \textit{fixed-effects panel} estimation.
       \item[Answer] \hfill \\
       \begin{CVerbatim}
-xtreg abs_cagdp regime trade_openness finance gdpgrowth, fe
+xtreg abs_cagdp i.regime trade_openness finance gdpgrowth, fe
 outtex, file(fe.tex) labels level detail ///
 	legend key(stab) replace
       \end{CVerbatim}
