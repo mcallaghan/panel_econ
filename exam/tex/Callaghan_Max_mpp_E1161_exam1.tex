@@ -1,0 +1,298 @@
+\documentclass{article}
+
+\usepackage{graphicx}
+\usepackage{enumitem}
+
+\begin{document}
+
+\title{\small Applied Panel Econometrics (MPP-E1161) - Winter Term 2015 \\ Prof. Dr. Kerstin Bernoth \\ \bigskip \Large Take Home Exam 1}
+\author{Max Callaghan}
+\date{October 2015}
+\maketitle
+
+\section{Part I: Basic Questions [14pt: each 2pt]}
+Briefly explain why your chosen answer is correct.
+\begin{enumerate}
+  \item
+  \begin{description}
+    \item[Question] \hfill \\
+    False or true: To judge, whether adding an additional explanatory variable improves the model, I check, whether the $R^{2}$ increases.
+    \item[Answer] \hfill \\
+    This is true to an extent. The $R^2$ describes how much of the variation in the dependent variable is explained by variation in the independent variables. Therefore, when the $R^2$ increases, our model is explaining more of the variation in the independent variable. Nevertheless, one should avoid '$R^2$ Maximising', especially if explanatory variables are added to the model without theoretical justification. Adding explanatory variables will \textit{always} increase the $R^2$, even if this is just due to chance. The Adjusted $R^2$ adjusts $R^2$ according to the number of predictors, and can help in avoiding overfitting the model
+  \end{description}
+  
+  \item
+  \begin{description}
+    \item[Question] \hfill \\
+    False or true: When the panel-specific factors $a_i$ are significant, the fixed-effects estimator will be preferred over pooled OLS.
+    \item[Answer] \hfill \\
+    True. In a fixed effects model, time-invariant factors are captured by $a_i$. Where these are significant we can say that the fixed effects captured by $a_i$ are unobservable time-invariant differences across individuals. If these are present, then it is likely that the assumption of i.i.d of our error terms is very likely violated in a pooled OLS model. It is also likely, if the unobservable characteristics of each individual panel observation are correlated with the observable characteristics in our model, tat the assumption of exogeneity of the regressors is also very likely violated.
+  \end{description}
+  
+  \item
+  \begin{description}
+    \item[Question] \hfill \\
+    False or true: I cannot reject a Null-hypothesis on a single coefficient, when the absolute value of the $t$-statistic is smaller than the critical value.
+    \item[Answer] \hfill \\
+    True. At a given sample size and probability threshold, the critical value states the minimum value of $t$ at which we can reject a Null-hypothesis. If $t$ is above the critical value, we can reject the Null-hypothesis that the coefficient is not statistically significant, and if it is lower, we cannot reject it.
+  \end{description}
+  
+  \item
+  \begin{description}
+    \item[Question] \hfill \\
+    False or true: The OLS estimators $\beta_h$ become more accurate, when the variance of the independent variable $x_{hit}$ decreases
+    \item[Answer] \hfill \\
+    The accuracy of the esitamated coefficient is determined by 
+    
+    $$\hat{Var}(\hat{\beta}_{h}) = \frac{\hat{\sigma}_{\epsilon}^{2} \frac{1}{NT}} {(1 - R)^{2}_{h}Var(x_{it}) }$$ 
+    
+    for $k = 1,\ldots,k$.
+    
+    Therefore, when the variance decreases, the estimators $\beta_h$ become less accurate.
+    
+  \end{description}
+  
+  \item
+  \begin{description}
+    \item[Question] \hfill \\
+    Calculate the $R^2$ of a regression, of which the variance of the realized variable $y$ is equal to 6.4 and te variance of the fitted dependent variable $\hat{y}$ is 5.8
+    \item[Answer] \hfill \\
+
+  \end{description}
+  
+  \item
+  \begin{description}
+    \item[Question] \hfill \\
+    False or true: Including an irrelevant variable does not lead to biased OLS coefficients.
+    \item[Answer] \hfill \\
+    Including irrelevant variables does not lead to biased OLS coefficients in the relevant variables. It can only make the model less efficient. If the true model is $y$
+  \end{description}
+  
+  \item
+  \begin{description}
+    \item[Question] \hfill \\
+    False or true: When a regressor is endogenous, we have the situation that the dependent variable $y_{it}$ is correlated with the residual $\epsilon_{it},cov(y_{it},\epsilon_{it}) \neq 0$.
+    \item[Answer] \hfill \\
+
+  \end{description}
+  
+\end{enumerate}
+
+\section{Part 2: GDP Growth and Investment [28pt]}
+
+\begin{enumerate}
+  \item
+  \begin{description}
+    \item[Question] \hfill \\
+    Calculate the variances of the GDP growth ($Var(y_{it})$) and investment ($Var(x_{it})$) and their covariance ($Cov(x_{it},y_{it})$).
+    \item[Answer] \hfill \\
+    \begin{itemize}
+      \item Population variance of GDP Growth: $\frac{1}{NT} \sum^{N}_{i=1} \sum^{N}_{t=1} (y_{it}-\bar{y}^{2}) = 63.75$
+      \item Population variance of Investment: $\frac{1}{NT} \sum^{N}_{i=1} \sum^{N}_{t=1} (x_{it}-\bar{x}^{2}) = 9.93$
+    \end{itemize}
+  \end{description}
+  
+  \item
+  \begin{description}
+    \item[Question] \hfill \\
+    Calculate the OLS solution for $\hat{\beta}_{0}$ and $\hat{\beta}_{1}$ and write-up the regression equation.
+    \item[Answer] \hfill \\
+    $\hat{\beta}_{1} = \frac{Cov(x_{it},y_{it})}{Var(x_{it})}$ and $\hat{\beta}_{0} = \bar{y} - \hat{\beta}_{1}\bar{x}$
+    
+    $\hat{\beta}_{1} = 0.335744$ and $\hat{\beta}_{0} = -3.9314909$
+    
+    $GDPgrowth_{it} = -3.93 + 0.34Investment_{it}$
+  \end{description}
+  
+  \item
+  \begin{description}
+    \item[Question] \hfill \\
+    Give an interpretation of the estimated coefficients $\hat{\beta}_{0}$ and $\hat{\beta}_{1}$.
+    \item[Answer] \hfill \\
+    The estimated coefficients tell us that the model predicts that when $x$ (Investment) is 0, $y$ (GDP growth) will be $\hat{\beta}_{0} = -3.93$. For every increase in $x$, $y$ is predicted to increase by $0.34$. The model estimates a positive effect of Investment on GDP growth.
+  \end{description}
+  
+  \item
+  \begin{description}
+    \item[Question] \hfill \\
+    Add the fitted values of $y_{it}, \hat{y}_{it} = \hat{\beta}_{0} + \hat{\beta}_{1}x_{it}$, to the table above.
+    \item[Answer] \hfill \\
+    See excel sheet.
+  \end{description}
+  
+  \item
+  \begin{description}
+    \item[Question] \hfill \\
+    Calculate the residuals and add them into the table above.
+    \item[Answer] \hfill \\
+    See excel sheet. $\epsilon_{it} = \hat{y}_{it} - y_{it}$
+  \end{description}
+  
+  \item
+  \begin{description}
+    \item[Question] \hfill \\
+    Draw the regression line into the graph below and mark explicitly, where the regression line cross the $y$ axis and the slope.
+    \item[Answer] \hfill \\
+    The graph given in the exam is substituted for a similar graph produced by excel that extends the y axis so that the intercept can be drawn.
+    \begin{figure}
+      \includegraphics[width=12cm]{../graph_scan-1.png}
+      \caption{Intercept = -3.93, Slope = 0.34}
+    \end{figure}
+  \end{description}
+  
+  \item
+  \begin{description}
+    \item[Question] \hfill \\
+    Use graphical inspection to judge, whether this regression suffers from heteroscedasticity.
+    \item[Answer] \hfill \\
+    It is difficult to make a judgement with so few data points, but the variance at high values of x seems to be smaller than the variance at low values of x. This suggests that the data is, at least to some extent, heteroscedastic.
+  \end{description}
+  
+  \item
+  \begin{description}
+    \item[Question] \hfill \\
+    Calculate the standard errors of $\hat{\beta}_{1}$ (Note: The standard error is the square root of their variances: $s.e.\hat{\beta}_{1} = \sqrt{\hat{Var}(\hat{\beta}_{1})}$).
+    \item[Answer] \hfill \\
+    $$ s.e.\beta_{1}= \sqrt{\frac{\frac{1}{n-2}\sum_{i=1}^{N}\sum_{t=1}^{T}{\hat{\epsilon}^2_{it}}}{\sum_{i=1}^{N}\sum_{t=1}^{T}(x_{it}-\bar{x})^2}} = 0.055$$
+  \end{description}
+  
+  \item
+  \begin{description}
+    \item[Question] \hfill \\
+    Perform a $t$-test at the 5\% significance level to test the hypothesis that the level of investment has a positive impact on GDP growth. Thus, the Null Hypothesis is $H_{0} : \beta_{1} = 0$. Interpret the result.
+    \item[Answer] \hfill \\
+    The $t$-statistic of our hypothesis is given by
+    $$ t = \frac{\hat{\beta}_1-\hat{\beta}^0_1}{s.e.\hat{\beta}_1} = \frac{0.34-0}{0.055} = 6.18$$
+    Our degrees of freedom are $df = NT - k = 16-1 = 15$
+    
+    With 15 degrees of freedom, the citical value for a $t$-test at the 5\% significance level  is $2.131$.
+    
+    Since 6.18 is larger than 2.131, we can reject the null hypothesis that the level of investment has no impact on GDP growth.
+  \end{description}
+  
+  \item
+  \begin{description}
+    \item[Question] \hfill \\
+    Calculate the $R^2$ of the regression and interpret the result (Hint: Choose the formula, which seems most convenient given the variables you already have at hand).
+    \item[Answer] \hfill \\
+    $R^2 = 1 - \frac{Var(\hat{\epsilon})}{Var(y)} = 0.72$
+  \end{description}
+  
+\end{enumerate}
+
+\section{Part 3: Current Account Imbalances and Exchange Rate Regimes [37pt]}
+
+\begin{enumerate}
+
+  \item
+  \begin{enumerate}[label=(\alph*)]
+    \item 
+    \begin{description}
+      \item[Question] \hfill \\
+      Explain briefly, why we should concentrate on the \textit{absolute} value and not the level of the current account to measure current account imbalances.
+      \item[Answer] \hfill \\
+      
+    \end{description}
+    \item
+    \begin{enumerate}[label=(\roman*)]
+      \item 
+      \begin{description}
+        \item[Question] \hfill \\
+        \textit{abs\_cagdp}: A variable that depicts the absolute value of $cagdp$ $ (|cagdp|$) (Hint: Use Stata help to find out the command to calculate absolute values).
+        \item[Answer] \hfill \\
+        
+      \end{description}
+      \item 
+      \begin{description}
+        \item[Question] \hfill \\
+        \textit{trade\_openness}: A variable that measures nominal export relative to GDP plus nominal import to GDP $(imports+exports)$.
+        \item[Answer] \hfill \\
+        
+      \end{description}
+    \end{enumerate}
+  \end{enumerate}
+  
+  \item
+  \begin{enumerate}[label=(\alph*)]
+    \item 
+    \begin{description}
+      \item[Question] \hfill \\
+
+      \item[Answer] \hfill \\
+      
+    \end{description}
+  \end{enumerate}
+  
+  \item
+  \begin{enumerate}[label=(\alph*)]
+    \item 
+    \begin{description}
+      \item[Question] \hfill \\
+
+      \item[Answer] \hfill \\
+      
+    \end{description}
+  \end{enumerate}
+  
+  \item
+  \begin{enumerate}[label=(\alph*)]
+    \item 
+    \begin{description}
+      \item[Question] \hfill \\
+
+      \item[Answer] \hfill \\
+      
+    \end{description}
+  \end{enumerate}
+  
+  \item
+  \begin{enumerate}[label=(\alph*)]
+    \item 
+    \begin{description}
+      \item[Question] \hfill \\
+
+      \item[Answer] \hfill \\
+      
+    \end{description}
+  \end{enumerate}
+  
+  \item
+  \begin{enumerate}[label=(\alph*)]
+    \item 
+    \begin{description}
+      \item[Question] \hfill \\
+
+      \item[Answer] \hfill \\
+      
+    \end{description}
+  \end{enumerate}
+  
+  \item
+  \begin{enumerate}[label=(\alph*)]
+    \item 
+    \begin{description}
+      \item[Question] \hfill \\
+
+      \item[Answer] \hfill \\
+      
+    \end{description}
+  \end{enumerate}
+  
+  \item
+  \begin{enumerate}[label=(\alph*)]
+    \item 
+    \begin{description}
+      \item[Question] \hfill \\
+
+      \item[Answer] \hfill \\
+      
+    \end{description}
+  \end{enumerate}
+  
+\end{enumerate}
+
+
+
+
+
+\end{document}
