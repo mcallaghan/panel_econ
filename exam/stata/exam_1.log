@@ -3,7 +3,7 @@
        log:  C:\Users\m.callaghan\Documents\Github\panel_econ\exam\stata\exam_1.
 > log
   log type:  text
- opened on:  20 Oct 2015, 19:24:42
+ opened on:  20 Oct 2015, 19:58:46
 
 . 
 . 
@@ -71,23 +71,26 @@ trade_open~s |    118.93    0.008408
     Mean VIF |     47.93
 
 . 
-. reg abs_cagdp regime trade_openness finance gdpgrowth
+. reg abs_cagdp i.regime trade_openness finance gdpgrowth
 
       Source |       SS           df       MS      Number of obs   =       818
--------------+----------------------------------   F(4, 813)       =     54.87
-       Model |   2500.0316         4    625.0079   Prob > F        =    0.0000
-    Residual |  9260.64332       813  11.3907052   R-squared       =    0.2126
--------------+----------------------------------   Adj R-squared   =    0.2087
-       Total |  11760.6749       817  14.3949509   Root MSE        =     3.375
+-------------+----------------------------------   F(5, 812)       =     45.37
+       Model |  2568.04166         5  513.608332   Prob > F        =    0.0000
+    Residual |  9192.63326       812  11.3209769   R-squared       =    0.2184
+-------------+----------------------------------   Adj R-squared   =    0.2135
+       Total |  11760.6749       817  14.3949509   Root MSE        =    3.3647
 
 -------------------------------------------------------------------------------
     abs_cagdp |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
 --------------+----------------------------------------------------------------
-       regime |  -.7011815   .1584062    -4.43   0.000    -1.012115   -.3902483
-trade_openn~s |   .0292931    .002207    13.27   0.000     .0249611    .0336252
-      finance |   .1059332   .0851535     1.24   0.214    -.0612135    .2730799
-    gdpgrowth |   .1068082   .0489481     2.18   0.029     .0107286    .2028879
-        _cons |   1.841728   .2757222     6.68   0.000     1.300517    2.382939
+       regime |
+           1  |  -1.341946   .3054244    -4.39   0.000     -1.94146   -.7424316
+           2  |  -1.363191   .3162452    -4.31   0.000    -1.983946   -.7424369
+              |
+trade_openn~s |   .0285231   .0022225    12.83   0.000     .0241605    .0328857
+      finance |   .0246702   .0911372     0.27   0.787     -.154222    .2035624
+    gdpgrowth |   .1005732   .0488644     2.06   0.040     .0046578    .1964885
+        _cons |   2.235696   .3184238     7.02   0.000     1.610665    2.860727
 -------------------------------------------------------------------------------
 
 . outtex, file(pooled.tex) labels level detail ///
@@ -100,7 +103,7 @@ Breusch-Pagan / Cook-Weisberg test for heteroskedasticity
          Ho: Constant variance
          Variables: fitted values of abs_cagdp
 
-         chi2(1)      =    48.68
+         chi2(1)      =    60.63
          Prob > chi2  =   0.0000
 
 . rvfplot
@@ -118,39 +121,44 @@ Breusch-Pagan / Cook-Weisberg test for heteroskedasticity
                 delta:  1 unit
 
 . 
-. xtreg abs_cagdp regime trade_openness finance gdpgrowth, fe
+. xtreg abs_cagdp i.regime trade_openness finance gdpgrowth, fe
 
 Fixed-effects (within) regression               Number of obs     =        818
 Group variable: country2                        Number of groups  =         29
 
 R-sq:                                           Obs per group:
-     within  = 0.0739                                         min =          7
-     between = 0.5628                                         avg =       28.2
-     overall = 0.1952                                         max =         35
+     within  = 0.0898                                         min =          7
+     between = 0.5631                                         avg =       28.2
+     overall = 0.2027                                         max =         35
 
-                                                F(4,785)          =      15.66
-corr(u_i, Xb)  = -0.3210                        Prob > F          =     0.0000
+                                                F(5,784)          =      15.47
+corr(u_i, Xb)  = -0.2580                        Prob > F          =     0.0000
 
 -------------------------------------------------------------------------------
     abs_cagdp |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
 --------------+----------------------------------------------------------------
-       regime |  -.1391342   .2134036    -0.65   0.515    -.5580435    .2797752
-trade_openn~s |   .0379011   .0082531     4.59   0.000     .0217002    .0541019
-      finance |   .3906054   .0999902     3.91   0.000     .1943256    .5868852
-    gdpgrowth |   .0679117   .0455587     1.49   0.136    -.0215196    .1573431
-        _cons |   .4113431   .6137019     0.67   0.503    -.7933479    1.616034
+       regime |
+           1  |  -1.194489   .3549857    -3.36   0.001    -1.891324   -.4976543
+           2  |  -.3584729   .4239452    -0.85   0.398    -1.190675    .4737292
+              |
+trade_openn~s |   .0340227   .0082538     4.12   0.000     .0178206    .0502249
+      finance |   .2791221   .1036569     2.69   0.007     .0756441       .4826
+    gdpgrowth |   .0713649   .0452038     1.58   0.115    -.0173699    .1600996
+        _cons |   1.239146   .6485251     1.91   0.056    -.0339051    2.512197
 --------------+----------------------------------------------------------------
-      sigma_u |  2.4296342
-      sigma_e |  2.8847706
-          rho |  .41498154   (fraction of variance due to u_i)
+      sigma_u |   2.369493
+      sigma_e |   2.861685
+          rho |  .40673743   (fraction of variance due to u_i)
 -------------------------------------------------------------------------------
-F test that all u_i=0: F(28, 785) = 11.71                    Prob > F = 0.0000
+F test that all u_i=0: F(28, 784) = 12.09                    Prob > F = 0.0000
 
-. *rvfplot (Doesn't work! too tired to workaround)
 . outtex, file(fe.tex) labels level detail ///
->         legend key(stab) replace
+>         legend key(stab) replace        
 file fe.tex saved
 
+. *rvfplot (Doesn't work! too tired to workaround)
+.         
+. 
 . 
 end of do-file
 
