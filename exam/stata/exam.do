@@ -33,3 +33,17 @@ estat vif
 reg abs_cagdp regime trade_openness finance gdpgrowth
 outtex, file(pooled.tex) labels level detail ///
 	legend key(stab) replace
+estat hettest
+rvfplot
+graph export rvfplot_pooled.png, replace
+
+*Fixed effects regression
+cap encode country, gen(country2)
+xtset country2 year
+
+xtreg abs_cagdp regime trade_openness finance gdpgrowth, fe
+*rvfplot (Doesn't work! too tired to workaround)
+outtex, file(fe.tex) labels level detail ///
+	legend key(stab) replace
+	
+
