@@ -332,9 +332,11 @@ outtex, file(pooled.tex) labels level detail ///
     \item 
     \begin{description}
       \item[Question] \hfill \\
-
+      Indicate, whether the `Friedman hypothesis' is supported by the data or not.
       \item[Answer] \hfill \\
-      
+      The `Friedman hypothesis' suggested that ``fixed exchange rate ragimes should facilitate the build-up of current account imbalances''
+      We create dummy variables of the `intermediate' and `fixed regime' types, compared to the reference category of `floating'. Increases in our dependent variable \textit{abs\_cagdp} indicate that the current account imbalance is larger. Therefore, if Friedman's hypothesis were correct, the coefficient of the  dummy variable for a fixed regime would be positive. 
+      The data show a statistically significant negative effect of a fixed regime type compared to a floating regime type on current account imbalance. The data therefore suggest that we reject Friedman's hypothesis.
     \end{description}
   \end{enumerate}
   
@@ -342,13 +344,126 @@ outtex, file(pooled.tex) labels level detail ///
     \item 
     \begin{description}
       \item[Question] \hfill \\
+      Indicate, which of the other control variables have a significant impact on current account imbalances (assume a significance level of 5\%).
+      \item[Answer] \hfill \\
+      Trade openness and GDP growth both have statistically significant positive effects on current account imbalances.
+    \end{description}
+  \end{enumerate}
+  
+  \begin{enumerate}[label=(\alph*)]
+    \item 
+    \begin{description}
+      \item[Question] \hfill \\
+      Give a numerical interpretation of the estimated coefficients.
+      \item[Answer] \hfill \\
+      The constant is 1.841728, so if all variables were equal to 0, the model would predict an absolute current account as a percentage of GDP (\textit{abs\_cagdp}) value of 1.84. 
+      
+      Compared to the reference category `floating', observations that are in the category `intermediate' are predicted to have a \textit{abs\_cagdp} that is lower by 1.34. Observations that are in the category `fixed' are predicted to have a \textit{abs\_cagdp} that is lower by 1.36.
+      
+      A one unit increase in \textit{finance} is predicts a 0.02 increase in \textit{abs\_cagdp}
+      
+      A one unit increase in GDP growth predicts a .1 unit increase in \textit{abs\_cagdp}.
 
+    \end{description}
+  \end{enumerate}
+  
+  \begin{enumerate}[label=(\alph*)]
+    \item 
+    \begin{description}
+      \item[Question] \hfill \\
+      Explain whther the signs of the estimated coefficients make sense from an economic point of view.
+      \item[Answer] \hfill \\
+
+    \end{description}
+  \end{enumerate}
+
+\subsection{Estimating a fixed-effects regression [8pt]}
+
+  \begin{enumerate}[label=(\alph*)]
+    \item 
+    \begin{description}
+      \item[Question] \hfill \\
+      Perform a Breusch-Pagan LM test for heteroscedasticity and interpret the result.
+      \item[Answer] \hfill \\
+      \begin{CVerbatim}
+. estat hettest
+
+Breusch-Pagan / Cook-Weisberg test for heteroskedasticity 
+         Ho: Constant variance
+         Variables: fitted values of abs_cagdp
+
+         chi2(1)      =    48.68
+         Prob > chi2  =   0.0000
+      \end{CVerbatim}
+    \end{description}
+  \end{enumerate}
+  
+  \begin{enumerate}[label=(\alph*)]
+    \item 
+    \begin{description}
+      \item[Question] \hfill \\
+      Estimate your regression model this time with a \textit{fixed-effects panel} estimation.
+      \item[Answer] \hfill \\
+      \begin{CVerbatim}
+xtreg abs_cagdp regime trade_openness finance gdpgrowth, fe
+outtex, file(fe.tex) labels level detail ///
+	legend key(stab) replace
+      \end{CVerbatim}
+      \input{../stata/fe.tex}
+    \end{description}
+  \end{enumerate}
+  
+  \begin{enumerate}[label=(\alph*)]
+    \item 
+    \begin{description}
+      \item[Question] \hfill \\
+      Indicate again, whether the `Friedman hypothesis' is supported this time by the data or not.
+      \item[Answer] \hfill \\
+      In this case, the sign is still negative, contradicting the `Friedman hypothesis'. However, the coefficient for the dummy variable `fixed' is not statistically significant, so we cannot reject Friedman's hypothesis that there is a positive relationship. 
+    \end{description}
+  \end{enumerate}
+  
+  \begin{enumerate}[label=(\alph*)]
+    \item 
+    \begin{description}
+      \item[Question] \hfill \\
+      What could explain the different results you find for the variable \textit{regime} once you estimate a fixed-effects regression instead of pooled OLS?
       \item[Answer] \hfill \\
       
     \end{description}
   \end{enumerate}
-  
 
+\section{Model Interpretation [6pt]}
+  
+  \begin{enumerate}[label=(\alph*)]
+    \item 
+    \begin{description}
+      \item[Question] \hfill \\
+      
+      \item[Answer] \hfill \\
+
+    \end{description}
+  \end{enumerate}
+  
+  \begin{enumerate}[label=(\alph*)]
+    \item 
+    \begin{description}
+      \item[Question] \hfill \\
+      
+      \item[Answer] \hfill \\
+
+    \end{description}
+  \end{enumerate}
+  
+  \begin{enumerate}[label=(\alph*)]
+    \item 
+    \begin{description}
+      \item[Question] \hfill \\
+      
+      \item[Answer] \hfill \\
+
+    \end{description}
+  \end{enumerate}
 
 
 
