@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.6.10)  21 OCT 2015 00:00
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.6.10)  21 OCT 2015 00:21
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -336,22 +336,22 @@ Underfull \hbox (badness 10000) in paragraph at lines 392--393
  []
 
 [9]
-Underfull \hbox (badness 10000) in paragraph at lines 411--412
+Underfull \hbox (badness 10000) in paragraph at lines 412--413
 
  []
 
-(../stata/fe.tex)
-Underfull \hbox (badness 10000) in paragraph at lines 446--447
-
- []
-
-[10]
-Underfull \hbox (badness 10000) in paragraph at lines 458--459
+(../stata/fe.tex) [10]
+Underfull \hbox (badness 10000) in paragraph at lines 447--448
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 468--469
+Underfull \hbox (badness 10000) in paragraph at lines 459--460
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 469--470
 
  []
 
@@ -386,7 +386,7 @@ exmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texlive/texmf-di
 st/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/share/texlive/texmf-dist/fon
 ts/type1/public/amsfonts/cm/cmtt9.pfb></usr/share/texlive/texmf-dist/fonts/type
 1/public/eurosym/feymr10.pfb>
-Output written on Callaghan_Max_mpp_E1161_exam1.pdf (11 pages, 1633700 bytes).
+Output written on Callaghan_Max_mpp_E1161_exam1.pdf (11 pages, 1633840 bytes).
 PDF statistics:
  117 PDF objects out of 1000 (max. 8388607)
  83 compressed objects within 1 object stream
