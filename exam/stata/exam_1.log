@@ -1,0 +1,123 @@
+--------------------------------------------------------------------------------
+      name:  <unnamed>
+       log:  C:\Users\m.callaghan\Documents\Github\panel_econ\exam\stata\exam_1.
+> log
+  log type:  text
+ opened on:  20 Oct 2015, 16:28:49
+
+. 
+. 
+. use CA_FX_DATA_STUD, clear  /*opening the data file */
+
+. set matsize 800 /*Increasing the maximum allowed dimension of our data matrix 
+> */
+
+. 
+. *******************************
+. * Data Preparation:
+. *******************************
+. 
+. sum cagdp
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+       cagdp |      2,283   -3.083888    8.901329   -132.796     51.178
+
+. hist cagdp
+(bin=33, start=-132.79601, width=5.5749699)
+
+. 
+. * Create new variables
+. cap gen abs_cagdp = abs(cagdp)
+
+. cap gen trade_openness = importsgdp + exportsgdp
+
+. 
+end of do-file
+
+. do "C:\Users\MEB08~1.CAL\AppData\Local\Temp\STD00000000.tmp"
+
+. hist abs_cagdp
+(bin=33, start=0, width=4.0241214)
+
+. 
+end of do-file
+
+. do "C:\Users\MEB08~1.CAL\AppData\Local\Temp\STD00000000.tmp"
+
+. hist trade_openness
+(bin=33, start=6.3200002, width=13.083999)
+
+. 
+end of do-file
+
+. do "C:\Users\MEB08~1.CAL\AppData\Local\Temp\STD00000000.tmp"
+
+. drop if ind == 0
+(1,465 observations deleted)
+
+. 
+end of do-file
+
+. do "C:\Users\MEB08~1.CAL\AppData\Local\Temp\STD00000000.tmp"
+
+. reg abs_cagdp regime exportsgdp trade_openness finance, gdpgrowth
+option gdpgrowth not allowed
+r(198);
+
+end of do-file
+
+r(198);
+
+. do "C:\Users\MEB08~1.CAL\AppData\Local\Temp\STD00000000.tmp"
+
+. reg abs_cagdp regime exportsgdp trade_openness finance gdpgrowth
+
+      Source |       SS           df       MS      Number of obs   =       818
+-------------+----------------------------------   F(5, 812)       =     52.37
+       Model |   2867.5723         5  573.514459   Prob > F        =    0.0000
+    Residual |  8893.10262       812  10.9520968   R-squared       =    0.2438
+-------------+----------------------------------   Adj R-squared   =    0.2392
+       Total |  11760.6749       817  14.3949509   Root MSE        =    3.3094
+
+-------------------------------------------------------------------------------
+    abs_cagdp |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+--------------+----------------------------------------------------------------
+       regime |  -.8701295   .1580407    -5.51   0.000    -1.180346   -.5599131
+   exportsgdp |  -.2382867   .0411335    -5.79   0.000    -.3190273   -.1575462
+trade_openn~s |   .1529805   .0214605     7.13   0.000     .1108558    .1951052
+      finance |   .3791073   .0958936     3.95   0.000     .1908787    .5673359
+    gdpgrowth |    .079103   .0482342     1.64   0.101    -.0155753    .1737814
+        _cons |   1.315905   .2851918     4.61   0.000     .7561046    1.875705
+-------------------------------------------------------------------------------
+
+. 
+end of do-file
+
+. do "C:\Users\MEB08~1.CAL\AppData\Local\Temp\STD00000000.tmp"
+
+. esttat vif
+command esttat is unrecognized
+r(199);
+
+end of do-file
+
+r(199);
+
+. do "C:\Users\MEB08~1.CAL\AppData\Local\Temp\STD00000000.tmp"
+
+. estat vif
+
+    Variable |       VIF       1/VIF  
+-------------+----------------------
+trade_open~s |    118.93    0.008408
+  exportsgdp |    116.98    0.008548
+     finance |      1.40    0.712628
+      regime |      1.20    0.834933
+   gdpgrowth |      1.13    0.886961
+-------------+----------------------
+    Mean VIF |     47.93
+
+. 
+end of do-file
+
