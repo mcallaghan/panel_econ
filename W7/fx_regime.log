@@ -1,0 +1,516 @@
+-----------------------------------------------------------------------------------------------------------------
+      name:  <unnamed>
+       log:  C:\Users\m.callaghan\Documents\GitHub\panel_econ\W7\fx_regime.log
+  log type:  text
+ opened on:  27 Oct 2015, 17:35:47
+
+. 
+. use ..\Spreads.dta, clear
+
+. 
+. *******************************
+. * Data Preparation:
+. *******************************
+. 
+. *Converting the country variable to numerical format and the time variable to date format
+. encode country, generate(country2) /*Converting the country variable to a numerical type and storing it under n
+> ew variable name country2. */
+
+. gen time2=quarterly(time,"YQ") /* Converting my variable "time" to a date type. See `help dates and time' for m
+> ore details */
+
+. format time2 %tq 
+
+. 
+. * Generating squared debt and deficit variables:
+. gen sqdebt = debt^2
+
+. gen sqdeficit = deficit^2
+
+. 
+. * Generating a dummy variable for the crisis period:
+. gen crisis=time2>=tq(2008q3)
+
+. 
+. 
+. * Defining the panel- and time-dimension:
+. xtset country2 time2 
+       panel variable:  country2 (strongly balanced)
+        time variable:  time2, 1999q1 to 2010q1
+                delta:  1 quarter
+
+. 
+. 
+. ********************
+. * Performing a Hausman test:
+. ********************
+. 
+. xtreg spread debt sqdebt deficit sqdeficit us_bbbspread bidask gdpgrowth vstoxx, fe
+
+Fixed-effects (within) regression               Number of obs     =        450
+Group variable: country2                        Number of groups  =         10
+
+R-sq:                                           Obs per group:
+     within  = 0.6812                                         min =         45
+     between = 0.3797                                         avg =       45.0
+     overall = 0.5899                                         max =         45
+
+                                                F(8,432)          =     115.38
+corr(u_i, Xb)  = -0.3645                        Prob > F          =     0.0000
+
+------------------------------------------------------------------------------
+      spread |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+        debt |   .5268818   .1471069     3.58   0.000     .2377474    .8160161
+      sqdebt |   .0043962   .0023895     1.84   0.066    -.0003003    .0090928
+     deficit |   7.340506   .7155159    10.26   0.000     5.934181    8.746831
+   sqdeficit |   1.049662   .1482779     7.08   0.000     .7582266    1.341098
+us_bbbspread |    11.4855   1.213696     9.46   0.000     9.100013    13.87098
+      bidask |   3.283896   1.469462     2.23   0.026     .3957116    6.172081
+   gdpgrowth |  -1.944656   .4908189    -3.96   0.000    -2.909346   -.9799657
+      vstoxx |   .2256455   .2067219     1.09   0.276    -.1806603    .6319513
+       _cons |  -4.008934   5.433958    -0.74   0.461    -14.68922    6.671351
+-------------+----------------------------------------------------------------
+     sigma_u |  16.153092
+     sigma_e |  20.764258
+         rho |  .37701361   (fraction of variance due to u_i)
+------------------------------------------------------------------------------
+F test that all u_i=0: F(9, 432) = 12.34                     Prob > F = 0.0000
+
+. est store fixed
+
+. 
+. xttest3
+
+Modified Wald test for groupwise heteroskedasticity
+in fixed effect regression model
+
+H0: sigma(i)^2 = sigma^2 for all i
+
+chi2 (10)  =    1285.31
+Prob>chi2 =      0.0000
+
+
+. 
+. *large t small n
+. xttest2
+ 
+Correlation matrix of residuals:
+
+          __e1     __e2     __e3     __e4     __e5     __e6     __e7     __e8     __e9    __e10
+ __e1   1.0000
+ __e2   0.4472   1.0000
+ __e3   0.5139   0.2924   1.0000
+ __e4   0.4954   0.1264   0.5222   1.0000
+ __e5   0.0149   0.2282  -0.3312  -0.4832   1.0000
+ __e6  -0.0283   0.0275   0.1642  -0.0546   0.0658   1.0000
+ __e7   0.3044   0.4409  -0.2024  -0.2550   0.8462   0.0112   1.0000
+ __e8   0.5198   0.4766   0.6035   0.5879  -0.4871   0.0574  -0.2739   1.0000
+ __e9   0.4146   0.1005  -0.0740   0.0150   0.5614   0.2430   0.6674  -0.1613   1.0000
+__e10   0.6180   0.6127   0.6113   0.4890  -0.2570  -0.0034  -0.0052   0.8510  -0.0431   1.0000
+
+Breusch-Pagan LM test of independence: chi2(45) =   330.421, Pr = 0.0000
+Based on 45 complete observations over panel units
+
+. 
+. *large n small t
+. xtcsd, pesaran
+ 
+ 
+Pesaran's test of cross sectional independence =     9.270, Pr = 0.0000
+
+. xtcsd, frees
+ 
+ 
+Frees' test of cross sectional independence =     1.415, Pr = 0.0000
+ 
+Warning: A normal distribution had been used to approximate Frees' Q distribution
+
+. xtcsd, friedman
+ 
+ 
+Friedman's test of cross sectional independence =   165.615, Pr = 0.0000
+
+. 
+. xtreg spread debt sqdebt deficit sqdeficit us_bbbspread bidask gdpgrowth vstoxx, re
+
+Random-effects GLS regression                   Number of obs     =        450
+Group variable: country2                        Number of groups  =         10
+
+R-sq:                                           Obs per group:
+     within  = 0.6783                                         min =         45
+     between = 0.4590                                         avg =       45.0
+     overall = 0.6423                                         max =         45
+
+                                                Wald chi2(8)      =     908.06
+corr(u_i, X)   = 0 (assumed)                    Prob > chi2       =     0.0000
+
+------------------------------------------------------------------------------
+      spread |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+        debt |   .2536305   .0955898     2.65   0.008      .066278     .440983
+      sqdebt |   .0055892   .0021999     2.54   0.011     .0012774    .0099009
+     deficit |    7.49479   .7006222    10.70   0.000     6.121596    8.867985
+   sqdeficit |   1.222884   .1321495     9.25   0.000     .9638758    1.481893
+us_bbbspread |   11.47318    1.22493     9.37   0.000     9.072357    13.87399
+      bidask |   3.180204   1.470358     2.16   0.031     .2983567    6.062052
+   gdpgrowth |  -1.520829   .4775588    -3.18   0.001    -2.456827   -.5848313
+      vstoxx |   .3724057   .2007458     1.86   0.064    -.0210488    .7658603
+       _cons |  -9.345949   5.794144    -1.61   0.107    -20.70226    2.010365
+-------------+----------------------------------------------------------------
+     sigma_u |  8.2282481
+     sigma_e |  20.764258
+         rho |  .13571798   (fraction of variance due to u_i)
+------------------------------------------------------------------------------
+
+. est store random
+
+. 
+. hausman fixed random
+
+                 ---- Coefficients ----
+             |      (b)          (B)            (b-B)     sqrt(diag(V_b-V_B))
+             |     fixed        random       Difference          S.E.
+-------------+----------------------------------------------------------------
+        debt |    .5268818     .2536305        .2732513         .111817
+      sqdebt |    .0043962     .0055892       -.0011929        .0009328
+     deficit |    7.340506      7.49479       -.1542843        .1452289
+   sqdeficit |    1.049662     1.222884       -.1732218         .067252
+us_bbbspread |     11.4855     11.47318        .0123208               .
+      bidask |    3.283896     3.180204        .1036917               .
+   gdpgrowth |   -1.944656    -1.520829       -.4238265        .1133173
+      vstoxx |    .2256455     .3724057       -.1467603        .0493465
+------------------------------------------------------------------------------
+                           b = consistent under Ho and Ha; obtained from xtreg
+            B = inconsistent under Ha, efficient under Ho; obtained from xtreg
+
+    Test:  Ho:  difference in coefficients not systematic
+
+                  chi2(8) = (b-B)'[(V_b-V_B)^(-1)](b-B)
+                          =        0.42
+                Prob>chi2 =      0.9999
+                (V_b-V_B is not positive definite)
+
+. 
+. 
+. ********************
+. * Testing for panel heteroscedasticity:
+. ********************
+. 
+. 
+. 
+. 
+. ********************
+. * Testing for cross sectional:
+. ********************
+. 
+. * Since T is larger than N, we prefer the xttest2 command to test for cross-sectional dependence:
+. 
+. * Nevertheless, try also the xtcsd test:
+. 
+. 
+. ********************
+. * Testing for serial correlation:
+. ********************
+. 
+. * Programming the Wooldrige test manually:
+. 
+. reg D.spread D.debt D.sqdebt D.deficit D.sqdeficit D.us_bbbspread D.bidask D.gdpgrowth D.vstoxx, noconstant clu
+> ster(country)
+
+Linear regression                               Number of obs     =        440
+                                                F(8, 9)           =    1128.82
+                                                Prob > F          =     0.0000
+                                                R-squared         =     0.3515
+                                                Root MSE          =     14.487
+
+                               (Std. Err. adjusted for 10 clusters in country)
+------------------------------------------------------------------------------
+             |               Robust
+    D.spread |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+        debt |
+         D1. |   .6893486   .2338479     2.95   0.016     .1603479    1.218349
+             |
+      sqdebt |
+         D1. |   .0045053   .0021421     2.10   0.065    -.0003404    .0093511
+             |
+     deficit |
+         D1. |   6.815887    1.49086     4.57   0.001     3.443328    10.18845
+             |
+   sqdeficit |
+         D1. |   .7682503   .2999887     2.56   0.031     .0896287    1.446872
+             |
+us_bbbspread |
+         D1. |   10.38791   1.886149     5.51   0.000     6.121145    14.65468
+             |
+      bidask |
+         D1. |   .9329266   .6884517     1.36   0.208    -.6244594    2.490313
+             |
+   gdpgrowth |
+         D1. |  -.3492603   .3114954    -1.12   0.291    -1.053912    .3553912
+             |
+      vstoxx |
+         D1. |   .2440658   .1214272     2.01   0.075    -.0306217    .5187533
+------------------------------------------------------------------------------
+
+. cap predict res, residuals
+
+. cap predict fitted, xb
+
+. 
+. twoway scatter res fitted
+
+. 
+. reg res L.res, robust noconstant
+
+Linear regression                               Number of obs     =        430
+                                                F(1, 429)         =       0.01
+                                                Prob > F          =     0.9352
+                                                R-squared         =     0.0001
+                                                Root MSE          =     14.433
+
+------------------------------------------------------------------------------
+             |               Robust
+         res |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         res |
+         L1. |   .0082044    .100807     0.08   0.935    -.1899327    .2063416
+------------------------------------------------------------------------------
+
+. test L.res=-0.5
+
+ ( 1)  L.res = -.5
+
+       F(  1,   429) =   25.42
+            Prob > F =    0.0000
+
+. 
+. reg res L.res, cluster(country) noconstant
+
+Linear regression                               Number of obs     =        430
+                                                F(1, 9)           =       0.01
+                                                Prob > F          =     0.9417
+                                                R-squared         =     0.0001
+                                                Root MSE          =     14.433
+
+                               (Std. Err. adjusted for 10 clusters in country)
+------------------------------------------------------------------------------
+             |               Robust
+         res |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+         res |
+         L1. |   .0082044   .1090373     0.08   0.942     -.238455    .2548639
+------------------------------------------------------------------------------
+
+. test L.res=-0.5
+
+ ( 1)  L.res = -.5
+
+       F(  1,     9) =   21.72
+            Prob > F =    0.0012
+
+. 
+. * Using the Stata program xtserial:
+. xtserial spread debt sqdebt deficit sqdeficit us_bbbspread bidask gdpgrowth vstoxx, output
+
+Linear regression                               Number of obs     =        440
+                                                F(8, 9)           =    1128.82
+                                                Prob > F          =     0.0000
+                                                R-squared         =     0.3515
+                                                Root MSE          =     14.487
+
+                              (Std. Err. adjusted for 10 clusters in country2)
+------------------------------------------------------------------------------
+             |               Robust
+    D.spread |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+        debt |
+         D1. |   .6893486   .2338479     2.95   0.016     .1603479    1.218349
+             |
+      sqdebt |
+         D1. |   .0045053   .0021421     2.10   0.065    -.0003404    .0093511
+             |
+     deficit |
+         D1. |   6.815887    1.49086     4.57   0.001     3.443328    10.18845
+             |
+   sqdeficit |
+         D1. |   .7682503   .2999887     2.56   0.031     .0896287    1.446872
+             |
+us_bbbspread |
+         D1. |   10.38791   1.886149     5.51   0.000     6.121145    14.65468
+             |
+      bidask |
+         D1. |   .9329266   .6884517     1.36   0.208    -.6244594    2.490313
+             |
+   gdpgrowth |
+         D1. |  -.3492603   .3114954    -1.12   0.291    -1.053912    .3553912
+             |
+      vstoxx |
+         D1. |   .2440658   .1214272     2.01   0.075    -.0306217    .5187533
+------------------------------------------------------------------------------
+
+Wooldridge test for autocorrelation in panel data
+H0: no first order autocorrelation
+    F(  1,       9) =     21.723
+           Prob > F =      0.0012
+
+. 
+. 
+. ********************
+. * Estimations:
+. ********************
+. 
+. * Estimate the FE regression without corrected s.e., with robust s.e. and with pcse:
+. xi: xtpcse spread debt sqdebt deficit sqdeficit us_bbbspread bidask gdpgrowth vstoxx i.country, corr(ar1)
+i.country         _Icountry_1-10      (_Icountry_1 for coun~y==Austria omitted)
+(note: estimates of rho outside [-1,1] bounded to be in the range [-1,1])
+
+Prais-Winsten regression, correlated panels corrected standard errors (PCSEs)
+
+Group variable:   country2                      Number of obs     =        450
+Time variable:    time2                         Number of groups  =         10
+Panels:           correlated (balanced)         Obs per group:
+Autocorrelation:  common AR(1)                                min =         45
+                                                              avg =         45
+                                                              max =         45
+Estimated covariances      =        55          R-squared         =     0.5416
+Estimated autocorrelations =         1          Wald chi2(17)     =     261.73
+Estimated coefficients     =        18          Prob > chi2       =     0.0000
+
+------------------------------------------------------------------------------
+             |           Panel-corrected
+      spread |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+        debt |    .503216   .2304334     2.18   0.029     .0515749     .954857
+      sqdebt |   .0057605   .0043271     1.33   0.183    -.0027204    .0142414
+     deficit |   8.510084   1.214706     7.01   0.000     6.129304    10.89086
+   sqdeficit |   1.048704   .2019311     5.19   0.000     .6529262    1.444481
+us_bbbspread |   10.63247   1.901176     5.59   0.000     6.906234    14.35871
+      bidask |   1.286314   1.428299     0.90   0.368    -1.513102    4.085729
+   gdpgrowth |  -1.213043   .6450575    -1.88   0.060    -2.477332    .0512465
+      vstoxx |   .2349825    .247048     0.95   0.342    -.2492228    .7191878
+ _Icountry_2 |    -14.889   11.21203    -1.33   0.184    -36.86418    7.086176
+ _Icountry_3 |   19.28727   8.823589     2.19   0.029     1.993356    36.58119
+ _Icountry_4 |  -14.76724   4.681192    -3.15   0.002    -23.94221    -5.59227
+ _Icountry_5 |   19.47552   16.39555     1.19   0.235    -12.65918    51.61021
+ _Icountry_6 |   22.97695   12.21294     1.88   0.060    -.9599796    46.91387
+ _Icountry_7 |  -24.42698   14.23028    -1.72   0.086    -52.31783    3.463861
+ _Icountry_8 |   5.321907   4.945613     1.08   0.282    -4.371316    15.01513
+ _Icountry_9 |    9.02167   5.771139     1.56   0.118    -2.289554    20.33289
+_Icountry_10 |   15.72545   5.864777     2.68   0.007     4.230693     27.2202
+       _cons |   -6.75146   7.562016    -0.89   0.372    -21.57274     8.06982
+-------------+----------------------------------------------------------------
+         rho |   .6395333
+------------------------------------------------------------------------------
+
+. 
+. xtpcse spread debt sqdebt deficit sqdeficit us_bbbspread bidask gdpgrowth vstoxx, corr(ar1)
+(note: estimates of rho outside [-1,1] bounded to be in the range [-1,1])
+
+Prais-Winsten regression, correlated panels corrected standard errors (PCSEs)
+
+Group variable:   country2                      Number of obs     =        450
+Time variable:    time2                         Number of groups  =         10
+Panels:           correlated (balanced)         Obs per group:
+Autocorrelation:  common AR(1)                                min =         45
+                                                              avg =         45
+                                                              max =         45
+Estimated covariances      =        55          R-squared         =     0.4889
+Estimated autocorrelations =         1          Wald chi2(8)      =     189.02
+Estimated coefficients     =         9          Prob > chi2       =     0.0000
+
+------------------------------------------------------------------------------
+             |           Panel-corrected
+      spread |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+        debt |   .1450426    .113784     1.27   0.202      -.07797    .3680552
+      sqdebt |   .0081199    .003096     2.62   0.009      .002052    .0141879
+     deficit |   8.445353   1.100962     7.67   0.000     6.287507     10.6032
+   sqdeficit |   1.252988   .1823766     6.87   0.000     .8955366     1.61044
+us_bbbspread |   10.91278   1.953737     5.59   0.000     7.083526    14.74204
+      bidask |   1.488971   1.448584     1.03   0.304    -1.350201    4.328144
+   gdpgrowth |  -.6559852   .6472362    -1.01   0.311    -1.924545    .6125744
+      vstoxx |   .2935075   .2496639     1.18   0.240    -.1958248    .7828398
+       _cons |   -7.76796   7.405465    -1.05   0.294     -22.2824    6.746484
+-------------+----------------------------------------------------------------
+         rho |   .6533459
+------------------------------------------------------------------------------
+
+. 
+. * Estimate the FE regression with GLS:
+. xi: xtgls spread debt sqdebt deficit sqdeficit us_bbbspread bidask gdpgrowth vstoxx i.country, panels(correlate
+> d) corr(ar1) 
+i.country         _Icountry_1-10      (_Icountry_1 for coun~y==Austria omitted)
+
+Cross-sectional time-series FGLS regression
+
+Coefficients:  generalized least squares
+Panels:        heteroskedastic with cross-sectional correlation
+Correlation:   common AR(1) coefficient for all panels  (0.6409)
+
+Estimated covariances      =        55          Number of obs     =        450
+Estimated autocorrelations =         1          Number of groups  =         10
+Estimated coefficients     =        18          Time periods      =         45
+                                                Wald chi2(17)     =     329.48
+                                                Prob > chi2       =     0.0000
+
+------------------------------------------------------------------------------
+      spread |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+        debt |   .3736832   .1129479     3.31   0.001     .1523094    .5950569
+      sqdebt |   9.65e-06   .0015119     0.01   0.995    -.0029537     .002973
+     deficit |   5.055842   .5067888     9.98   0.000     4.062555     6.04913
+   sqdeficit |   .6490511   .0892957     7.27   0.000     .4740349    .8240674
+us_bbbspread |   8.800126   1.286172     6.84   0.000     6.279274    11.32098
+      bidask |   1.287689   .5434252     2.37   0.018     .2225956    2.352783
+   gdpgrowth |  -.8011556   .3280472    -2.44   0.015    -1.444116   -.1581949
+      vstoxx |   .1914208    .168273     1.14   0.255    -.1383883    .5212299
+ _Icountry_2 |  -4.258581   5.499097    -0.77   0.439    -15.03661    6.519452
+ _Icountry_3 |    13.2272   5.310428     2.49   0.013     2.818954    23.63545
+ _Icountry_4 |  -11.39864   4.427023    -2.57   0.010    -20.07545   -2.721835
+ _Icountry_5 |   34.58558   13.33751     2.59   0.010     8.444529    60.72663
+ _Icountry_6 |   25.46488   9.499608     2.68   0.007     6.845992    44.08377
+ _Icountry_7 |  -2.761729   6.425171    -0.43   0.667    -15.35483    9.831374
+ _Icountry_8 |   1.990028   4.212162     0.47   0.637    -6.265657    10.24571
+ _Icountry_9 |   12.45215   5.285978     2.36   0.018      2.09182    22.81247
+_Icountry_10 |   13.64633   4.419242     3.09   0.002     4.984772    22.30788
+       _cons |  -2.525205   5.883113    -0.43   0.668    -14.05589    9.005483
+------------------------------------------------------------------------------
+
+. xtgls spread debt sqdebt deficit sqdeficit us_bbbspread bidask gdpgrowth vstoxx, panels(correlated) corr(ar1) 
+
+Cross-sectional time-series FGLS regression
+
+Coefficients:  generalized least squares
+Panels:        heteroskedastic with cross-sectional correlation
+Correlation:   common AR(1) coefficient for all panels  (0.6611)
+
+Estimated covariances      =        55          Number of obs     =        450
+Estimated autocorrelations =         1          Number of groups  =         10
+Estimated coefficients     =         9          Time periods      =         45
+                                                Wald chi2(8)      =     275.69
+                                                Prob > chi2       =     0.0000
+
+------------------------------------------------------------------------------
+      spread |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+        debt |   .1232278    .055687     2.21   0.027     .0140833    .2323724
+      sqdebt |   .0033499   .0013642     2.46   0.014     .0006762    .0060236
+     deficit |   5.202961   .4508422    11.54   0.000     4.319327    6.086596
+   sqdeficit |   .8085144   .0844458     9.57   0.000     .6430036    .9740252
+us_bbbspread |   9.285144   1.335329     6.95   0.000     6.667948    11.90234
+      bidask |   1.271492   .5616911     2.26   0.024     .1705977    2.372386
+   gdpgrowth |  -.2300486   .3370093    -0.68   0.495    -.8905747    .4304775
+      vstoxx |   .2221832   .1724878     1.29   0.198    -.1158868    .5602531
+       _cons |  -4.177027   5.033868    -0.83   0.407    -14.04323    5.689173
+------------------------------------------------------------------------------
+
+. 
+. 
+. log close
+      name:  <unnamed>
+       log:  C:\Users\m.callaghan\Documents\GitHub\panel_econ\W7\fx_regime.log
+  log type:  text
+ closed on:  27 Oct 2015, 17:35:49
+-----------------------------------------------------------------------------------------------------------------
