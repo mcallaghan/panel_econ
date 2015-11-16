@@ -6,10 +6,22 @@
 \usepackage{verbatim}
 \usepackage{environ}
 \usepackage{mathtools}
+\usepackage{hyperref}
+\usepackage{amsmath}
+\usepackage{listings}
+\usepackage{xcolor}
+
+
+\usepackage{caption}
+
+
+\renewcommand\lstlistingname{Stata Example}
+
+\usepackage[a4paper, total={6in,9in}]{geometry}
 
 \usepackage{fvrb-ex}
 
-
+\captionsetup[lstlisting]{name="Stata Example",font={it,tt,color=blue}}
 
 \usepackage{eurosym}
 \usepackage{amstext} % for \text
@@ -25,6 +37,18 @@
 {CVerbatim}{Verbatim}
 {fontfamily=tt,fontsize=\small,frame=single,formatcom=\color{blue},label=\emph{Stata code/output}}
 \DefineVerbatimEnvironment{Sinput}{Verbatim}{fontshape=sl,formatcom=\color{blue}}
+
+\lstset{ %
+  basicstyle=\footnotesize\ttfamily\color{blue}, %
+  frame=single, %
+  includerangemarker = false, %
+  title = \footnotesize\ttfamily\color{blue}\emph{Interactive Stata Example}, %
+  caption = \footnotesize\ttfamily\color{blue}\emph{}, %
+  captionpos = t, %
+  rangeprefix=*@*, %
+  %belowcaptionskip = -0.08in, %
+  label={bla}
+}
 
 
 
@@ -236,12 +260,34 @@ Briefly explain why your chosen answer is correct.
       \item[Question] \hfill \\
       Explore, whether you prefer pooled OLS, the fixed- or the random effects estimation. Explain, how you have derived your conclusion. [4pt]
       \item[Answer] \hfill \\
+      \begin{figure}
+      \lstinputlisting[linerange={lstart-lend},caption=Testing for Heteroskedasticity,label=q1_1]{../stata/exam_2_q3_1_a_1.log}
+      \end{figure}
+      
+      A Breusch-Pagan LM test found that the probability of constant variance was close to 0, meaning that we should abandon OLS and consider panel techniques (see Stata Output ~\ref{q1_1})
+      
+      \begin{figure}
+      \lstinputlisting[linerange={lstart-lend},caption=Fixed-Effects: F-test,label=q1_3]{../stata/exam_2_q3_1_a_2.log}
+      \end{figure}
+      
+      After running a fixed-effects model, the F test makes it clear that FE is more efficient than pooled OLS.
+      
+      \begin{figure}
+      \lstinputlisting[linerange={lstart-lend},caption=Comparing Fixed and Random Effects,label=q1_3]{../stata/exam_2_q3_1_a_3.log}
+      \end{figure}
+      
+      The Hausman test (see see Stata Output ~\ref{q1_3}) finds that the estimated coefficients of FE and RE do not differ significantly. We should therefore prefer a random-effects model, which will be unbiased and more efficient.
+      
     \end{description}
     \item 
     \begin{description}
       \item[Question] \hfill \\
       Test for the presence of serial correlation, cross-sectional dependence and panel heteroscedasticity. [3pt]
       \item[Answer] \hfill \\
+      \begin{itemize}
+        \item Because N (59) is greater than T (35) we use the cross-sectional dependence (CD) test
+        \item Pesaran, Frees and Friedman abundantly reject the hypothesis that there is no cross sectional dependence.
+      \end{itemize}
     \end{description}
     \item 
     \begin{description}
