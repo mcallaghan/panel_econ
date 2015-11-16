@@ -1,0 +1,55 @@
+--------------------------------------------------------------------------------
+      name:  <unnamed>
+       log:  C:\Users\m.callaghan\Documents\GitHub\panel_econ\exam2\stata\exam_2
+> _q3_1_a_cd.log
+  log type:  text
+ opened on:  16 Nov 2015, 19:11:27
+
+. *@*lstart
+. xtreg abs_cagdp `x', re
+
+Random-effects GLS regression                   Number of obs     =      1,855
+Group variable: country2                        Number of groups  =         59
+
+R-sq:                                           Obs per group:
+     within  = 0.0177                                         min =         16
+     between = 0.3262                                         avg =       31.4
+     overall = 0.1295                                         max =         35
+
+                                                Wald chi2(4)      =      57.57
+corr(u_i, X)   = 0 (assumed)                    Prob > chi2       =     0.0000
+
+-------------------------------------------------------------------------------
+    abs_cagdp |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+--------------+----------------------------------------------------------------
+       regime |   .8366188   .2005195     4.17   0.000     .4436077     1.22963
+trade_openn~s |   .0354598   .0063022     5.63   0.000     .0231076    .0478119
+    gdpgrowth |   .0611339   .0287436     2.13   0.033     .0047974    .1174704
+      finance |  -.0079567   .1142987    -0.07   0.945    -.2319781    .2160647
+        _cons |   1.928826   .6912215     2.79   0.005     .5740567    3.283595
+--------------+----------------------------------------------------------------
+      sigma_u |  3.0927035
+      sigma_e |  4.8303098
+          rho |  .29075295   (fraction of variance due to u_i)
+-------------------------------------------------------------------------------
+
+. xtcsd, pesaran
+ 
+Pesaran's test of cross sectional independence =    18.063, Pr = 0.0000
+
+. xtcsd, frees
+ 
+  Frees' test of cross sectional independence =    14.637
+|--------------------------------------------------------|
+  Critical values from Frees' Q distribution
+                      alpha = 0.10 :   0.4892
+                      alpha = 0.05 :   0.6860
+                      alpha = 0.01 :   1.1046
+
+. xtcsd, friedman
+ 
+Friedman's test of cross sectional independence =    11.186, Pr = 1.0000
+
+. *xttest3
+. *@*lend
+. cap log close

@@ -42,14 +42,60 @@ hausman fe re
 *@*lend
 cap log close
 
-log using exam_2_q3_1_a.log, replace text
+log using exam_2_q3_1_b_cd.log, replace text
 *@*lstart
 xtreg abs_cagdp `x', re
-xttest3
+xtcsd, pesaran
+xtcsd, frees
+xtcsd, friedman
+*xttest3
 *@*lend
 cap log close
 
-*esttab ols fe re, mtitle
+
+log using exam_2_q3_1_b_sc.log, replace text
+*@*lstart
+xtserial abs_cagdp `x', output 
+
+*xttest3
+*@*lend
+cap log close
+
+log using exam_2_q3_1_d.log, replace text
+*@*lstart
+xi: quietly xtpcse abs_cagdp `x' i.country2, corr(ar1)
+est store pcse
+
+esttab pcse, drop(_*)
+*@*lend
+cap log close
 
 
+*xi:  xtgls abs_cagdp `x' i.country2, panels(correlated) corr(ar1) force
+
+
+* interaction
+
+log using exam_2_q3_1_a.log, replace text
+*@*lstart
+cap gen reg_x_id = regime*id
+local x_inter regime trade_openness gdpgrowth finance id reg_x_id
+xi: quietly xtpcse abs_cagdp `x_inter' i.country2, corr(ar1)
+est store pcse_inter
+
+esttab pcse_inter, drop(_*)
+*@*lend
+cap log close
+
+log using exam_2_q3_1_a.log, replace text
+*@*lstart
+test id =0
+*@*lend
+cap log close
+
+log using exam_2_summary.log, replace text
+*@*lstart
+esttab ols fe re pcse pcse_inter, drop(_*) mtitle
+*@*lend
+cap log close
 
