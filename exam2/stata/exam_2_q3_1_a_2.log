@@ -2,38 +2,38 @@
       name:  <unnamed>
        log:  C:\Users\m.callaghan\Documents\GitHub\panel_econ\exam2\stata\exam_2_q3_1_a_2.log
   log type:  text
- opened on:  16 Nov 2015, 20:48:30
+ opened on:  16 Nov 2015, 21:12:04
 
 . *@*lstart
-. quietly xtreg abs_cagdp `x', fe
+. xtreg abs_cagdp `x', fe
+
+Fixed-effects (within) regression               Number of obs     =      1,855
+Group variable: country2                        Number of groups  =         59
+
+R-sq:                                           Obs per group:
+     within  = 0.0181                                         min =         16
+     between = 0.3106                                         avg =       31.4
+     overall = 0.1237                                         max =         35
+
+                                                F(4,1792)         =       8.25
+corr(u_i, Xb)  = 0.1975                         Prob > F          =     0.0000
+
+--------------------------------------------------------------------------------
+     abs_cagdp |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+---------------+----------------------------------------------------------------
+        regime |   .7194034   .2112564     3.41   0.001     .3050687    1.133738
+trade_openness |   .0292849   .0075704     3.87   0.000     .0144372    .0441326
+     gdpgrowth |   .0618739   .0288483     2.14   0.032     .0052941    .1184537
+       finance |   .0810876   .1213976     0.67   0.504     -.157008    .3191833
+         _cons |   2.424857   .6668928     3.64   0.000     1.116888    3.732826
+---------------+----------------------------------------------------------------
+       sigma_u |  3.3211165
+       sigma_e |  4.8303098
+           rho |  .32099147   (fraction of variance due to u_i)
+--------------------------------------------------------------------------------
+F test that all u_i=0: F(58, 1792) = 13.08                   Prob > F = 0.0000
 
 . est store fe
-
-. 
-. quietly xtreg abs_cagdp `x', re
-
-. est store re
-
-. 
-. hausman fe re
-
-                 ---- Coefficients ----
-             |      (b)          (B)            (b-B)     sqrt(diag(V_b-V_B))
-             |       fe           re         Difference          S.E.
--------------+----------------------------------------------------------------
-      regime |    .7194034     .8366188       -.1172153        .0664919
-trade_open~s |    .0292849     .0354598       -.0061748        .0041944
-   gdpgrowth |    .0618739     .0611339        .0007399        .0024548
-     finance |    .0810876    -.0079567        .0890443        .0409043
-------------------------------------------------------------------------------
-                           b = consistent under Ho and Ha; obtained from xtreg
-            B = inconsistent under Ha, efficient under Ho; obtained from xtreg
-
-    Test:  Ho:  difference in coefficients not systematic
-
-                  chi2(4) = (b-B)'[(V_b-V_B)^(-1)](b-B)
-                          =        6.14
-                Prob>chi2 =      0.1887
 
 . *@*lend
 . cap log close
