@@ -1,0 +1,244 @@
+\documentclass{article}
+
+\usepackage{graphicx}
+\usepackage{enumitem}
+\usepackage{color}
+\usepackage{verbatim}
+\usepackage{environ}
+\usepackage{mathtools}
+
+\usepackage{fvrb-ex}
+
+
+
+\usepackage{eurosym}
+\usepackage{amstext} % for \text
+\DeclareRobustCommand{\officialeuro}{%
+  \ifmmode\expandafter\text\fi
+  {\fontencoding{U}\fontfamily{eurosym}\selectfont e}}
+
+
+\fvset{gobble=0,numbersep=3pt}
+\fvset{numbers=left,frame=single}
+%\RecustomVerbatimEnvironment{Verbatim}{Verbatim}{commandchars=§µ¶}
+\DefineVerbatimEnvironment%
+{CVerbatim}{Verbatim}
+{fontfamily=tt,fontsize=\small,frame=single,formatcom=\color{blue},label=\emph{Stata code/output}}
+\DefineVerbatimEnvironment{Sinput}{Verbatim}{fontshape=sl,formatcom=\color{blue}}
+
+
+
+\begin{document}
+
+\title{\small Applied Panel Econometrics (MPP-E1161) - Winter Term 2015 \\ Prof. Dr. Kerstin Bernoth \\ \bigskip \Large Take Home Exam 2}
+\author{Max Callaghan}
+\date{November 2015}
+\maketitle
+
+\section{Part I: Basic Questions [12pt: each 2pt]}
+Briefly explain why your chosen answer is correct.
+\begin{enumerate}
+  \item
+  \begin{description}
+    \item[Question] \hfill \\
+    False or true: When the between group variance of a panel data set is small, the random effects estimator looks similar to the fixed-effects estimator.
+    \item[Answer] \hfill \\
+    True.
+    
+  \end{description}
+  
+  \item
+  \begin{description}
+    \item[Question] \hfill \\
+    False or true: A variable \(z\) serves as a good instrument for an endogenous explanatory variable \(x\), if it is sufficiently correlated with the dependent variable \(y\)
+    \item[Answer] \hfill \\
+    False. A good instrument \(z\) is one that is correlated with \(x\) but uncorrelated with the error term \(\epsilon\)
+    
+  \end{description}
+  
+  \item
+  \begin{description}
+    \item[Question] \hfill \\
+    False or true: The Hausman test tests, whether the estimated coefficients of two regressions are not significantly different.
+    \item[Answer] \hfill \\
+    True. The Hausman test shows the probability of there being no significant difference between the coefficients of two regressions.
+  \end{description}
+  
+  \item
+  \begin{description}
+    \item[Question] \hfill \\
+    False or true: If the fixed effects and the random effects estimator deliver significantly different coefficients, we should prefer to use the fixed-effects estimator.
+    \item[Answer] \hfill \\
+    True.
+    
+  \end{description}
+  
+  \item
+  \begin{description}
+    \item[Question] \hfill \\
+    False or true: The larger the correlation between the endogenous variable \(x\) and its instrument \(z\), the less precise is the instrumental variable estimator.
+    \item[Answer] \hfill \\
+    False
+  \end{description}
+  
+  \item
+  \begin{description}
+    \item[Question] \hfill \\
+    Even if the single parameter \(t\)-test suggests that each coefficient is insignificant, the \(F\)-test might say that these coefficients are jointly significant.
+    \item[Answer] \hfill \\
+    True. We might have two instruments that suffer from multicollinearity. In this case, though the two are jointly significant, each would make the other insignificant.
+  \end{description}
+\end{enumerate}
+  
+\section{Part II: Model Interpretation [9pt: each 3pt]}
+
+\begin{enumerate}
+  \item
+  \begin{description}
+    \item[Question] \hfill \\
+    \[spread_{it} = 21 + 0.2debt_{it} + 1.3deficit_{it} + 0.05debt_{it} \cdot deficit_{it} + \epsilon_{it}\]
+    \item[Answer] \hfill \\
+    
+  \end{description}
+  
+  \item
+  \begin{description}
+    \item[Question] \hfill \\
+    \[ spread_{it} = 13 + 0.15debt_{it} + 23crisis + 0.3debt \cdot crisis + \epsilon_{it} \]
+    \item[Answer] \hfill \\
+
+  \end{description}
+  
+  \item
+  \begin{description}
+    \item[Question] \hfill \\
+    \[ spread_{it} = 2.1debt_{it} - 0.01debt_{it}^2 + \epsilon_{it} \]
+    \item[Answer] \hfill \\
+    
+  \end{description}
+  
+\end{enumerate}
+
+\section{Part 3: OLS and IV regression [20pt]}
+
+\[spread_{it} = \alpha_i + \beta_{1}deficit + u_{it} \]
+
+\begin{enumerate}
+  \item
+  \begin{description}
+    \item[Question] \hfill \\
+    Write down the formula for \(\hat{\beta}^{FE}_1\) and \(\hat{\alpha}_i\) 
+    \item[Answer] \hfill \\
+    \[ \hat{\beta}^{FE}_1 = \beta_{1}X_{it} + \alpha_{i} + u_{it} \]
+    \[ y^{*}_{it} = x^{*}_{it}\beta + u^{*}_it, \]
+    where \(y^{*}_{it} = y_{it} - \bar{y}_{i} \) and \(x^{*}_{it} = x_{it} - \bar{x}_{i} \)
+  \end{description}
+  
+  \item
+  \begin{description}
+    \item[Question] \hfill \\
+    Calculate \(\hat{\beta}^{FE}_1\) and \(\hat{\alpha}_i\) and write down the regression equation for all three countries. (10pt)
+    \item[Answer] \hfill \\
+
+  \end{description}
+  
+  \item
+  \begin{description}
+    \item[Question] \hfill \\
+    We assume that the variable \(deficit\) is endogenous and we want to estimate regression (1) with an instrumental variable estimation, where lagged deficit (\(L.deficit\)) serves as an instrument for \(deficit\). Explain, why \(L.deficit\) might be a suitable instrument for deficit. (4pt)
+    \item[Answer] \hfill \\
+    
+  \end{description}
+  
+  \item
+  \begin{description}
+    \item[Question] \hfill \\
+    Add \(z_{it} = L.deficit_{it} \) in the empty column in the Table. It might happen that you have missing observations. (2p5)
+    \item[Answer] \hfill \\
+    
+  \end{description}
+  
+  \item
+  \begin{description}
+    \item[Question] \hfill \\
+    Write the IV formula for \(\hat{\beta}^{IV}_1\) and \(\hat{\alpha}^{IV}_i\)
+    \item[Answer] \hfill \\
+    
+  \end{description}
+  
+  \item
+  \begin{description}
+    \item[Question] \hfill \\
+    Calculate (not estimate) \(\hat{\beta}^{IV}_1\) and \(\hat{\alpha}^{IV}_i\) and write down the IV regression equation for all three countries. You may extend the table with as many columns as necessary. Write down all calculations (Covariances, Variances, etc.) that are necessary. (10pt)
+    \item[Answer] \hfill \\
+    
+  \end{description}
+  
+\end{enumerate}
+
+\section{Part III: Current Account Imbalances and Exchange Rate Regimes - Continue [37pt]}
+
+\begin{enumerate}
+  \item \textbf{Deriving the model specification}
+  \begin{enumerate}[label=(\alph*)]
+    \item 
+    \begin{description}
+      \item[Question] \hfill \\
+      Explore, whether you prefer pooled OLS, the fixed- or the random effects estimation. Explain, how you have derived your conclusion. [4pt]
+      \item[Answer] \hfill \\
+    \end{description}
+    \item 
+    \begin{description}
+      \item[Question] \hfill \\
+      Test for the presence of serial correlation, cross-sectional dependence and panel heteroscedasticity. [3pt]
+      \item[Answer] \hfill \\
+    \end{description}
+    \item 
+    \begin{description}
+      \item[Question] \hfill \\
+      Explain, why we need to take the residual structure into account. [2pt]
+      \item[Answer] \hfill \\
+    \end{description}
+    \item 
+    \begin{description}
+      \item[Question] \hfill \\
+      Estimate your preferred model (pooled OLS, fixed- or random effects) taking the residual structure into account to get unbiased and efficient results. Explain the choice of your estimator. [2pt]
+      \item[Answer] \hfill \\
+    \end{description}
+    \item 
+    \begin{description}
+      \item[Question] \hfill \\
+      Indicate, whether the Friedman Hypothesis holds. [1pt]
+      \item[Answer] \hfill \\
+    \end{description}
+  \end{enumerate}
+  \item \textbf{Estimation with interaction variables}
+  \begin{enumerate}[label=(\alph*)]
+    \item 
+    \begin{description}
+      \item[Question] \hfill \\
+      Generate an interaction variable between the variable \(regime\) and the dummy \(id\) and repeat your regression by adding this interaction variable together with the dummy \(id\). [2pt]
+      \item[Answer] \hfill \\
+    \end{description}
+    \item 
+    \begin{description}
+      \item[Question] \hfill \\
+      Hypothesis testing: Test, whether in case of industrial countries the exchange rate regime affects current account imbalances.
+      \item[Answer] \hfill \\
+    \end{description}
+    \item 
+    \begin{description}
+      \item[Question] \hfill \\
+      Give a numerical interpretation of the effect of the exchange rate regime on current account imbalances for industrial and non-industrial countries [2pt].
+      \item[Answer] \hfill \\
+    \end{description}
+    \item 
+    \begin{description}
+      \item[Question] \hfill \\
+      Based on your estimation results, what would you recommend policymakers, when you are asked about the preferred exchange rate regime.
+      \item[Answer] \hfill \\
+    \end{description}
+  \end{enumerate}
+\end{enumerate}
+    
+\end{document}
