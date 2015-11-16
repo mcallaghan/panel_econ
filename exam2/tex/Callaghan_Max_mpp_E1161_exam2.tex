@@ -43,7 +43,7 @@ Briefly explain why your chosen answer is correct.
     \item[Question] \hfill \\
     False or true: When the between group variance of a panel data set is small, the random effects estimator looks similar to the fixed-effects estimator.
     \item[Answer] \hfill \\
-    True.
+    The fixed-effects estimator discards information between panels and only concentrates on variation within panels. The random-effects estimator is different to the fixed-effects estimator because it takes into account between-group variation as well as within group variation; if between group variance is small, then the difference betweeen FE and RE will also be small. 
     
   \end{description}
   
@@ -69,7 +69,7 @@ Briefly explain why your chosen answer is correct.
     \item[Question] \hfill \\
     False or true: If the fixed effects and the random effects estimator deliver significantly different coefficients, we should prefer to use the fixed-effects estimator.
     \item[Answer] \hfill \\
-    True.
+    If individual effects are correlated with explanatory variables, we violate the assumption of the exogeneity of regressors, rendering our estimate inconsistent and biased. A fixed-effects model controls for individual effects and so will be unbiased and consistent. So if the difference between the estimators of FE and RE models are significantly large, we can assume that exogeneity of regressors is violated and that RE estimators are therefore biased and inconsistent.
     
   \end{description}
   
@@ -78,7 +78,13 @@ Briefly explain why your chosen answer is correct.
     \item[Question] \hfill \\
     False or true: The larger the correlation between the endogenous variable \(x\) and its instrument \(z\), the less precise is the instrumental variable estimator.
     \item[Answer] \hfill \\
-    False
+    False. The variance of the regressor is given by
+    
+    \[ \hat{Var}(\hat{\beta}^{IV}_{1}) = \frac{\hat{\sigma}^2_{\epsilon}\frac{1}{NT}}{Var(x_{it})\rho^2_{x,z}},  \]
+    
+    where \(\rho^2_{x,z}\) is the square of the correlation between \( x \) and \( y \).
+    
+    So an increase in the correlation between x and z will decrease the variance of the IV estimator.
   \end{description}
   
   \item
@@ -98,7 +104,11 @@ Briefly explain why your chosen answer is correct.
     \item[Question] \hfill \\
     \[spread_{it} = 21 + 0.2debt_{it} + 1.3deficit_{it} + 0.05debt_{it} \cdot deficit_{it} + \epsilon_{it}\]
     \item[Answer] \hfill \\
-    
+    \begin{itemize}
+      \item A country with a debt of 0 and a deficit of 0 is expected have a bond yield spread of 21.
+      \item An increase in the deficit by 1 percentage point increases the country's bond yield spread by \(1.3 + 0.05 \cdot deficit \) 
+      \item Thus, for a country with a debt of 20 percentage points, every percentage point increase in the deficit is expected to increase the bond yield spread by 2.3
+    \end{itemize}
   \end{description}
   
   \item
@@ -106,7 +116,11 @@ Briefly explain why your chosen answer is correct.
     \item[Question] \hfill \\
     \[ spread_{it} = 13 + 0.15debt_{it} + 23crisis + 0.3debt \cdot crisis + \epsilon_{it} \]
     \item[Answer] \hfill \\
-
+    \begin{itemize}
+      \item A country without any debt is expected to have a bond yield spread of 13 outside of a crisis and \( (13+23)=36 \) during a crisis.
+      \item Outside of a crisis, every percentage point increase in debt is expected to increase bond yield spread by 0.15 
+      \item During a crisis, every percentage point increase in debt is expected to increase bond yield spread by \( (0.15 + 0.3) = 0.45 \) 
+    \end{itemize}
   \end{description}
   
   \item
@@ -114,7 +128,15 @@ Briefly explain why your chosen answer is correct.
     \item[Question] \hfill \\
     \[ spread_{it} = 2.1debt_{it} - 0.01debt_{it}^2 + \epsilon_{it} \]
     \item[Answer] \hfill \\
-    
+    \begin{itemize}
+      \item Debt levels have a diminishing effect on bond yield spreads.
+      \item The effect of debt levels on bond yield spreads follows an inverted U-shape. At low levels it has positive marginal effects, but at higher levels it has negative marginal effects.
+      \item The marginal effect of debt levels on bond yield spreads is 
+      \[ \frac{\partial Spread}{\partial Debt} = 2.1 - 2 \cdot 0.01 \]
+      \item The  highest bond yield spreads are estimated at 
+      \[ debt* = \frac{2.1}{2\cdot 0.01} = 105 \]
+      \item When \(debt < 105\), bond yield spreads increase with every additional percentage point of debt. When \(debt > 105\), bond yield spreads decrease with every additional percentage point of debt
+    \end{itemize}
   \end{description}
   
 \end{enumerate}
@@ -129,9 +151,22 @@ Briefly explain why your chosen answer is correct.
     \item[Question] \hfill \\
     Write down the formula for \(\hat{\beta}^{FE}_1\) and \(\hat{\alpha}_i\) 
     \item[Answer] \hfill \\
-    \[ \hat{\beta}^{FE}_1 = \beta_{1}X_{it} + \alpha_{i} + u_{it} \]
+    \[ Y_{it} = \beta_{1}X_{it} + \alpha_{i} + u_{it} \]
     \[ y^{*}_{it} = x^{*}_{it}\beta + u^{*}_it, \]
-    where \(y^{*}_{it} = y_{it} - \bar{y}_{i} \) and \(x^{*}_{it} = x_{it} - \bar{x}_{i} \)
+    
+    where 
+    
+    \null
+    
+    \(y^{*}_{it} = y_{it} - \bar{y}_{i} \) and \(x^{*}_{it} = x_{it} - \bar{x}_{i}, \)
+    
+    \null 
+    so 
+    
+    \[\hat{\beta}^{FE}_1 = \frac{cov(x_{it},y_{it})}{var(x_{it})} \] and
+    
+    \[ \hat{\alpha}_i = \bar{y}_{i} - \bar{x}_{i}\hat{\beta} \]
+    
   \end{description}
   
   \item
@@ -139,7 +174,13 @@ Briefly explain why your chosen answer is correct.
     \item[Question] \hfill \\
     Calculate \(\hat{\beta}^{FE}_1\) and \(\hat{\alpha}_i\) and write down the regression equation for all three countries. (10pt)
     \item[Answer] \hfill \\
-
+    
+    \textbf{Ireland:} \( Spread_{t} = 617.4 -66(Deficit_{t}) + \epsilon \)
+    
+    \textbf{Netherlands:} \( Spread_{t} = 76.6 -66(Deficit_{t}) + \epsilon \)
+    
+    \textbf{Spain:} \( Spread_{t} = 272.2 -66(Deficit_{t}) + \epsilon \)
+    
   \end{description}
   
   \item
@@ -147,6 +188,7 @@ Briefly explain why your chosen answer is correct.
     \item[Question] \hfill \\
     We assume that the variable \(deficit\) is endogenous and we want to estimate regression (1) with an instrumental variable estimation, where lagged deficit (\(L.deficit\)) serves as an instrument for \(deficit\). Explain, why \(L.deficit\) might be a suitable instrument for deficit. (4pt)
     \item[Answer] \hfill \\
+    We have an endogeneity problem because a high bond yield spreads push up the cost of borrowing and therefore increase the deficit. An instrumental variable must be exogenous and informative or relevant. Lagged deficit should correlated with the current deficit (relevant), but should be independent of the error term (exogenous).
     
   \end{description}
   
@@ -164,6 +206,8 @@ Briefly explain why your chosen answer is correct.
     Write the IV formula for \(\hat{\beta}^{IV}_1\) and \(\hat{\alpha}^{IV}_i\)
     \item[Answer] \hfill \\
     
+    \[ \hat{\beta}^{IV}_1 = \frac{Cov(z_{it},y_{it})}{Cov(z_{it},x_{it})} \textnormal{ and } \hat{\alpha}^{IV}_i = \bar{y}_{i} - \bar{x}_{i}\hat{\beta} \]
+    
   \end{description}
   
   \item
@@ -171,6 +215,12 @@ Briefly explain why your chosen answer is correct.
     \item[Question] \hfill \\
     Calculate (not estimate) \(\hat{\beta}^{IV}_1\) and \(\hat{\alpha}^{IV}_i\) and write down the IV regression equation for all three countries. You may extend the table with as many columns as necessary. Write down all calculations (Covariances, Variances, etc.) that are necessary. (10pt)
     \item[Answer] \hfill \\
+    
+    \textbf{Ireland:} \( Spread_{t} = 594.3 -62.5(Deficit_{t}) + \epsilon \)
+    
+    \textbf{Netherlands:} \( Spread_{t} = 74.5 -62.5(Deficit_{t}) + \epsilon \)
+    
+    \textbf{Spain:} \( Spread_{t} = 261.7 -62.5(Deficit_{t}) + \epsilon \)
     
   \end{description}
   
