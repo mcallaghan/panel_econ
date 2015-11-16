@@ -2,7 +2,7 @@
       name:  <unnamed>
        log:  C:\Users\m.callaghan\Documents\GitHub\panel_econ\exam2\stata\exam_2_q3_1_a.log
   log type:  text
- opened on:  16 Nov 2015, 19:53:52
+ opened on:  16 Nov 2015, 19:56:04
 
 . *@*lstart
 . local x regime trade_openness gdpgrowth finance
@@ -39,64 +39,12 @@ Breusch-Pagan / Cook-Weisberg test for heteroskedasticity
 . est store ols
 
 . 
-. xtreg abs_cagdp `x', fe
+. quietly xtreg abs_cagdp `x', fe
 
-Fixed-effects (within) regression               Number of obs     =      1,855
-Group variable: country2                        Number of groups  =         59
-
-R-sq:                                           Obs per group:
-     within  = 0.0181                                         min =         16
-     between = 0.3106                                         avg =       31.4
-     overall = 0.1237                                         max =         35
-
-                                                F(4,1792)         =       8.25
-corr(u_i, Xb)  = 0.1975                         Prob > F          =     0.0000
-
---------------------------------------------------------------------------------
-     abs_cagdp |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
----------------+----------------------------------------------------------------
-        regime |   .7194034   .2112564     3.41   0.001     .3050687    1.133738
-trade_openness |   .0292849   .0075704     3.87   0.000     .0144372    .0441326
-     gdpgrowth |   .0618739   .0288483     2.14   0.032     .0052941    .1184537
-       finance |   .0810876   .1213976     0.67   0.504     -.157008    .3191833
-         _cons |   2.424857   .6668928     3.64   0.000     1.116888    3.732826
----------------+----------------------------------------------------------------
-       sigma_u |  3.3211165
-       sigma_e |  4.8303098
-           rho |  .32099147   (fraction of variance due to u_i)
---------------------------------------------------------------------------------
-F test that all u_i=0: F(58, 1792) = 13.08                   Prob > F = 0.0000
-
-. 
 . est store fe
 
 . 
-. xtreg abs_cagdp `x', re
-
-Random-effects GLS regression                   Number of obs     =      1,855
-Group variable: country2                        Number of groups  =         59
-
-R-sq:                                           Obs per group:
-     within  = 0.0177                                         min =         16
-     between = 0.3262                                         avg =       31.4
-     overall = 0.1295                                         max =         35
-
-                                                Wald chi2(4)      =      57.57
-corr(u_i, X)   = 0 (assumed)                    Prob > chi2       =     0.0000
-
---------------------------------------------------------------------------------
-     abs_cagdp |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
----------------+----------------------------------------------------------------
-        regime |   .8366188   .2005195     4.17   0.000     .4436077     1.22963
-trade_openness |   .0354598   .0063022     5.63   0.000     .0231076    .0478119
-     gdpgrowth |   .0611339   .0287436     2.13   0.033     .0047974    .1174704
-       finance |  -.0079567   .1142987    -0.07   0.945    -.2319781    .2160647
-         _cons |   1.928826   .6912215     2.79   0.005     .5740567    3.283595
----------------+----------------------------------------------------------------
-       sigma_u |  3.0927035
-       sigma_e |  4.8303098
-           rho |  .29075295   (fraction of variance due to u_i)
---------------------------------------------------------------------------------
+. quietly xtreg abs_cagdp `x', re
 
 . est store re
 
