@@ -1,0 +1,104 @@
+--------------------------------------------------------------------------------
+      name:  <unnamed>
+       log:  C:\Users\m.callaghan\Documents\GitHub\panel_econ\exam2\stata\exam_2
+> _q3_1_a.log
+  log type:  text
+ opened on:  16 Nov 2015, 18:35:42
+
+. *@*lstart
+. xtreg abs_cagdp `x', re
+
+Random-effects GLS regression                   Number of obs     =      1,855
+Group variable: country2                        Number of groups  =         59
+
+R-sq:                                           Obs per group:
+     within  = 0.0236                                         min =         16
+     between = 0.3751                                         avg =       31.4
+     overall = 0.1497                                         max =         35
+
+                                                Wald chi2(5)      =      72.61
+corr(u_i, X)   = 0 (assumed)                    Prob > chi2       =     0.0000
+
+-------------------------------------------------------------------------------
+    abs_cagdp |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+--------------+----------------------------------------------------------------
+       regime |
+           1  |  -.5168603   .4178176    -1.24   0.216    -1.335768    .3020473
+           2  |   1.507427   .4019513     3.75   0.000      .719617    2.295237
+              |
+trade_openn~s |   .0326176   .0062996     5.18   0.000     .0202706    .0449646
+    gdpgrowth |   .0619569   .0286606     2.16   0.031     .0057832    .1181306
+      finance |  -.0749437   .1150511    -0.65   0.515    -.3004398    .1505523
+        _cons |    2.58208   .7051182     3.66   0.000     1.200073    3.964086
+--------------+----------------------------------------------------------------
+      sigma_u |   3.018596
+      sigma_e |  4.8172091
+          rho |  .28195074   (fraction of variance due to u_i)
+-------------------------------------------------------------------------------
+
+. xttest3
+last estimates not xtreg, fe
+r(301);
+
+end of do-file
+
+r(301);
+
+. summary
+command summary is unrecognized
+r(199);
+
+. sum
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+        year |      1,867    1991.979    9.483419       1974       2008
+     country |          0
+          id |      1,867    86.63042    48.77345          7        168
+       cagdp |      1,867   -2.669427    7.968407    -42.855     51.178
+  exportsgdp |      1,867    36.95117    19.55554      3.338     131.13
+-------------+---------------------------------------------------------
+  importsgdp |      1,867     40.6042    22.22588      2.982    138.629
+   gdpgrowth |      1,855    3.358556    4.115638    -24.049     27.493
+     finance |      1,867    .2735356    1.528279     -1.831        2.5
+         ind |      1,867    .3952866    .4890431          0          1
+      regime |      1,867    1.204071    .8401912          0          2
+-------------+---------------------------------------------------------
+    country2 |      1,867    30.02785    17.06432          1         59
+   abs_cagdp |      1,867    5.792935    6.086797          0     51.178
+trade_open~s |      1,867    77.55537    38.86914       6.32    251.139
+    _est_ols |      1,867    .9935726    .0799346          0          1
+     _est_fe |      1,867    .9935726    .0799346          0          1
+-------------+---------------------------------------------------------
+     _est_re |      1,867    .9935726    .0799346          0          1
+
+. desc
+
+Contains data
+  obs:         1,867                          
+ vars:            16                          
+ size:       151,227                          
+--------------------------------------------------------------------------------
+              storage   display    value
+variable name   type    format     label      variable label
+--------------------------------------------------------------------------------
+year            int     %10.0g                year
+country         str20   %20s                  country
+id              int     %10.0g                id
+cagdp           double  %10.0g                cagdp
+exportsgdp      double  %10.0g                exportsgdp
+importsgdp      double  %10.0g                importsgdp
+gdpgrowth       double  %10.0g                gdpgrowth
+finance         double  %10.0g                finance
+ind             byte    %10.0g                ind
+regime          byte    %10.0g                regime
+country2        long    %20.0g     country2   country
+abs_cagdp       float   %9.0g                 
+trade_openness  float   %9.0g                 
+_est_ols        byte    %8.0g                 esample() from estimates store
+_est_fe         byte    %8.0g                 esample() from estimates store
+_est_re         byte    %8.0g                 esample() from estimates store
+--------------------------------------------------------------------------------
+Sorted by: country2  year
+     Note: Dataset has changed since last saved.
+

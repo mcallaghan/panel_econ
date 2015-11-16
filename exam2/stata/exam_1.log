@@ -1,0 +1,416 @@
+--------------------------------------------------------------------------------
+      name:  <unnamed>
+       log:  C:\Users\m.callaghan\Documents\GitHub\panel_econ\exam2\stata\exam_1
+> .log
+  log type:  text
+ opened on:  16 Nov 2015, 18:13:51
+
+. 
+. import excel CA_FX_DATA2.xlsx, firstrow
+
+. 
+end of do-file
+
+. do "C:\Users\MEB08~1.CAL\AppData\Local\Temp\STD00000000.tmp"
+
+. cap gen abs_cagdp = abs(cagdp)
+
+. cap gen trade_openness = importsgdp + exportsgdp
+
+. 
+. local x i.regime trade_openness gdpgrowth finance
+
+. 
+. reg abs_cagdp `x'
+
+      Source |       SS           df       MS      Number of obs   =     1,855
+-------------+----------------------------------   F(5, 1849)      =     67.49
+       Model |  10635.8015         5  2127.16031   Prob > F        =    0.0000
+    Residual |  58273.8127     1,849  31.5163941   R-squared       =    0.1543
+-------------+----------------------------------   Adj R-squared   =    0.1521
+       Total |  68909.6142     1,854  37.1680767   Root MSE        =    5.6139
+
+-------------------------------------------------------------------------------
+    abs_cagdp |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+--------------+----------------------------------------------------------------
+       regime |
+           1  |  -.8264934   .3663013    -2.26   0.024    -1.544901   -.1080857
+           2  |   2.184135   .3467855     6.30   0.000     1.504002    2.864267
+              |
+trade_openn~s |   .0368501    .003678    10.02   0.000     .0296366    .0440636
+    gdpgrowth |   .0565204   .0322183     1.75   0.080    -.0066677    .1197085
+      finance |  -.3001459    .088871    -3.38   0.001     -.474444   -.1258479
+        _cons |   1.991663   .3464729     5.75   0.000     1.312144    2.671182
+-------------------------------------------------------------------------------
+
+. 
+end of do-file
+
+. do "C:\Users\MEB08~1.CAL\AppData\Local\Temp\STD00000000.tmp"
+
+. * Create new variables
+. cap gen abs_cagdp = abs(cagdp)
+
+. cap gen trade_openness = importsgdp + exportsgdp
+
+. 
+. local x i.regime trade_openness gdpgrowth finance
+
+. 
+. reg abs_cagdp `x'
+
+      Source |       SS           df       MS      Number of obs   =     1,855
+-------------+----------------------------------   F(5, 1849)      =     67.49
+       Model |  10635.8015         5  2127.16031   Prob > F        =    0.0000
+    Residual |  58273.8127     1,849  31.5163941   R-squared       =    0.1543
+-------------+----------------------------------   Adj R-squared   =    0.1521
+       Total |  68909.6142     1,854  37.1680767   Root MSE        =    5.6139
+
+-------------------------------------------------------------------------------
+    abs_cagdp |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+--------------+----------------------------------------------------------------
+       regime |
+           1  |  -.8264934   .3663013    -2.26   0.024    -1.544901   -.1080857
+           2  |   2.184135   .3467855     6.30   0.000     1.504002    2.864267
+              |
+trade_openn~s |   .0368501    .003678    10.02   0.000     .0296366    .0440636
+    gdpgrowth |   .0565204   .0322183     1.75   0.080    -.0066677    .1197085
+      finance |  -.3001459    .088871    -3.38   0.001     -.474444   -.1258479
+        _cons |   1.991663   .3464729     5.75   0.000     1.312144    2.671182
+-------------------------------------------------------------------------------
+
+. est store ols
+
+. 
+. xtreg abs_cagdp `x', fe
+must specify panelvar; use xtset
+r(459);
+
+end of do-file
+
+r(459);
+
+. do "C:\Users\MEB08~1.CAL\AppData\Local\Temp\STD00000000.tmp"
+
+. cap encode country, gen(country2)
+
+. xtset country2 year
+       panel variable:  country2 (unbalanced)
+        time variable:  year, 1974 to 2008, but with gaps
+                delta:  1 unit
+
+. 
+end of do-file
+
+. do "C:\Users\MEB08~1.CAL\AppData\Local\Temp\STD00000000.tmp"
+
+. cap encode country, gen(country2)
+
+. xtset country2 year
+       panel variable:  country2 (unbalanced)
+        time variable:  year, 1974 to 2008, but with gaps
+                delta:  1 unit
+
+. 
+end of do-file
+
+. do "C:\Users\MEB08~1.CAL\AppData\Local\Temp\STD00000000.tmp"
+
+. * Create new variables
+. cap gen abs_cagdp = abs(cagdp)
+
+. cap gen trade_openness = importsgdp + exportsgdp
+
+. 
+. local x i.regime trade_openness gdpgrowth finance
+
+. 
+. reg abs_cagdp `x'
+
+      Source |       SS           df       MS      Number of obs   =     1,855
+-------------+----------------------------------   F(5, 1849)      =     67.49
+       Model |  10635.8015         5  2127.16031   Prob > F        =    0.0000
+    Residual |  58273.8127     1,849  31.5163941   R-squared       =    0.1543
+-------------+----------------------------------   Adj R-squared   =    0.1521
+       Total |  68909.6142     1,854  37.1680767   Root MSE        =    5.6139
+
+-------------------------------------------------------------------------------
+    abs_cagdp |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+--------------+----------------------------------------------------------------
+       regime |
+           1  |  -.8264934   .3663013    -2.26   0.024    -1.544901   -.1080857
+           2  |   2.184135   .3467855     6.30   0.000     1.504002    2.864267
+              |
+trade_openn~s |   .0368501    .003678    10.02   0.000     .0296366    .0440636
+    gdpgrowth |   .0565204   .0322183     1.75   0.080    -.0066677    .1197085
+      finance |  -.3001459    .088871    -3.38   0.001     -.474444   -.1258479
+        _cons |   1.991663   .3464729     5.75   0.000     1.312144    2.671182
+-------------------------------------------------------------------------------
+
+. est store ols
+
+. 
+. xtreg abs_cagdp `x', fe
+
+Fixed-effects (within) regression               Number of obs     =      1,855
+Group variable: country2                        Number of groups  =         59
+
+R-sq:                                           Obs per group:
+     within  = 0.0239                                         min =         16
+     between = 0.3672                                         avg =       31.4
+     overall = 0.1457                                         max =         35
+
+                                                F(5,1791)         =       8.79
+corr(u_i, Xb)  = 0.2550                         Prob > F          =     0.0000
+
+-------------------------------------------------------------------------------
+    abs_cagdp |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+--------------+----------------------------------------------------------------
+       regime |
+           1  |  -.5296725   .4351832    -1.22   0.224    -1.383193    .3238477
+           2  |   1.269713   .4245082     2.99   0.003     .4371297    2.102297
+              |
+trade_openn~s |   .0259445   .0076182     3.41   0.001     .0110029     .040886
+    gdpgrowth |   .0631685   .0287727     2.20   0.028     .0067368    .1196001
+      finance |   .0147804   .1227442     0.12   0.904    -.2259565    .2555173
+        _cons |   3.090004   .6953081     4.44   0.000     1.726304    4.453705
+--------------+----------------------------------------------------------------
+      sigma_u |  3.2512334
+      sigma_e |  4.8172091
+          rho |  .31295926   (fraction of variance due to u_i)
+-------------------------------------------------------------------------------
+F test that all u_i=0: F(58, 1791) = 12.42                   Prob > F = 0.0000
+
+. est store fe
+
+. 
+. xtreg abs_cagdp `x', re
+
+Random-effects GLS regression                   Number of obs     =      1,855
+Group variable: country2                        Number of groups  =         59
+
+R-sq:                                           Obs per group:
+     within  = 0.0236                                         min =         16
+     between = 0.3751                                         avg =       31.4
+     overall = 0.1497                                         max =         35
+
+                                                Wald chi2(5)      =      72.61
+corr(u_i, X)   = 0 (assumed)                    Prob > chi2       =     0.0000
+
+-------------------------------------------------------------------------------
+    abs_cagdp |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+--------------+----------------------------------------------------------------
+       regime |
+           1  |  -.5168603   .4178176    -1.24   0.216    -1.335768    .3020473
+           2  |   1.507427   .4019513     3.75   0.000      .719617    2.295237
+              |
+trade_openn~s |   .0326176   .0062996     5.18   0.000     .0202706    .0449646
+    gdpgrowth |   .0619569   .0286606     2.16   0.031     .0057832    .1181306
+      finance |  -.0749437   .1150511    -0.65   0.515    -.3004398    .1505523
+        _cons |    2.58208   .7051182     3.66   0.000     1.200073    3.964086
+--------------+----------------------------------------------------------------
+      sigma_u |   3.018596
+      sigma_e |  4.8172091
+          rho |  .28195074   (fraction of variance due to u_i)
+-------------------------------------------------------------------------------
+
+. est store re
+
+. 
+. esttab ols fe re
+
+------------------------------------------------------------
+                      (1)             (2)             (3)   
+                abs_cagdp       abs_cagdp       abs_cagdp   
+------------------------------------------------------------
+0.regime                0               0               0   
+                      (.)             (.)             (.)   
+
+1.regime           -0.826*         -0.530          -0.517   
+                  (-2.26)         (-1.22)         (-1.24)   
+
+2.regime            2.184***        1.270**         1.507***
+                   (6.30)          (2.99)          (3.75)   
+
+trade_open~s       0.0369***       0.0259***       0.0326***
+                  (10.02)          (3.41)          (5.18)   
+
+gdpgrowth          0.0565          0.0632*         0.0620*  
+                   (1.75)          (2.20)          (2.16)   
+
+finance            -0.300***       0.0148         -0.0749   
+                  (-3.38)          (0.12)         (-0.65)   
+
+_cons               1.992***        3.090***        2.582***
+                   (5.75)          (4.44)          (3.66)   
+------------------------------------------------------------
+N                    1855            1855            1855   
+------------------------------------------------------------
+t statistics in parentheses
+* p<0.05, ** p<0.01, *** p<0.001
+
+. 
+end of do-file
+
+. do "C:\Users\MEB08~1.CAL\AppData\Local\Temp\STD00000000.tmp"
+
+. esttab ols fe re, mtitle
+
+------------------------------------------------------------
+                      (1)             (2)             (3)   
+                      ols              fe              re   
+------------------------------------------------------------
+0.regime                0               0               0   
+                      (.)             (.)             (.)   
+
+1.regime           -0.826*         -0.530          -0.517   
+                  (-2.26)         (-1.22)         (-1.24)   
+
+2.regime            2.184***        1.270**         1.507***
+                   (6.30)          (2.99)          (3.75)   
+
+trade_open~s       0.0369***       0.0259***       0.0326***
+                  (10.02)          (3.41)          (5.18)   
+
+gdpgrowth          0.0565          0.0632*         0.0620*  
+                   (1.75)          (2.20)          (2.16)   
+
+finance            -0.300***       0.0148         -0.0749   
+                  (-3.38)          (0.12)         (-0.65)   
+
+_cons               1.992***        3.090***        2.582***
+                   (5.75)          (4.44)          (3.66)   
+------------------------------------------------------------
+N                    1855            1855            1855   
+------------------------------------------------------------
+t statistics in parentheses
+* p<0.05, ** p<0.01, *** p<0.001
+
+. 
+end of do-file
+
+. do "C:\Users\MEB08~1.CAL\AppData\Local\Temp\STD00000000.tmp"
+
+. reg abs_cagdp `x'
+
+      Source |       SS           df       MS      Number of obs   =     1,867
+-------------+----------------------------------   F(0, 1866)      =      0.00
+       Model |           0         0           .   Prob > F        =         .
+    Residual |  69133.6105     1,866  37.0490946   R-squared       =    0.0000
+-------------+----------------------------------   Adj R-squared   =    0.0000
+       Total |  69133.6105     1,866  37.0490946   Root MSE        =    6.0868
+
+------------------------------------------------------------------------------
+   abs_cagdp |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+       _cons |   5.792935   .1408694    41.12   0.000     5.516657    6.069213
+------------------------------------------------------------------------------
+
+. estat hettest
+
+Breusch-Pagan / Cook-Weisberg test for heteroskedasticity 
+         Ho: Constant variance
+         Variables: fitted values of abs_cagdp
+
+         chi2(0)      =     0.00
+         Prob > chi2  =        .
+
+. 
+end of do-file
+
+. do "C:\Users\MEB08~1.CAL\AppData\Local\Temp\STD00000000.tmp"
+
+. xtreg abs_cagdp `x', fe
+
+Fixed-effects (within) regression               Number of obs     =      1,867
+Group variable: country2                        Number of groups  =         59
+
+R-sq:                                           Obs per group:
+     within  =      .                                         min =         23
+     between = 0.1444                                         avg =       31.6
+     overall =      .                                         max =         35
+
+                                                F(0,1808)         =       0.00
+corr(u_i, Xb)  =      .                         Prob > F          =          .
+
+------------------------------------------------------------------------------
+   abs_cagdp |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+       _cons |   5.792935   .1125687    51.46   0.000     5.572156    6.013713
+-------------+----------------------------------------------------------------
+     sigma_u |  3.8852447
+     sigma_e |  4.8639586
+         rho |  .38951928   (fraction of variance due to u_i)
+------------------------------------------------------------------------------
+F test that all u_i=0: F(58, 1808) = 19.21                   Prob > F = 0.0000
+
+. estat hettest
+subcommand estat hettest is unrecognized
+r(321);
+
+end of do-file
+
+r(321);
+
+. do "C:\Users\MEB08~1.CAL\AppData\Local\Temp\STD00000000.tmp"
+
+. hausman fe re
+
+                 ---- Coefficients ----
+             |      (b)          (B)            (b-B)     sqrt(diag(V_b-V_B))
+             |       fe           re         Difference          S.E.
+-------------+----------------------------------------------------------------
+      regime |
+          1  |   -.5296725    -.5168603       -.0128122         .121708
+          2  |    1.269713     1.507427       -.2377139        .1365371
+trade_open~s |    .0259445     .0326176       -.0066731         .004284
+   gdpgrowth |    .0631685     .0619569        .0012116        .0025382
+     finance |    .0147804    -.0749437        .0897242        .0427713
+------------------------------------------------------------------------------
+                           b = consistent under Ho and Ha; obtained from xtreg
+            B = inconsistent under Ha, efficient under Ho; obtained from xtreg
+
+    Test:  Ho:  difference in coefficients not systematic
+
+                  chi2(5) = (b-B)'[(V_b-V_B)^(-1)](b-B)
+                          =        6.95
+                Prob>chi2 =      0.2246
+
+. 
+end of do-file
+
+. do "C:\Users\MEB08~1.CAL\AppData\Local\Temp\STD00000000.tmp"
+
+. hausman fe ols
+
+                 ---- Coefficients ----
+             |      (b)          (B)            (b-B)     sqrt(diag(V_b-V_B))
+             |       fe          ols         Difference          S.E.
+-------------+----------------------------------------------------------------
+      regime |
+          1  |   -.5296725    -.8264934        .2968209        .2349633
+          2  |    1.269713     2.184135       -.9144214        .2448408
+trade_open~s |    .0259445     .0368501       -.0109056        .0066715
+   gdpgrowth |    .0631685     .0565204         .006648               .
+     finance |    .0147804    -.3001459        .3149264        .0846645
+------------------------------------------------------------------------------
+                           b = consistent under Ho and Ha; obtained from xtreg
+          B = inconsistent under Ha, efficient under Ho; obtained from regress
+
+    Test:  Ho:  difference in coefficients not systematic
+
+                  chi2(5) = (b-B)'[(V_b-V_B)^(-1)](b-B)
+                          =       39.60
+                Prob>chi2 =      0.0000
+                (V_b-V_B is not positive definite)
+
+. 
+end of do-file
+
+. do "C:\Users\MEB08~1.CAL\AppData\Local\Temp\STD00000000.tmp"
+
+. clear all /* Deleting all data in memory */
+
+. set more off
+
+. capture log close  /* closes the log file if it is open */
