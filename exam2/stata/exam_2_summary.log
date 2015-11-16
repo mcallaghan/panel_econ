@@ -2,7 +2,7 @@
       name:  <unnamed>
        log:  C:\Users\m.callaghan\Documents\GitHub\panel_econ\exam2\stata\exam_2_summary.log
   log type:  text
- opened on:  16 Nov 2015, 19:56:21
+ opened on:  16 Nov 2015, 20:48:48
 
 . *@*lstart
 . esttab ols fe re pcse pcse_inter, drop(_*) mtitle

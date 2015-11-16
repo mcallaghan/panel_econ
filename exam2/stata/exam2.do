@@ -23,19 +23,22 @@ cap gen abs_cagdp = abs(cagdp)
 cap gen trade_openness = importsgdp + exportsgdp
 
 
-log using exam_2_q3_1_a.log, replace text
+log using exam_2_q3_1_a_1.log, replace text
 *@*lstart
 local x regime trade_openness gdpgrowth finance
 
 reg abs_cagdp `x'
 estat hettest
 est store ols
+*@*lend
+cap log close
 
-xtreg abs_cagdp `x', fe
-
+log using exam_2_q3_1_a_2.log, replace text
+*@*lstart
+quietly xtreg abs_cagdp `x', fe
 est store fe
 
-xtreg abs_cagdp `x', re
+quietly xtreg abs_cagdp `x', re
 est store re
 
 hausman fe re
