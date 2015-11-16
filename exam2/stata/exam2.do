@@ -76,7 +76,7 @@ cap log close
 
 * interaction
 
-log using exam_2_q3_1_a.log, replace text
+log using exam_2_q3_2_a.log, replace text
 *@*lstart
 cap gen reg_x_id = regime*id
 local x_inter regime trade_openness gdpgrowth finance id reg_x_id
@@ -87,13 +87,13 @@ esttab pcse_inter, drop(_*)
 *@*lend
 cap log close
 
-log using exam_2_q3_1_b.log, replace text
+log using exam_2_q3_2_b.log, replace text
 *@*lstart
 test id 
 *@*lend
 cap log close
 
-log using exam_2_q3_1_c.log, replace text
+log using exam_2_q3_2_c.log, replace text
 *@*lstart
 test regime
 *@*lend
