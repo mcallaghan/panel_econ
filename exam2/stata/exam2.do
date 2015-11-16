@@ -35,9 +35,13 @@ cap log close
 
 log using exam_2_q3_1_a_2.log, replace text
 *@*lstart
-quietly xtreg abs_cagdp `x', fe
+xtreg abs_cagdp `x', fe
 est store fe
+*@*lend
+cap log close
 
+log using exam_2_q3_1_a_3.log, replace text
+*@*lstart
 quietly xtreg abs_cagdp `x', re
 est store re
 
