@@ -87,9 +87,15 @@ esttab pcse_inter, drop(_*)
 *@*lend
 cap log close
 
-log using exam_2_q3_1_a.log, replace text
+log using exam_2_q3_1_b.log, replace text
 *@*lstart
-test id =0
+test id 
+*@*lend
+cap log close
+
+log using exam_2_q3_1_c.log, replace text
+*@*lstart
+test regime
 *@*lend
 cap log close
 
