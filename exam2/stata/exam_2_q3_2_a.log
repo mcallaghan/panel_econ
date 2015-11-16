@@ -1,0 +1,48 @@
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+      name:  <unnamed>
+       log:  C:\Users\m.callaghan\Documents\GitHub\panel_econ\exam2\stata\exam_2_q3_2_a.log
+  log type:  text
+ opened on:  16 Nov 2015, 19:54:09
+
+. *@*lstart
+. cap gen reg_x_id = regime*id
+
+. local x_inter regime trade_openness gdpgrowth finance id reg_x_id
+
+. xi: quietly xtpcse abs_cagdp `x_inter' i.country2, corr(ar1)
+i.country2        _Icountry2_1-59     (naturally coded; _Icountry2_1 omitted)
+
+. est store pcse_inter
+
+. 
+. esttab pcse_inter, drop(_*)
+
+----------------------------
+                      (1)   
+                abs_cagdp   
+----------------------------
+regime              0.630   
+                   (1.42)   
+
+trade_open~s       0.0472***
+                   (3.82)   
+
+gdpgrowth          0.0765***
+                   (3.42)   
+
+finance           -0.0270   
+                  (-0.17)   
+
+id               -0.00614   
+                  (-1.71)   
+
+reg_x_id         -0.00303   
+                  (-0.67)   
+----------------------------
+N                    1855   
+----------------------------
+t statistics in parentheses
+* p<0.05, ** p<0.01, *** p<0.001
+
+. *@*lend
+. cap log close

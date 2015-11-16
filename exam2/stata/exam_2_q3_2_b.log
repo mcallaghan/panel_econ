@@ -1,0 +1,16 @@
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+      name:  <unnamed>
+       log:  C:\Users\m.callaghan\Documents\GitHub\panel_econ\exam2\stata\exam_2_q3_2_b.log
+  log type:  text
+ opened on:  16 Nov 2015, 19:54:11
+
+. *@*lstart
+. test id 
+
+ ( 1)  id = 0
+
+           chi2(  1) =    2.93
+         Prob > chi2 =    0.0871
+
+. *@*lend
+. cap log close
