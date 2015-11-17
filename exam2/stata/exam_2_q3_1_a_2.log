@@ -2,7 +2,7 @@
       name:  <unnamed>
        log:  C:\Users\m.callaghan\Documents\GitHub\panel_econ\exam2\stata\exam_2_q3_1_a_2.log
   log type:  text
- opened on:  17 Nov 2015, 17:25:02
+ opened on:  17 Nov 2015, 17:32:50
 
 . *@*lstart
 . xtreg abs_cagdp `x', fe

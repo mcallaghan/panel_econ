@@ -1,0 +1,30 @@
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+      name:  <unnamed>
+       log:  C:\Users\m.callaghan\Documents\GitHub\panel_econ\exam2\stata\exam_2_q3_1_d_3.log
+  log type:  text
+ opened on:  17 Nov 2015, 17:33:03
+
+. *@*lstart
+. hausman pcse_RE pcse_FE
+
+                 ---- Coefficients ----
+             |      (b)          (B)            (b-B)     sqrt(diag(V_b-V_B))
+             |    pcse_RE      pcse_FE       Difference          S.E.
+-------------+----------------------------------------------------------------
+      regime |    .4642339      .321978        .1422559               .
+trade_open~s |    .0521397     .0473998          .00474               .
+   gdpgrowth |    .0765439     .0763115        .0002324               .
+     finance |   -.2880132    -.0296291       -.2583841               .
+------------------------------------------------------------------------------
+                          b = consistent under Ho and Ha; obtained from xtpcse
+           B = inconsistent under Ha, efficient under Ho; obtained from xtpcse
+
+    Test:  Ho:  difference in coefficients not systematic
+
+                  chi2(4) = (b-B)'[(V_b-V_B)^(-1)](b-B)
+                          =       28.26
+                Prob>chi2 =      0.0000
+                (V_b-V_B is not positive definite)
+
+. *@*lend
+. cap log close

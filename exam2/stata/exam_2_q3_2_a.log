@@ -2,7 +2,7 @@
       name:  <unnamed>
        log:  C:\Users\m.callaghan\Documents\GitHub\panel_econ\exam2\stata\exam_2_q3_2_a.log
   log type:  text
- opened on:  17 Nov 2015, 17:25:16
+ opened on:  17 Nov 2015, 17:33:03
 
 . *@*lstart
 . cap gen reg_x_id = regime*id
@@ -12,36 +12,17 @@
 . xi: quietly xtpcse abs_cagdp `x_inter' i.country2, corr(ar1)
 i.country2        _Icountry2_1-59     (naturally coded; _Icountry2_1 omitted)
 
-. est store pcse_inter
+. est store pcse_fe_inter
 
-. esttab fe re pcse_inter, drop(_*) mtitle
+. quietly xtpcse abs_cagdp `x_inter', corr(ar1)
 
-------------------------------------------------------------
-                      (1)             (2)             (3)   
-                       fe              re      pcse_inter   
-------------------------------------------------------------
-regime              0.719***        0.837***        0.630   
-                   (3.41)          (4.17)          (1.42)   
+. est store pcse_re_inter
 
-trade_open~s       0.0293***       0.0355***       0.0472***
-                   (3.87)          (5.63)          (3.82)   
+. esttab pcse_fe pcse_re pcse_fe_inter pcse_re_inter, drop(_*) mtitle
+estimation result pcse_fe not found
+r(111);
 
-gdpgrowth          0.0619*         0.0611*         0.0765***
-                   (2.14)          (2.13)          (3.42)   
+end of do-file
 
-finance            0.0811        -0.00796         -0.0270   
-                   (0.67)         (-0.07)         (-0.17)   
+r(111);
 
-id                                               -0.00614   
-                                                  (-1.71)   
-
-reg_x_id                                         -0.00303   
-                                                  (-0.67)   
-------------------------------------------------------------
-N                    1855            1855            1855   
-------------------------------------------------------------
-t statistics in parentheses
-* p<0.05, ** p<0.01, *** p<0.001
-
-. *@*lend
-. cap log close
