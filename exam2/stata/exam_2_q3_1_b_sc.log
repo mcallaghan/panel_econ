@@ -1,8 +1,9 @@
-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
       name:  <unnamed>
-       log:  C:\Users\m.callaghan\Documents\GitHub\panel_econ\exam2\stata\exam_2_q3_1_b_sc.log
+       log:  C:\Users\m.callaghan\Documents\GitHub\panel_econ\exam2\stata\exam_2
+> _q3_1_b_sc.log
   log type:  text
- opened on:  16 Nov 2015, 21:12:22
+ opened on:  17 Nov 2015, 16:24:46
 
 . *@*lstart
 . xtserial abs_cagdp `x', output 
@@ -13,30 +14,28 @@ Linear regression                               Number of obs     =      1,790
                                                 R-squared         =     0.0204
                                                 Root MSE          =     4.0983
 
-                                (Std. Err. adjusted for 59 clusters in country2)
---------------------------------------------------------------------------------
-               |               Robust
-   D.abs_cagdp |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
----------------+----------------------------------------------------------------
-        regime |
-           D1. |   .0049165   .2395933     0.02   0.984    -.4746815    .4845145
-               |
-trade_openness |
-           D1. |   .0681842   .0218231     3.12   0.003     .0245004     .111868
-               |
-     gdpgrowth |
-           D1. |   .0718731   .0377009     1.91   0.062    -.0035934    .1473397
-               |
-       finance |
-           D1. |  -.1370897    .218783    -0.63   0.533    -.5750314     .300852
---------------------------------------------------------------------------------
+                               (Std. Err. adjusted for 59 clusters in country2)
+-------------------------------------------------------------------------------
+              |               Robust
+  D.abs_cagdp |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+--------------+----------------------------------------------------------------
+       regime |
+          D1. |   .0049165   .2395933     0.02   0.984    -.4746815    .4845145
+              |
+trade_openn~s |
+          D1. |   .0681842   .0218231     3.12   0.003     .0245004     .111868
+              |
+    gdpgrowth |
+          D1. |   .0718731   .0377009     1.91   0.062    -.0035934    .1473397
+              |
+      finance |
+          D1. |  -.1370897    .218783    -0.63   0.533    -.5750314     .300852
+-------------------------------------------------------------------------------
 
 Wooldridge test for autocorrelation in panel data
-H0: no first-order autocorrelation
+H0: no first order autocorrelation
     F(  1,      58) =     77.240
            Prob > F =      0.0000
 
-. 
-. *xttest3
 . *@*lend
 . cap log close

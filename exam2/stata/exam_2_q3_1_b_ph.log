@@ -1,0 +1,23 @@
+--------------------------------------------------------------------------------
+      name:  <unnamed>
+       log:  C:\Users\m.callaghan\Documents\GitHub\panel_econ\exam2\stata\exam_2
+> _q3_1_b_ph.log
+  log type:  text
+ opened on:  17 Nov 2015, 16:24:34
+
+. *@*lstart
+. quietly xtreg abs_cagdp `x', fe
+
+. xttest3
+
+Modified Wald test for groupwise heteroskedasticity
+in fixed effect regression model
+
+H0: sigma(i)^2 = sigma^2 for all i
+
+chi2 (59)  =   53631.68
+Prob>chi2 =      0.0000
+
+
+. *@*lend
+. cap log close
