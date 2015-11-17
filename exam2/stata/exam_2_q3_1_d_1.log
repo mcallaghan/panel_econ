@@ -1,0 +1,14 @@
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+      name:  <unnamed>
+       log:  C:\Users\m.callaghan\Documents\GitHub\panel_econ\exam2\stata\exam_2_q3_1_d_1.log
+  log type:  text
+ opened on:  17 Nov 2015, 17:25:14
+
+. *@*lstart
+. xi: quietly xtpcse abs_cagdp `x' i.country2, corr(ar1)
+i.country2        _Icountry2_1-59     (naturally coded; _Icountry2_1 omitted)
+
+. est store pcse_FE
+
+. *@*lend
+. cap log close

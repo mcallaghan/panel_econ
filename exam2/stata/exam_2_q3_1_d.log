@@ -1,9 +1,8 @@
---------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
       name:  <unnamed>
-       log:  C:\Users\m.callaghan\Documents\GitHub\panel_econ\exam2\stata\exam_2
-> _q3_1_d.log
+       log:  C:\Users\m.callaghan\Documents\GitHub\panel_econ\exam2\stata\exam_2_q3_1_d.log
   log type:  text
- opened on:  17 Nov 2015, 16:24:46
+ opened on:  17 Nov 2015, 16:27:10
 
 . *@*lstart
 . xi: quietly xtpcse abs_cagdp `x' i.country2, corr(ar1)

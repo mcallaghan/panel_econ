@@ -1,9 +1,8 @@
---------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
       name:  <unnamed>
-       log:  C:\Users\m.callaghan\Documents\GitHub\panel_econ\exam2\stata\exam_2
-> _q3_2_a.log
+       log:  C:\Users\m.callaghan\Documents\GitHub\panel_econ\exam2\stata\exam_2_q3_2_a.log
   log type:  text
- opened on:  17 Nov 2015, 16:24:47
+ opened on:  17 Nov 2015, 17:25:16
 
 . *@*lstart
 . cap gen reg_x_id = regime*id
