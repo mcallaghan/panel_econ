@@ -2,15 +2,47 @@
       name:  <unnamed>
        log:  C:\Users\m.callaghan\Documents\GitHub\panel_econ\exam2\stata\exam_2_q3_2_c.log
   log type:  text
- opened on:  17 Nov 2015, 17:50:09
+ opened on:  17 Nov 2015, 18:37:36
 
 . *@*lstart
+. xi: quietly xtpcse abs_cagdp `x' i.country2 if ind==1, corr(ar1)
+i.country2        _Icountry2_1-59     (naturally coded; _Icountry2_1 omitted)
+
+. est store pcse_FE_ind
+
+. quietly xtpcse abs_cagdp `x' if ind==1, corr(ar1)
+
+. est store pcse_RE_ind
+
+. esttab pcse_FE_ind pcse_RE_ind, drop(_*) mtitle
+
+--------------------------------------------
+                      (1)             (2)   
+              pcse_FE_ind     pcse_RE_ind   
+--------------------------------------------
+regime             0.0463         -0.0226   
+                   (0.18)         (-0.09)   
+
+trade_open~s       0.0513**        0.0274** 
+                   (3.21)          (2.65)   
+
+gdpgrowth           0.113**         0.131***
+                   (3.01)          (3.58)   
+
+finance             0.264          0.0764   
+                   (1.25)          (0.36)   
+--------------------------------------------
+N                     738             738   
+--------------------------------------------
+t statistics in parentheses
+* p<0.05, ** p<0.01, *** p<0.001
+
 . test regime
 
  ( 1)  regime = 0
 
-           chi2(  1) =    0.58
-         Prob > chi2 =    0.4461
+           chi2(  1) =    0.01
+         Prob > chi2 =    0.9270
 
 . *@*lend
 . cap log close

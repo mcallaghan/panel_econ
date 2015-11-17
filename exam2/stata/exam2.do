@@ -74,12 +74,27 @@ xtserial abs_cagdp `x', output
 *@*lend
 cap log close
 
-* S3 Q1 (d) (i) - Panel Corrected Standard Errors
-log using exam_2_q3_1_d.log, replace text
+* S3 Q1 (d) (i) - Panel Corrected Standard Errors (FE)
+log using exam_2_q3_1_d_1.log, replace text
 *@*lstart
 xi: quietly xtpcse abs_cagdp `x' i.country2, corr(ar1)
-est store pcse
-esttab fe re pcse, drop(_*) mtitle
+est store pcse_FE
+*@*lend
+cap log close
+
+* S3 Q1 (d) (i) - Panel Corrected Standard Errors (RE)
+log using exam_2_q3_1_d_2.log, replace text
+*@*lstart
+quietly xtpcse abs_cagdp `x', corr(ar1)
+est store pcse_RE
+esttab fe re pcse_FE pcse_RE, drop(_*) mtitle
+*@*lend
+cap log close
+
+* S3 Q1 (d) (i) - Hausman pcse
+log using exam_2_q3_1_d_3.log, replace text
+*@*lstart
+hausman pcse_RE pcse_FE
 *@*lend
 cap log close
 
@@ -87,24 +102,31 @@ cap log close
 * S3 Q2 (a) (i) - Interaction Term
 log using exam_2_q3_2_a.log, replace text
 *@*lstart
-cap gen reg_x_id = regime*id
-local x_inter regime trade_openness gdpgrowth finance id reg_x_id
+cap gen reg_x_ind = regime*ind
+local x_inter regime trade_openness gdpgrowth finance ind reg_x_ind
 xi: quietly xtpcse abs_cagdp `x_inter' i.country2, corr(ar1)
-est store pcse_inter
-esttab fe re pcse_inter, drop(_*) mtitle
+est store pcse_FE_inter
+quietly xtpcse abs_cagdp `x_inter', corr(ar1)
+est store pcse_RE_inter
+esttab pcse_FE pcse_RE pcse_FE_inter pcse_RE_inter, drop(_*) mtitle
 *@*lend
 cap log close
 
 * S3 Q2 (b) (i) - Test countrytype
 log using exam_2_q3_2_b.log, replace text
 *@*lstart
-test id 
+test ind 
 *@*lend
 cap log close
 
 * S3 Q2 (c) (i) - Test regime
 log using exam_2_q3_2_c.log, replace text
 *@*lstart
+xi: quietly xtpcse abs_cagdp `x' i.country2 if ind==1, corr(ar1)
+est store pcse_FE_ind
+quietly xtpcse abs_cagdp `x' if ind==1, corr(ar1)
+est store pcse_RE_ind
+esttab pcse_FE_ind pcse_RE_ind, drop(_*) mtitle
 test regime
 *@*lend
 cap log close
@@ -112,7 +134,7 @@ cap log close
 * S3 Q2 (d) (i) - Test interaction
 log using exam_2_summary.log, replace text
 *@*lstart
-esttab ols fe re pcse pcse_inter, drop(_*) mtitle
+esttab ols fe re pcse_FE pcse_RE pcse_FE_inter pcse_RE_inter, drop(_*) mtitle 
 *@*lend
 cap log close
 
