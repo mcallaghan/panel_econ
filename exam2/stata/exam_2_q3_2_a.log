@@ -2,7 +2,7 @@
       name:  <unnamed>
        log:  C:\Users\m.callaghan\Documents\GitHub\panel_econ\exam2\stata\exam_2_q3_2_a.log
   log type:  text
- opened on:  17 Nov 2015, 17:33:03
+ opened on:  17 Nov 2015, 17:50:07
 
 . *@*lstart
 . cap gen reg_x_id = regime*id
@@ -12,17 +12,40 @@
 . xi: quietly xtpcse abs_cagdp `x_inter' i.country2, corr(ar1)
 i.country2        _Icountry2_1-59     (naturally coded; _Icountry2_1 omitted)
 
-. est store pcse_fe_inter
+. est store pcse_FE_inter
 
 . quietly xtpcse abs_cagdp `x_inter', corr(ar1)
 
-. est store pcse_re_inter
+. est store pcse_RE_inter
 
-. esttab pcse_fe pcse_re pcse_fe_inter pcse_re_inter, drop(_*) mtitle
-estimation result pcse_fe not found
-r(111);
+. esttab pcse_FE pcse_RE pcse_FE_inter pcse_RE_inter, drop(_*) mtitle
 
-end of do-file
+----------------------------------------------------------------------------
+                      (1)             (2)             (3)             (4)   
+                  pcse_FE         pcse_RE    pcse_FE_in~r    pcse_RE_in~r   
+----------------------------------------------------------------------------
+regime              0.322           0.464*          0.630           0.268   
+                   (1.63)          (2.53)          (1.42)          (0.76)   
 
-r(111);
+trade_open~s       0.0474***       0.0521***       0.0472***       0.0527***
+                   (3.81)          (6.84)          (3.82)          (7.33)   
 
+gdpgrowth          0.0763***       0.0765***       0.0765***       0.0763***
+                   (3.42)          (3.62)          (3.42)          (3.60)   
+
+finance           -0.0296          -0.288         -0.0270          -0.300*  
+                  (-0.18)         (-1.88)         (-0.17)         (-2.02)   
+
+id                                               -0.00614          0.0112** 
+                                                  (-1.71)          (2.67)   
+
+reg_x_id                                         -0.00303         0.00288   
+                                                  (-0.67)          (0.79)   
+----------------------------------------------------------------------------
+N                    1855            1855            1855            1855   
+----------------------------------------------------------------------------
+t statistics in parentheses
+* p<0.05, ** p<0.01, *** p<0.001
+
+. *@*lend
+. cap log close

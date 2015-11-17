@@ -2,15 +2,15 @@
       name:  <unnamed>
        log:  C:\Users\m.callaghan\Documents\GitHub\panel_econ\exam2\stata\exam_2_q3_2_b.log
   log type:  text
- opened on:  17 Nov 2015, 17:31:25
+ opened on:  17 Nov 2015, 17:50:09
 
 . *@*lstart
 . test id 
 
  ( 1)  id = 0
 
-           chi2(  1) =    2.93
-         Prob > chi2 =    0.0871
+           chi2(  1) =    7.11
+         Prob > chi2 =    0.0076
 
 . *@*lend
 . cap log close
