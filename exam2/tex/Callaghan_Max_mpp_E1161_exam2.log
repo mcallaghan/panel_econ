@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.6.10)  17 NOV 2015 15:21
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.6.10)  17 NOV 2015 19:08
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -332,6 +332,9 @@ Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1358.
 Package xcolor Info: Model `Gray' substituted by `gray' on input line 1359.
 Package xcolor Info: Model `wave' substituted by `hsb' on input line 1360.
 )
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/lscape.sty
+Package: lscape 2000/10/22 v3.01 Landscape Pages (DPC)
+)
 (/usr/share/texlive/texmf-dist/tex/latex/caption/caption.sty
 Package: caption 2013/05/02 v3.3-89 Customizing captions (AR)
 
@@ -387,30 +390,27 @@ Style option: `fancyvrb' v2.7a, with DG/SPQR fixes, and firstline=lastline fix
 Package: eurosym 1998/08/06 v1.1 European currency symbol ``Euro''
 \@eurobox=\box32
 )
-LaTeX Info: Redefining \officialeuro on input line 28.
+LaTeX Info: Redefining \officialeuro on input line 29.
 
-(./Callaghan_Max_mpp_E1161_exam2.aux
-
-LaTeX Warning: Label `q1_3' multiply defined.
-
-)
+(./Callaghan_Max_mpp_E1161_exam2.aux)
 \openout1 = `Callaghan_Max_mpp_E1161_exam2.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 55.
-LaTeX Font Info:    ... okay on input line 55.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 55.
-LaTeX Font Info:    ... okay on input line 55.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 55.
-LaTeX Font Info:    ... okay on input line 55.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 55.
-LaTeX Font Info:    ... okay on input line 55.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 55.
-LaTeX Font Info:    ... okay on input line 55.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 55.
-LaTeX Font Info:    ... okay on input line 55.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 55.
-LaTeX Font Info:    ... okay on input line 55.
- (/usr/share/texlive/texmf-dist/tex/context/base/supp-pdf.mkii
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 57.
+LaTeX Font Info:    ... okay on input line 57.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 57.
+LaTeX Font Info:    ... okay on input line 57.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 57.
+LaTeX Font Info:    ... okay on input line 57.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 57.
+LaTeX Font Info:    ... okay on input line 57.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 57.
+LaTeX Font Info:    ... okay on input line 57.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 57.
+LaTeX Font Info:    ... okay on input line 57.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 57.
+LaTeX Font Info:    ... okay on input line 57.
+
+(/usr/share/texlive/texmf-dist/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count130
 \scratchdimen=\dimen147
@@ -439,7 +439,7 @@ File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
 \AtBeginShipoutBox=\box34
-Package hyperref Info: Link coloring OFF on input line 55.
+Package hyperref Info: Link coloring OFF on input line 57.
 
 (/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2012/10/27 v2.43 Cross-referencing by name of section
@@ -449,9 +449,9 @@ Package: gettitlestring 2010/12/03 v1.4 Cleanup title references (HO)
 )
 \c@section@level=\count136
 )
-LaTeX Info: Redefining \ref on input line 55.
-LaTeX Info: Redefining \pageref on input line 55.
-LaTeX Info: Redefining \nameref on input line 55.
+LaTeX Info: Redefining \ref on input line 57.
+LaTeX Info: Redefining \pageref on input line 57.
+LaTeX Info: Redefining \nameref on input line 57.
 
 (./Callaghan_Max_mpp_E1161_exam2.out) (./Callaghan_Max_mpp_E1161_exam2.out)
 \@outlinefile=\write4
@@ -495,129 +495,132 @@ Package caption Info: End \AtBeginDocument code.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-[1
+(./Callaghan_Max_mpp_E1161_exam2.toc)
+\tf@toc=\write5
+\openout5 = `Callaghan_Max_mpp_E1161_exam2.toc'.
+
+ [1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
-Underfull \hbox (badness 10000) in paragraph at lines 128--129
+Underfull \hbox (badness 10000) in paragraph at lines 132--133
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 130--132
+Underfull \hbox (badness 10000) in paragraph at lines 134--136
 
  []
 
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 132.
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 136.
 
 (/usr/share/texlive/texmf-dist/tex/latex/base/omscmr.fd
 File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 132.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 136.
 
-Underfull \hbox (badness 10000) in paragraph at lines 140--141
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 142--144
+Underfull \hbox (badness 10000) in paragraph at lines 144--145
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 152--153
+Underfull \hbox (badness 10000) in paragraph at lines 146--148
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 154--156
+Underfull \hbox (badness 10000) in paragraph at lines 156--157
 
  []
 
 [2]
-Underfull \hbox (badness 10000) in paragraph at lines 177--178
+Underfull \hbox (badness 10000) in paragraph at lines 158--160
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 200--201
+Underfull \hbox (badness 10000) in paragraph at lines 181--182
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 204--205
 
  []
 
 [3]
-Underfull \hbox (badness 10000) in paragraph at lines 223--224
+Underfull \hbox (badness 10000) in paragraph at lines 227--228
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 231--232
+Underfull \hbox (badness 10000) in paragraph at lines 235--236
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 241--242
+Underfull \hbox (badness 10000) in paragraph at lines 245--246
 
  []
 
 Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on i
-nput line 264.
-(../stata/exam_2_q3_1_a_1.log) (../stata/exam_2_q3_1_a_2.log)
+nput line 268.
+(../stata/exam_2_q3_1_a_1.log)
 
-LaTeX Warning: Reference `q1_2' on page 4 undefined on input line 273.
+LaTeX Warning: `h' float specifier changed to `ht'.
 
-(../stata/exam_2_q3_1_a_3.log)
-Underfull \hbox (badness 10000) in paragraph at lines 286--288
+(../stata/exam_2_q3_1_a_2.log)
 
- []
+LaTeX Warning: `h' float specifier changed to `ht'.
 
-[4] [5] [6] (../stata/exam_2_q3_1_b_cd.log) (../stata/exam_2_q3_1_b_sc.log)
-(../stata/exam_2_q3_1_d.log)
-! Double subscript.
-l.333 ...lised or not) and an interaction \(reg_x_
-                                                  id\) of id and regime.
-I treat `x_1_2' essentially like `x_1{}_2'.
+[4] (../stata/exam_2_q3_1_a_3.log)
 
-(../stata/exam_2_q3_2_a.log)
-Underfull \hbox (badness 10000) in paragraph at lines 342--343
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 295--297
 
  []
 
+(../stata/exam_2_q3_1_b_ph.log)
 
-Underfull \hbox (badness 10000) in paragraph at lines 348--349
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+(../stata/exam_2_q3_1_b_cd.log)
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+(../stata/exam_2_q3_1_b_sc.log)
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[5] (../stata/exam_2_q3_1_d_2.log) (../stata/exam_2_q3_1_d_3.log) [6]
+(../stata/exam_2_q3_2_a.log) (../stata/exam_2_q3_2_b.log)
+(../stata/exam_2_q3_2_c.log) [7]
+Underfull \hbox (badness 10000) in paragraph at lines 388--390
 
  []
 
-[7] [8] [9]
-Underfull \hbox (badness 10000) in paragraph at lines 354--355
-
- []
-
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 359.
-[10] [11]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 359.
+[8]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 408.
+ [9] [10] [11] [12]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 408.
  (./Callaghan_Max_mpp_E1161_exam2.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 359.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 359.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 408.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 408.
 Package rerunfilecheck Info: File `Callaghan_Max_mpp_E1161_exam2.out' has not c
 hanged.
-(rerunfilecheck)             Checksum: A7C71034921259CE7D7F65F5DC59E129;341.
-
-
-LaTeX Warning: There were undefined references.
-
-
-LaTeX Warning: There were multiply-defined labels.
-
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 359.
+(rerunfilecheck)             Checksum: 534D330AABC69BC48CD99EFC10FCEF33;343.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 408.
  ) 
 Here is how much of TeX's memory you used:
- 10422 strings out of 495028
- 156895 string characters out of 6181497
- 396249 words of memory out of 5000000
- 13206 multiletter control sequences out of 15000+600000
+ 10523 strings out of 495028
+ 158517 string characters out of 6181497
+ 485593 words of memory out of 5000000
+ 13222 multiletter control sequences out of 15000+600000
  9697 words of font info for 36 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 36i,6n,41p,512b,1541s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 36i,6n,41p,680b,1541s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></us
 r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/shar
 e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmitt10.pfb></usr/share/tex
@@ -630,10 +633,10 @@ amsfonts/cm/cmr9.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts
 /cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cm
 sy7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt8.pfb
 >
-Output written on Callaghan_Max_mpp_E1161_exam2.pdf (11 pages, 186356 bytes).
+Output written on Callaghan_Max_mpp_E1161_exam2.pdf (12 pages, 198235 bytes).
 PDF statistics:
- 471 PDF objects out of 1000 (max. 8388607)
- 441 compressed objects within 5 object streams
- 297 named destinations out of 1000 (max. 500000)
+ 566 PDF objects out of 1000 (max. 8388607)
+ 534 compressed objects within 6 object streams
+ 364 named destinations out of 1000 (max. 500000)
  33 words of extra memory for PDF output out of 10000 (max. 10000000)
 

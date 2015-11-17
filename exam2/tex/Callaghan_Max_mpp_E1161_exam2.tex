@@ -10,6 +10,7 @@
 \usepackage{amsmath}
 \usepackage{listings}
 \usepackage{xcolor}
+\usepackage{lscape}
 
 
 \usepackage{caption}
@@ -52,12 +53,15 @@
 
 
 
+
 \begin{document}
 
 \title{\small Applied Panel Econometrics (MPP-E1161) - Winter Term 2015 \\ Prof. Dr. Kerstin Bernoth \\ \bigskip \Large Take Home Exam 2}
 \author{Max Callaghan}
 \date{November 2015}
 \maketitle
+
+\tableofcontents
 
 \section{Part I: Basic Questions [12pt: each 2pt]}
 Briefly explain why your chosen answer is correct.
@@ -67,7 +71,7 @@ Briefly explain why your chosen answer is correct.
     \item[Question] \hfill \\
     False or true: When the between group variance of a panel data set is small, the random effects estimator looks similar to the fixed-effects estimator.
     \item[Answer] \hfill \\
-    The fixed-effects estimator discards information between panels and only concentrates on variation within panels. The random-effects estimator is different to the fixed-effects estimator because it takes into account between-group variation as well as within group variation; if between group variance is small, then the difference betweeen FE and RE will also be small. 
+    True. The fixed-effects estimator discards information between panels and only concentrates on variation within panels. The random-effects estimator is different to the fixed-effects estimator because it takes into account between-group variation as well as within group variation; if between group variance is small, then the difference betweeen FE and RE will also be small. 
     
   \end{description}
   
@@ -93,7 +97,7 @@ Briefly explain why your chosen answer is correct.
     \item[Question] \hfill \\
     False or true: If the fixed effects and the random effects estimator deliver significantly different coefficients, we should prefer to use the fixed-effects estimator.
     \item[Answer] \hfill \\
-    If individual effects are correlated with explanatory variables, we violate the assumption of the exogeneity of regressors, rendering our estimate inconsistent and biased. A fixed-effects model controls for individual effects and so will be unbiased and consistent. So if the difference between the estimators of FE and RE models are significantly large, we can assume that exogeneity of regressors is violated and that RE estimators are therefore biased and inconsistent.
+    True. If individual effects are correlated with explanatory variables, we violate the assumption of the exogeneity of regressors, rendering our estimate inconsistent and biased. A fixed-effects model controls for individual effects and so will be unbiased and consistent. So if the difference between the estimators of FE and RE models are significantly large, we can assume that exogeneity of regressors is violated and that RE estimators are therefore biased and inconsistent.
     
   \end{description}
   
@@ -131,7 +135,7 @@ Briefly explain why your chosen answer is correct.
     \begin{itemize}
       \item A country with a debt of 0 and a deficit of 0 is expected have a bond yield spread of 21.
       \item An increase in the deficit by 1 percentage point increases the country's bond yield spread by \(1.3 + 0.05 \cdot deficit \) 
-      \item Thus, for a country with a debt of 20 percentage points, every percentage point increase in the deficit is expected to increase the bond yield spread by 2.3
+      \item Thus, for a country with a deficit of 20 percentage points, every percentage point increase in the debt is expected to increase the bond yield spread by 2.3
     \end{itemize}
   \end{description}
   
@@ -165,7 +169,7 @@ Briefly explain why your chosen answer is correct.
   
 \end{enumerate}
 
-\section{Part 3: OLS and IV regression [20pt]}
+\section{Part III: OLS and IV regression [20pt]}
 
 \[spread_{it} = \alpha_i + \beta_{1}deficit + u_{it} \]
 
@@ -255,55 +259,65 @@ Briefly explain why your chosen answer is correct.
 \begin{enumerate}
   \item \textbf{Deriving the model specification}
   \begin{enumerate}[label=(\alph*)]
-    \item 
+    \item %3.1.a
     \begin{description}
       \item[Question] \hfill \\
       Explore, whether you prefer pooled OLS, the fixed- or the random effects estimation. Explain, how you have derived your conclusion. [4pt]
       \item[Answer] \hfill \\
-      \begin{figure}
+      \begin{figure}[h]
       \lstinputlisting[linerange={lstart-lend},caption=Testing for Heteroskedasticity,label=q1_1]{../stata/exam_2_q3_1_a_1.log}
       \end{figure}
       
-      A Breusch-Pagan LM test found that the probability of constant variance was close to 0, meaning that we should be wary of pooled OLS and consider panel techniques (see Stata Output ~\ref{q1_1})
+      \begin{itemize}
+      \item A Breusch-Pagan LM test found that the probability of constant variance was close to 0, meaning that we should be wary of pooled OLS and consider panel techniques (see Stata Output ~\ref{q1_1})
       
-      \begin{figure}
-      \lstinputlisting[linerange={lstart-lend},caption=Fixed-Effects: F-test,label=q1_3]{../stata/exam_2_q3_1_a_2.log}
+      \begin{figure}[h]
+      \lstinputlisting[linerange={lstart-lend},caption=Fixed-Effects: F-test,label=q1_2]{../stata/exam_2_q3_1_a_2.log}
       \end{figure}
       
-      After running a fixed-effects model, the F test makes it clear that FE is more efficient than pooled OLS (see Stata Output ~\ref{q1_2}).
+      \item After running a fixed-effects model, the F test score of 13.08 (p = 0.0000) makes it clear that FE is more efficient than pooled OLS (see Stata Output ~\ref{q1_2}).
       
-      \begin{figure}
+      \begin{figure}[h]
       \lstinputlisting[linerange={lstart-lend},caption=Comparing Fixed and Random Effects,label=q1_3]{../stata/exam_2_q3_1_a_3.log}
       \end{figure}
       
-      The Hausman test (see see Stata Output ~\ref{q1_3}) finds that the estimated coefficients of FE and RE do not differ significantly. We should therefore prefer a random-effects model, which will be unbiased and more efficient.
+      \item The Hausman test (see see Stata Output ~\ref{q1_3}) finds that the estimated coefficients of FE and RE do not differ significantly. We should therefore prefer a random-effects model, which will be unbiased and more efficient.
+      
+      \end{itemize}
       
     \end{description}
-    \item 
+    
+    
+    \item %%%%%%%3.1.b
     \begin{description}
       \item[Question] \hfill \\
       Test for the presence of serial correlation, cross-sectional dependence and panel heteroscedasticity. [3pt]
       \item[Answer] \hfill \\
       \begin{itemize}
-        \item Because N (59) is greater than T (35) we use the cross-sectional dependence (CD) test
-        \item Pesaran and Frees abundantly reject the hypothesis that there is no cross sectional dependence see~\ref{q1_b_cd}. Pesaran is optimised for unbalanced panels, which our dataset is, so we must accept that there is cross sectional dependence.
-      \begin{figure}
+        \item Stata Output~\ref{q1_b_ph}, with it's very large \(chi^2\) score of 53631.68, and \(p\) score of close to 0 gives a clear sign of the presence of panel heteroscedasticity.
+        \begin{figure}[h]
+      \lstinputlisting[linerange={lstart-lend},caption=Panel Heteroskedasticity,label=q1_b_ph]{../stata/exam_2_q3_1_b_ph.log}
+      \end{figure}
+        \item Because N is larger than T in our dataset, we use a cross-sectional dependence (CD) test to test for cross-sectional dependence ove the LM test.
+        Pesaran and Frees abundantly reject the hypothesis that there is no cross sectional dependence see~\ref{q1_b_cd}, while Frees reports that the absence of CD is almost certain. Pesaran is optimised for unbalanced panels, which our dataset is, and is also similar to the results of Frees' test, so we would rather accept that there is cross sectional dependence.
+      \begin{figure}[h]
       \lstinputlisting[linerange={lstart-lend},caption=Cross Sectional Dependence,label=q1_b_cd]{../stata/exam_2_q3_1_b_cd.log}
       \end{figure}
       \item Woolridge
-      \begin{figure}
-      \lstinputlisting[linerange={lstart-lend},caption=Cross Sectional Dependence,label=q1_b_sc]{../stata/exam_2_q3_1_b_sc.log}
+      \begin{figure}[h]
+      \lstinputlisting[linerange={lstart-lend},caption=Serial Correlation,label=q1_b_sc]{../stata/exam_2_q3_1_b_sc.log}
       \end{figure}
       \end{itemize}
     \end{description}
+    
+    
+    %3.1.c
     \item 
     \begin{description}
       \item[Question] \hfill \\
       Explain, why we need to take the residual structure into account. [2pt]
       \item[Answer] \hfill \\
-      Both RE and FE models assume that the the presence of \(\alpha_i\) captures all correlation between the unobservables in different time periods, and so \(u_{it}\) is assumed to be uncorrelated over individuals over time and i.i.d. distributed.
-      
-      If this is not the case then the estimated coefficients will still be unbiased and consistent but the standard errors and resulting tests will be innacurate, and the estimators are no longer efficient.
+      Both RE and FE models assume that the the presence of \(\alpha_i\) captures all correlation between the unobservables in different time periods, and so \(u_{it}\) is assumed to be uncorrelated over individuals over time and i.i.d. distributed. If this is not the case then the estimated coefficients will still be unbiased and consistent but the standard errors and resulting tests will be innacurate, and the estimators are no longer efficient.
     \end{description}
     \item 
     \begin{description}
@@ -311,16 +325,22 @@ Briefly explain why your chosen answer is correct.
       Estimate your preferred model (pooled OLS, fixed- or random effects) taking the residual structure into account to get unbiased and efficient results. Explain the choice of your estimator. [2pt]
       \item[Answer] \hfill \\
       \begin{figure}
-      \lstinputlisting[linerange={lstart-lend},caption=Estimating with Panel Corrected Standard Errors,label=q3_1_d]{../stata/exam_2_q3_1_d.log}
+      \lstinputlisting[linerange={lstart-lend},caption=Estimating with Panel Corrected Standard Errors,label=q3_1_d]{../stata/exam_2_q3_1_d_2.log}
       \end{figure}
-      Stata Output~\ref{q3_1_d} shows a model with panel-corrected standard errors. They are corrected for panel heteroscedasticity, autocorrelation and contemporaneously cross-sectional correlation, all which are present in the data.
+      Stata Output ~\ref{q3_1_d} shows FE and RE models with panel-corrected standard errors. They are corrected for panel heteroscedasticity, autocorrelation and contemporaneously cross-sectional correlation, all which are present in the data. We previously preferred a RE specification, but a Hausman test on RE and FE panel-corrected standard error models shows significant differences~\ref{q3_1_d_2}
+      \begin{figure}
+      \lstinputlisting[linerange={lstart-lend},caption=Hasuman Test for PCSE models,label=q3_1_d_2]{../stata/exam_2_q3_1_d_3.log}
+      \end{figure}
     \end{description}
+    
+    
+    %%3.1.e
     \item 
     \begin{description}
       \item[Question] \hfill \\
       Indicate, whether the Friedman Hypothesis holds. [1pt]
       \item[Answer] \hfill \\
-      The Friedman Hypothesis still does not hold. The effect of regime (though it is problematic to treat it as a continuous variable as the distance between 1 and 2 is not the same as the distance between 2 and 3) is now positive (supporting Friedman's Hypothesis), but insignificant.
+      It is now unclear whether the Friedman hypothesis holds. The effect of regime (though it is problematic to treat it as a continuous variable as the distance between 1 and 2 is not the same as the distance between 2 and 3) is positive in all models (supporting Friedman's Hypothesis), but, once correcting for panel heteroscedasticity, autocorrelation and contemporaneously cross-sectional dependence, only significant in a random-effects models (See Stata Output~\ref{q3_1_d}). The hypothesis is heavily dependent on model-specification, and I would be inclined to treat any confirmation of the hypothesis with caution.
     \end{description}
   \end{enumerate}
   \item \textbf{Estimation with interaction variables}
@@ -330,30 +350,59 @@ Briefly explain why your chosen answer is correct.
       \item[Question] \hfill \\
       Generate an interaction variable between the variable \(regime\) and the dummy \(id\) and repeat your regression by adding this interaction variable together with the dummy \(id\). [2pt]
       \item[Answer] \hfill \\
-      Stata output~\ref{q2_a} shows the results of a regression including all previous regressors, the dummy variable \(id\) (describing if a country is industrialised or not) and an interaction \(reg_x_id\) of id and regime.
+      Stata output~\ref{q2_a} shows the results of a regression in pcse models for fixed and random effects including all previous regressors,  the dummy variable \(id\) (describing if a country is industrialised or not) and an interaction \(reg\_x\_id\) of id and regime.
       \begin{figure}
       \lstinputlisting[linerange={lstart-lend},caption=Introducing an Interaction term,label=q2_a]{../stata/exam_2_q3_2_a.log}
       \end{figure}
     \end{description}
+    
+    
+    %%%3.2.b
+    \item 
+    \begin{description}
+      \item[Question] \hfill \\
+      Hypothesis testing: Test the hypothesis that the country type matters for the size of current account imbalances.
+      \item[Answer] \hfill \\
+      Stata output ~\ref{q2_b} Shows that, for pcse Random effects, country type is significant.
+      \begin{figure}
+      \lstinputlisting[linerange={lstart-lend},caption=Country Type,label=q2_b]{../stata/exam_2_q3_2_b.log}
+      \end{figure}
+    \end{description}
+    
+    %%%3.2.c
     \item 
     \begin{description}
       \item[Question] \hfill \\
       Hypothesis testing: Test, whether in case of industrial countries the exchange rate regime affects current account imbalances.
       \item[Answer] \hfill \\
-    \end{description}
+      Stata output ~\ref{q2_c}, which runs the same regressions as before but only on industrial countries, shows that, for industrial countries, regime type is insignificant. 
+      \begin{figure}
+      \lstinputlisting[linerange={lstart-lend},caption=Country Type,label=q2_c]{../stata/exam_2_q3_2_c.log}
+      \end{figure}
+    \end{description}    
+    
     \item 
     \begin{description}
       \item[Question] \hfill \\
       Give a numerical interpretation of the effect of the exchange rate regime on current account imbalances for industrial and non-industrial countries [2pt].
       \item[Answer] \hfill \\
+      \begin{itemize}
+      
+      \item For countries that are not industrialised, a one unit increase in regime type predicts a 0.705 percentage point increase in the absolute value of the current account deficit relative to GDP (abs\_cagdp).
+      
+      \item For countries that are industrialised, a one unit increase in regime type predicts a \(0.705 - 1.163 = -0.458\) percentage point change in abs\_cagdp.
+      
+      \end{itemize}
     \end{description}
     \item 
     \begin{description}
       \item[Question] \hfill \\
       Based on your estimation results, what would you recommend policymakers, when you are asked about the preferred exchange rate regime.
       \item[Answer] \hfill \\
+      I would be very wary of giving unambiguous recommendations, but I may point out that for industrialised countries there is little evidence to suggest that a fixed exchange rate regime reduces current current account imbalances. However, for non-industrialised countries, the data does support the Friedman hypothesis, so it may be sensible to advise such countries to adopt a fixed exchange rate regime. 
     \end{description}
   \end{enumerate}
 \end{enumerate}
-    
+
+
 \end{document}
