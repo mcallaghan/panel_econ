@@ -55,7 +55,7 @@ quietly xtreg abs_cagdp `x', fe
 xtcsd, pesaran
 xtcsd, frees
 xtcsd, friedman
-xttest3
+*xttest3
 *@*lend
 cap log close
 

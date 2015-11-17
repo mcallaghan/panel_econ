@@ -21,7 +21,7 @@
 
 \usepackage{fvrb-ex}
 
-\captionsetup[lstlisting]{name="Stata Example",font={it,tt,color=blue}}
+\captionsetup[lstlisting]{name="Stata Output",font={it,tt,color=blue}}
 
 \usepackage{eurosym}
 \usepackage{amstext} % for \text
@@ -264,13 +264,13 @@ Briefly explain why your chosen answer is correct.
       \lstinputlisting[linerange={lstart-lend},caption=Testing for Heteroskedasticity,label=q1_1]{../stata/exam_2_q3_1_a_1.log}
       \end{figure}
       
-      A Breusch-Pagan LM test found that the probability of constant variance was close to 0, meaning that we should abandon OLS and consider panel techniques (see Stata Output ~\ref{q1_1})
+      A Breusch-Pagan LM test found that the probability of constant variance was close to 0, meaning that we should be wary of pooled OLS and consider panel techniques (see Stata Output ~\ref{q1_1})
       
       \begin{figure}
       \lstinputlisting[linerange={lstart-lend},caption=Fixed-Effects: F-test,label=q1_3]{../stata/exam_2_q3_1_a_2.log}
       \end{figure}
       
-      After running a fixed-effects model, the F test makes it clear that FE is more efficient than pooled OLS.
+      After running a fixed-effects model, the F test makes it clear that FE is more efficient than pooled OLS (see Stata Output ~\ref{q1_2}).
       
       \begin{figure}
       \lstinputlisting[linerange={lstart-lend},caption=Comparing Fixed and Random Effects,label=q1_3]{../stata/exam_2_q3_1_a_3.log}
@@ -286,7 +286,14 @@ Briefly explain why your chosen answer is correct.
       \item[Answer] \hfill \\
       \begin{itemize}
         \item Because N (59) is greater than T (35) we use the cross-sectional dependence (CD) test
-        \item Pesaran, Frees and Friedman abundantly reject the hypothesis that there is no cross sectional dependence.
+        \item Pesaran and Frees abundantly reject the hypothesis that there is no cross sectional dependence see~\ref{q1_b_cd}. Pesaran is optimised for unbalanced panels, which our dataset is, so we must accept that there is cross sectional dependence.
+      \begin{figure}
+      \lstinputlisting[linerange={lstart-lend},caption=Cross Sectional Dependence,label=q1_b_cd]{../stata/exam_2_q3_1_b_cd.log}
+      \end{figure}
+      \item Woolridge
+      \begin{figure}
+      \lstinputlisting[linerange={lstart-lend},caption=Cross Sectional Dependence,label=q1_b_sc]{../stata/exam_2_q3_1_b_sc.log}
+      \end{figure}
       \end{itemize}
     \end{description}
     \item 
@@ -294,18 +301,26 @@ Briefly explain why your chosen answer is correct.
       \item[Question] \hfill \\
       Explain, why we need to take the residual structure into account. [2pt]
       \item[Answer] \hfill \\
+      Both RE and FE models assume that the the presence of \(\alpha_i\) captures all correlation between the unobservables in different time periods, and so \(u_{it}\) is assumed to be uncorrelated over individuals over time and i.i.d. distributed.
+      
+      If this is not the case then the estimated coefficients will still be unbiased and consistent but the standard errors and resulting tests will be innacurate, and the estimators are no longer efficient.
     \end{description}
     \item 
     \begin{description}
       \item[Question] \hfill \\
       Estimate your preferred model (pooled OLS, fixed- or random effects) taking the residual structure into account to get unbiased and efficient results. Explain the choice of your estimator. [2pt]
       \item[Answer] \hfill \\
+      \begin{figure}
+      \lstinputlisting[linerange={lstart-lend},caption=Estimating with Panel Corrected Standard Errors,label=q3_1_d]{../stata/exam_2_q3_1_d.log}
+      \end{figure}
+      Stata Output~\ref{q3_1_d} shows a model with panel-corrected standard errors. They are corrected for panel heteroscedasticity, autocorrelation and contemporaneously cross-sectional correlation, all which are present in the data.
     \end{description}
     \item 
     \begin{description}
       \item[Question] \hfill \\
       Indicate, whether the Friedman Hypothesis holds. [1pt]
       \item[Answer] \hfill \\
+      The Friedman Hypothesis still does not hold. The effect of regime (though it is problematic to treat it as a continuous variable as the distance between 1 and 2 is not the same as the distance between 2 and 3) is now positive (supporting Friedman's Hypothesis), but insignificant.
     \end{description}
   \end{enumerate}
   \item \textbf{Estimation with interaction variables}
@@ -315,6 +330,10 @@ Briefly explain why your chosen answer is correct.
       \item[Question] \hfill \\
       Generate an interaction variable between the variable \(regime\) and the dummy \(id\) and repeat your regression by adding this interaction variable together with the dummy \(id\). [2pt]
       \item[Answer] \hfill \\
+      Stata output~\ref{q2_a} shows the results of a regression including all previous regressors, the dummy variable \(id\) (describing if a country is industrialised or not) and an interaction \(reg_x_id\) of id and regime.
+      \begin{figure}
+      \lstinputlisting[linerange={lstart-lend},caption=Introducing an Interaction term,label=q2_a]{../stata/exam_2_q3_2_a.log}
+      \end{figure}
     \end{description}
     \item 
     \begin{description}
