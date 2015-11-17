@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.6.10)  17 NOV 2015 19:08
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.6.10)  17 NOV 2015 20:27
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -549,11 +549,6 @@ Underfull \hbox (badness 10000) in paragraph at lines 204--205
  []
 
 [3]
-Underfull \hbox (badness 10000) in paragraph at lines 227--228
-
- []
-
-
 Underfull \hbox (badness 10000) in paragraph at lines 235--236
 
  []
@@ -577,8 +572,8 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 295--297
+[5]
+Underfull \hbox (badness 10000) in paragraph at lines 296--298
 
  []
 
@@ -594,33 +589,33 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[5] (../stata/exam_2_q3_1_d_2.log) (../stata/exam_2_q3_1_d_3.log) [6]
-(../stata/exam_2_q3_2_a.log) (../stata/exam_2_q3_2_b.log)
-(../stata/exam_2_q3_2_c.log) [7]
-Underfull \hbox (badness 10000) in paragraph at lines 388--390
+[6] [7] (../stata/exam_2_q3_1_d_2.log) (../stata/exam_2_q3_1_d_3.log) [8]
+(../stata/exam_2_q3_2_a.log) (../stata/exam_2_q3_2_b.log) [9] [10] [11]
+(../stata/exam_2_q3_2_c.log)
+Underfull \hbox (badness 10000) in paragraph at lines 391--393
 
  []
 
-[8]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 408.
- [9] [10] [11] [12]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 408.
+[12]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 411.
+ [13]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 411.
  (./Callaghan_Max_mpp_E1161_exam2.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 408.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 408.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 411.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 411.
 Package rerunfilecheck Info: File `Callaghan_Max_mpp_E1161_exam2.out' has not c
 hanged.
 (rerunfilecheck)             Checksum: 534D330AABC69BC48CD99EFC10FCEF33;343.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 408.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 411.
  ) 
 Here is how much of TeX's memory you used:
- 10523 strings out of 495028
- 158517 string characters out of 6181497
- 485593 words of memory out of 5000000
+ 10524 strings out of 495028
+ 158524 string characters out of 6181497
+ 401593 words of memory out of 5000000
  13222 multiletter control sequences out of 15000+600000
  9697 words of font info for 36 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 36i,6n,41p,680b,1541s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 36i,6n,41p,734b,1541s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></us
 r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/shar
 e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmitt10.pfb></usr/share/tex
@@ -633,10 +628,10 @@ amsfonts/cm/cmr9.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts
 /cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cm
 sy7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt8.pfb
 >
-Output written on Callaghan_Max_mpp_E1161_exam2.pdf (12 pages, 198235 bytes).
+Output written on Callaghan_Max_mpp_E1161_exam2.pdf (13 pages, 199495 bytes).
 PDF statistics:
- 566 PDF objects out of 1000 (max. 8388607)
- 534 compressed objects within 6 object streams
- 364 named destinations out of 1000 (max. 500000)
+ 572 PDF objects out of 1000 (max. 8388607)
+ 539 compressed objects within 6 object streams
+ 365 named destinations out of 1000 (max. 500000)
  33 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -223,9 +223,9 @@ Briefly explain why your chosen answer is correct.
   \item
   \begin{description}
     \item[Question] \hfill \\
-    Add \(z_{it} = L.deficit_{it} \) in the empty column in the Table. It might happen that you have missing observations. (2p5)
+    Add \(z_{it} = L.deficit_{it} \) in the empty column in the Table. It might happen that you have missing observations. (2pt)
     \item[Answer] \hfill \\
-    
+    Sheet 2 is the same as sheet 1 but all the observations for which z is missing are removed.
   \end{description}
   
   \item
@@ -244,11 +244,11 @@ Briefly explain why your chosen answer is correct.
     Calculate (not estimate) \(\hat{\beta}^{IV}_1\) and \(\hat{\alpha}^{IV}_i\) and write down the IV regression equation for all three countries. You may extend the table with as many columns as necessary. Write down all calculations (Covariances, Variances, etc.) that are necessary. (10pt)
     \item[Answer] \hfill \\
     
-    \textbf{Ireland:} \( Spread_{t} = 594.3 -62.5(Deficit_{t}) + \epsilon \)
+    \textbf{Ireland:} \( Spread_{t} = 587.375 -62.5(Deficit_{t}) + \epsilon_t \)
     
-    \textbf{Netherlands:} \( Spread_{t} = 74.5 -62.5(Deficit_{t}) + \epsilon \)
+    \textbf{Netherlands:} \( Spread_{t} = 74.625 -62.5(Deficit_{t}) + \epsilon_t \)
     
-    \textbf{Spain:} \( Spread_{t} = 261.7 -62.5(Deficit_{t}) + \epsilon \)
+    \textbf{Spain:} \( Spread_{t} = 253.75 -62.5(Deficit_{t}) + \epsilon_t \)
     
   \end{description}
   
@@ -287,30 +287,30 @@ Briefly explain why your chosen answer is correct.
       
     \end{description}
     
-    
+    \newpage
+    \newpage
     \item %%%%%%%3.1.b
     \begin{description}
       \item[Question] \hfill \\
       Test for the presence of serial correlation, cross-sectional dependence and panel heteroscedasticity. [3pt]
       \item[Answer] \hfill \\
       \begin{itemize}
-        \item Stata Output~\ref{q1_b_ph}, with it's very large \(chi^2\) score of 53631.68, and \(p\) score of close to 0 gives a clear sign of the presence of panel heteroscedasticity.
+        \item The Wald test in Stata Output~\ref{q1_b_ph}, with it's very large \(chi^2\) score of 53631.68, and \(p\) score of close to 0 gives a clear sign of the presence of panel heteroscedasticity.
         \begin{figure}[h]
-      \lstinputlisting[linerange={lstart-lend},caption=Panel Heteroskedasticity,label=q1_b_ph]{../stata/exam_2_q3_1_b_ph.log}
-      \end{figure}
-        \item Because N is larger than T in our dataset, we use a cross-sectional dependence (CD) test to test for cross-sectional dependence ove the LM test.
-        Pesaran and Frees abundantly reject the hypothesis that there is no cross sectional dependence see~\ref{q1_b_cd}, while Frees reports that the absence of CD is almost certain. Pesaran is optimised for unbalanced panels, which our dataset is, and is also similar to the results of Frees' test, so we would rather accept that there is cross sectional dependence.
+        \lstinputlisting[linerange={lstart-lend},caption=Panel Heteroskedasticity,label=q1_b_ph]{../stata/exam_2_q3_1_b_ph.log}
+        \end{figure}
+        \item Because N is larger than T in our dataset, we use a cross-sectional dependence (CD) test to test for cross-sectional dependence ove the LM test. Pesaran and Frees tests show that we can abundantly reject the hypothesis that there is no cross sectional dependence see~\ref{q1_b_cd}, while Frees reports that the absence of CD is almost certain. Pesaran is optimised for unbalanced panels, which our dataset is, and is also similar to the results of Frees' test, so we would rather accept that there is cross sectional dependence.
       \begin{figure}[h]
       \lstinputlisting[linerange={lstart-lend},caption=Cross Sectional Dependence,label=q1_b_cd]{../stata/exam_2_q3_1_b_cd.log}
       \end{figure}
-      \item Woolridge
+      \item The Woolridge test for autocorrelation in panel data~\ref{q1_b_sc} suggests that the probability of the null hypothesis of no first order autocorrelation is close to 0.
       \begin{figure}[h]
       \lstinputlisting[linerange={lstart-lend},caption=Serial Correlation,label=q1_b_sc]{../stata/exam_2_q3_1_b_sc.log}
       \end{figure}
       \end{itemize}
     \end{description}
     
-    
+    \newpage
     %3.1.c
     \item 
     \begin{description}
@@ -319,6 +319,9 @@ Briefly explain why your chosen answer is correct.
       \item[Answer] \hfill \\
       Both RE and FE models assume that the the presence of \(\alpha_i\) captures all correlation between the unobservables in different time periods, and so \(u_{it}\) is assumed to be uncorrelated over individuals over time and i.i.d. distributed. If this is not the case then the estimated coefficients will still be unbiased and consistent but the standard errors and resulting tests will be innacurate, and the estimators are no longer efficient.
     \end{description}
+    
+    \newpage
+    %3.1.d
     \item 
     \begin{description}
       \item[Question] \hfill \\
@@ -327,7 +330,7 @@ Briefly explain why your chosen answer is correct.
       \begin{figure}
       \lstinputlisting[linerange={lstart-lend},caption=Estimating with Panel Corrected Standard Errors,label=q3_1_d]{../stata/exam_2_q3_1_d_2.log}
       \end{figure}
-      Stata Output ~\ref{q3_1_d} shows FE and RE models with panel-corrected standard errors. They are corrected for panel heteroscedasticity, autocorrelation and contemporaneously cross-sectional correlation, all which are present in the data. We previously preferred a RE specification, but a Hausman test on RE and FE panel-corrected standard error models shows significant differences~\ref{q3_1_d_2}
+      Stata Output ~\ref{q3_1_d} shows FE and RE models with panel-corrected standard errors. They are corrected for panel heteroscedasticity, autocorrelation and contemporaneously cross-sectional correlation, all of which are present in the data. We prefer this to a GLS model, which is only feasible if the time dimension is larger than the cross-sectional dimension, which is not the case. We previously preferred a RE specification, but a Hausman test on RE and FE panel-corrected standard error models shows significant differences~\ref{q3_1_d_2}, I therefore report results from both models from  this point on.
       \begin{figure}
       \lstinputlisting[linerange={lstart-lend},caption=Hasuman Test for PCSE models,label=q3_1_d_2]{../stata/exam_2_q3_1_d_3.log}
       \end{figure}
@@ -340,7 +343,7 @@ Briefly explain why your chosen answer is correct.
       \item[Question] \hfill \\
       Indicate, whether the Friedman Hypothesis holds. [1pt]
       \item[Answer] \hfill \\
-      It is now unclear whether the Friedman hypothesis holds. The effect of regime (though it is problematic to treat it as a continuous variable as the distance between 1 and 2 is not the same as the distance between 2 and 3) is positive in all models (supporting Friedman's Hypothesis), but, once correcting for panel heteroscedasticity, autocorrelation and contemporaneously cross-sectional dependence, only significant in a random-effects models (See Stata Output~\ref{q3_1_d}). The hypothesis is heavily dependent on model-specification, and I would be inclined to treat any confirmation of the hypothesis with caution.
+      It is now unclear whether the Friedman hypothesis holds. The effect of regime (though it is problematic to treat it as a continuous variable as the distance between 1 and 2 is not the same as the distance between 2 and 3) is positive in all models (supporting Friedman's Hypothesis), but, once correcting for panel heteroscedasticity, autocorrelation and contemporaneously cross-sectional dependence, only significant in a random-effects models (See Stata Output~\ref{q3_1_d}). The hypothesis is heavily dependent on model-specification, and though there are reasons to confirm the hypothesis, one would be inclined to treat any confirmation of the hypothesis with caution.
     \end{description}
   \end{enumerate}
   \item \textbf{Estimation with interaction variables}
