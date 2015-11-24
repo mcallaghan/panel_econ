@@ -1,0 +1,313 @@
+--------------------------------------------------------------------------------
+      name:  <unnamed>
+       log:  C:\Users\m.callaghan\Documents\GitHub\panel_econ\W10\fiscalreaction
+> _Dynamic.log
+  log type:  text
+ opened on:  24 Nov 2015, 17:38:34
+
+. 
+. encode country, gen(country2)
+
+. xtset country2 year
+       panel variable:  country2 (strongly balanced)
+        time variable:  year, 1993 to 2008
+                delta:  1 year
+
+. 
+. 
+. ****************************************************************
+. * Estimating a dynamic fiscal reaction function using ordinary linear panel mo
+> dels:
+. ****************************************************************
+. 
+. *Running OLS:
+. 
+. local x gap_e L.debt_e maastricht_e eyear
+
+. local d_x D.gap_e D.L.debt_e D.maastricht_e D.eyear
+
+. 
+. reg capb_e L.capb_e `x'
+
+      Source |       SS           df       MS      Number of obs   =       208
+-------------+----------------------------------   F(5, 202)       =     82.93
+       Model |  786.583858         5  157.316772   Prob > F        =    0.0000
+    Residual |  383.207546       202  1.89706706   R-squared       =    0.6724
+-------------+----------------------------------   Adj R-squared   =    0.6643
+       Total |   1169.7914       207   5.6511662   Root MSE        =    1.3773
+
+------------------------------------------------------------------------------
+      capb_e |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+      capb_e |
+         L1. |   .7392483   .0419928    17.60   0.000     .6564478    .8220488
+             |
+       gap_e |   .0255509   .0640297     0.40   0.690    -.1007015    .1518032
+             |
+      debt_e |
+         L1. |   .0075271   .0041877     1.80   0.074    -.0007301    .0157842
+             |
+maastricht_e |  -.9037982   .1899879    -4.76   0.000    -1.278412   -.5291843
+       eyear |  -.4110462   .2145575    -1.92   0.057    -.8341057    .0120134
+       _cons |  -.1999063   .3049028    -0.66   0.513    -.8011068    .4012943
+------------------------------------------------------------------------------
+
+. eststo OLS
+
+. 
+. xtreg capb_e L.capb_e `x', fe
+
+Fixed-effects (within) regression               Number of obs     =        208
+Group variable: country2                        Number of groups  =         14
+
+R-sq:                                           Obs per group:
+     within  = 0.5276                                         min =         13
+     between = 0.8274                                         avg =       14.9
+     overall = 0.6414                                         max =         15
+
+                                                F(5,189)          =      42.21
+corr(u_i, Xb)  = -0.1725                        Prob > F          =     0.0000
+
+------------------------------------------------------------------------------
+      capb_e |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+      capb_e |
+         L1. |   .6528421    .050624    12.90   0.000     .5529814    .7527029
+             |
+       gap_e |   .1061373    .066625     1.59   0.113    -.0252868    .2375614
+             |
+      debt_e |
+         L1. |   .0255303   .0088897     2.87   0.005     .0079945    .0430661
+             |
+maastricht_e |  -.9690864   .1890352    -5.13   0.000    -1.341976   -.5961965
+       eyear |  -.3823257   .2110949    -1.81   0.072    -.7987304    .0340791
+       _cons |  -1.411645   .6589532    -2.14   0.033    -2.711493   -.1117976
+-------------+----------------------------------------------------------------
+     sigma_u |  .65363808
+     sigma_e |  1.3404871
+         rho |  .19209274   (fraction of variance due to u_i)
+------------------------------------------------------------------------------
+F test that all u_i=0: F(13, 189) = 1.87                     Prob > F = 0.0363
+
+. eststo FE
+
+. 
+. esttab OLS FE
+
+--------------------------------------------
+                      (1)             (2)   
+                   capb_e          capb_e   
+--------------------------------------------
+L.capb_e            0.739***        0.653***
+                  (17.60)         (12.90)   
+
+gap_e              0.0256           0.106   
+                   (0.40)          (1.59)   
+
+L.debt_e          0.00753          0.0255** 
+                   (1.80)          (2.87)   
+
+maastricht_e       -0.904***       -0.969***
+                  (-4.76)         (-5.13)   
+
+eyear              -0.411          -0.382   
+                  (-1.92)         (-1.81)   
+
+_cons              -0.200          -1.412*  
+                  (-0.66)         (-2.14)   
+--------------------------------------------
+N                     208             208   
+--------------------------------------------
+t statistics in parentheses
+* p<0.05, ** p<0.01, *** p<0.001
+
+. 
+. 
+. ****************************************************************
+. * Estimating a dynamic fiscal reaction function using the Anderson-Hsiao estim
+> ator:
+. ****************************************************************
+. 
+. *Running an IV estimation, instrumenting D.L.capb_e with L2.capb_e and gap_e w
+> ith igapusa_e:
+. ivreg2 D.capb_e (D.L.capb_e D.gap_e =L2.capb_e D.igapusa_e D.L.gap_e) ///
+>         D.L.debt_e D.maastricht_e D.eyear, robust noconstant
+
+IV (2SLS) estimation
+--------------------
+
+Estimates efficient for homoskedasticity only
+Statistics robust to heteroskedasticity
+
+                                                      Number of obs =      194
+                                                      F(  5,   189) =     5.86
+                                                      Prob > F      =   0.0000
+Total (centered) SS     =  515.8527694                Centered R2   =  -0.0118
+Total (uncentered) SS   =  516.1088225                Uncentered R2 =  -0.0113
+Residual SS             =  521.9656119                Root MSE      =     1.64
+
+------------------------------------------------------------------------------
+             |               Robust
+    D.capb_e |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+      capb_e |
+         LD. |   .5326774   .2465184     2.16   0.031     .0495102    1.015845
+             |
+       gap_e |
+         D1. |   .2476109    .161615     1.53   0.125    -.0691486    .5643705
+             |
+      debt_e |
+         LD. |    .100544   .0427474     2.35   0.019     .0167605    .1843275
+             |
+maastricht_e |
+         D1. |  -1.548017   .5190768    -2.98   0.003    -2.565388   -.5306449
+             |
+       eyear |
+         D1. |  -.1618018   .1742255    -0.93   0.353    -.5032774    .1796739
+------------------------------------------------------------------------------
+Underidentification test (Kleibergen-Paap rk LM statistic):             23.917
+                                                   Chi-sq(2) P-val =    0.0000
+------------------------------------------------------------------------------
+Weak identification test (Kleibergen-Paap rk Wald F statistic):         10.979
+Stock-Yogo weak ID test critical values: 10% maximal IV size             13.43
+                                         15% maximal IV size              8.18
+                                         20% maximal IV size              6.40
+                                         25% maximal IV size              5.45
+Source: Stock-Yogo (2005).  Reproduced by permission.
+NB: Critical values are for Cragg-Donald F statistic and i.i.d. errors.
+------------------------------------------------------------------------------
+Hansen J statistic (overidentification test of all instruments):         0.334
+                                                   Chi-sq(1) P-val =    0.5631
+------------------------------------------------------------------------------
+Instrumented:         LD.capb_e D.gap_e
+Included instruments: LD.debt_e D.maastricht_e D.eyear
+Excluded instruments: L2.capb_e D.igapusa_e LD.gap_e
+------------------------------------------------------------------------------
+
+. 
+. 
+. 
+. ****************************************************************
+. * Estimating a dynamic fiscal reaction function using the Arellano-Bond estima
+> tor:
+. ****************************************************************
+. 
+. *Running an Arellano Bond estimation:
+. xtabond capb_e L.debt_e maastricht_e eyear, ///
+>         endogenous(gap_e) inst(igapusa_e L.gap_e) ///
+>         twostep vce(robust) maxldep(2) maxlag(2)
+
+Arellano-Bond dynamic panel-data estimation     Number of obs     =        194
+Group variable: country2                        Number of groups  =         14
+Time variable: year
+                                                Obs per group:
+                                                              min =         12
+                                                              avg =   13.85714
+                                                              max =         14
+
+Number of instruments =     47                  Wald chi2(5)      =      47.85
+                                                Prob > chi2       =     0.0000
+Two-step results
+                               (Std. Err. adjusted for clustering on country2)
+------------------------------------------------------------------------------
+             |              WC-Robust
+      capb_e |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+      capb_e |
+         L1. |   .3779614   .3590875     1.05   0.293    -.3258371     1.08176
+             |
+       gap_e |   .2955856   .2303347     1.28   0.199    -.1558622    .7470333
+             |
+      debt_e |
+         L1. |   .1043765   .0420859     2.48   0.013     .0218896    .1868633
+             |
+maastricht_e |   -1.09715   .7451435    -1.47   0.141    -2.557604    .3633048
+       eyear |  -.2422821   .2138588    -1.13   0.257    -.6614377    .1768735
+       _cons |  -6.705724   2.440413    -2.75   0.006    -11.48885   -1.922602
+------------------------------------------------------------------------------
+Instruments for differenced equation
+        GMM-type: L(2/3).capb_e L(2/2).gap_e
+        Standard: LD.debt_e D.maastricht_e D.eyear igapusa_e L.gap_e
+Instruments for level equation
+        Standard: _cons
+
+.         
+. estat abond     
+
+Arellano-Bond test for zero autocorrelation in first-differenced errors
+  +-----------------------+
+  |Order |  z     Prob > z|
+  |------+----------------|
+  |   1  |-1.2559  0.2091 |
+  |   2  | .24883  0.8035 |
+  +-----------------------+
+   H0: no autocorrelation 
+
+. 
+. xtabond capb_e L.debt_e maastricht_e eyear, ///
+>         endogenous(gap_e) inst(igapusa_e L.gap_e) ///
+>         twostep vce(robust) maxldep(2) maxlag(2)
+
+Arellano-Bond dynamic panel-data estimation     Number of obs     =        194
+Group variable: country2                        Number of groups  =         14
+Time variable: year
+                                                Obs per group:
+                                                              min =         12
+                                                              avg =   13.85714
+                                                              max =         14
+
+Number of instruments =     47                  Wald chi2(5)      =      47.85
+                                                Prob > chi2       =     0.0000
+Two-step results
+                               (Std. Err. adjusted for clustering on country2)
+------------------------------------------------------------------------------
+             |              WC-Robust
+      capb_e |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+      capb_e |
+         L1. |   .3779614   .3590875     1.05   0.293    -.3258371     1.08176
+             |
+       gap_e |   .2955856   .2303347     1.28   0.199    -.1558622    .7470333
+             |
+      debt_e |
+         L1. |   .1043765   .0420859     2.48   0.013     .0218896    .1868633
+             |
+maastricht_e |   -1.09715   .7451435    -1.47   0.141    -2.557604    .3633048
+       eyear |  -.2422821   .2138588    -1.13   0.257    -.6614377    .1768735
+       _cons |  -6.705724   2.440413    -2.75   0.006    -11.48885   -1.922602
+------------------------------------------------------------------------------
+Instruments for differenced equation
+        GMM-type: L(2/3).capb_e L(2/2).gap_e
+        Standard: LD.debt_e D.maastricht_e D.eyear igapusa_e L.gap_e
+Instruments for level equation
+        Standard: _cons
+
+. estat sargan
+Sargan test of overidentifying restrictions
+        H0: overidentifying restrictions are valid
+        cannot calculate Sargan test with vce(robust)
+
+        chi2(41)     =         .
+        Prob > chi2  =         .
+
+. 
+. * Restricting the number of instruments - only up to the fourth lag of the dep
+> endent variable is used as instrument:
+. 
+. 
+. * Testing for second-order autocorrelation in the first-differenced residuals:
+. 
+. 
+. * Testing for exogeneity of the instruments:
+. 
+. 
+. ****************************************************************
+. 
+. 
+. log close
+      name:  <unnamed>
+       log:  C:\Users\m.callaghan\Documents\GitHub\panel_econ\W10\fiscalreaction
+> _Dynamic.log
+  log type:  text
+ closed on:  24 Nov 2015, 17:38:35
+--------------------------------------------------------------------------------
